@@ -85,49 +85,43 @@ const NewComment = () => {
     },
   })
 
+  const postComment = () => {
+    if (!isLoggedIn) {
+      toast.error(ToastLink) // shows error message, by clicking on it user will be redirected to login page
+
+      return
+    }
+
+    if (!text || text === "") {
+      toast.error("you can't post empty comment")
+      return
+    }
+
+    if (!id) return
+
+    mutation.mutate({ text: text, animeId: id })
+
+    // scrolls to the bottom of a page
+    // setTimeout(() => {
+    //   window.scrollTo({
+    //     top: document.documentElement.scrollHeight,
+    //     behavior: "smooth",
+    //   })
+    // }, 100)
+  }
+
   // sends a comment
   const handleComment = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    if (!isLoggedIn) {
-      toast.error(ToastLink) // shows error message, by clicking on it user will be redirected to login page
-
-      return
-    }
-
-    if (!text || text === "") {
-      toast.error("you can't post empty comment")
-      return
-    }
-
-    if (!id) return
-
-    mutation.mutate({ text: text, animeId: id })
+    postComment()
   }
 
   // sends a comment on enter key press
   const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key !== "Enter" || e.shiftKey) {
-      // e.preventDefault()
-      return
-    }
+    if (e.key !== "Enter" || e.shiftKey) return
 
-    if (!isLoggedIn) {
-      toast.error(ToastLink) // shows error message, by clicking on it user will be redirected to login page
-
-      return
-    }
-
-    if (!text || text === "") {
-      toast.error("you can't post empty comment")
-      return
-    }
-
-    if (!id) return
-
-    console.log(text)
-
-    mutation.mutate({ text: text, animeId: id })
+    postComment()
   }
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

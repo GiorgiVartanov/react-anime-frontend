@@ -17,6 +17,7 @@ const AnimeCardCarousel = ({
   maxAmountShown = 5,
   intervalDuration = 5000,
 }: Props) => {
+  const [amountOfShownCards, setAmountOfShownCards] = useState<number>(0)
   const [dataToShow, setDataToShow] = useState<AnimeCardProps[] | AnimeData[]>(
     data
   )
@@ -68,10 +69,26 @@ const AnimeCardCarousel = ({
     return () => clearInterval(interval) // cleans up the interval when component unmounts
   }, [isOnPause, intervalDuration])
 
+  useEffect(() => {
+    const screenWidth = window.innerWidth
+
+    let amountOfShownCards = 2
+
+    if (screenWidth < 400) amountOfShownCards = 2
+    else if (screenWidth < 600) amountOfShownCards = 3
+    else if (screenWidth < 800) amountOfShownCards = 4
+    else if (screenWidth < 1000) amountOfShownCards = 6
+    else amountOfShownCards = 8
+
+    console.log(amountOfShownCards)
+
+    setAmountOfShownCards(amountOfShownCards)
+  }, [])
+
   return (
     <div className="relative overflow-hidden">
       <div className="flex gap-2">
-        {dataToShow.slice(0, maxAmountShown).map((anime) => (
+        {dataToShow.slice(0, amountOfShownCards).map((anime) => (
           <AnimeCard
             key={anime.mal_id}
             mal_id={anime.mal_id}
@@ -82,20 +99,18 @@ const AnimeCardCarousel = ({
           />
         ))}
       </div>
-      <div className="w-full flex justify-between absolute top-1/2 right-0">
-        <button
-          onClick={handleScrollToPrevious}
-          className="px-5 py-3 rounded-full opacity-60 hover:opacity-80 transition-all ease-in-out duration-200 bg-sp-gray ml-2"
-        >
-          {"<"}
-        </button>
-        <button
-          onClick={handleScrollToNext}
-          className="px-5 py-3 rounded-full opacity-60 hover:opacity-80 transition-all ease-in-out duration-200 bg-sp-gray mr-2"
-        >
-          {">"}
-        </button>
-      </div>
+      <button
+        onClick={handleScrollToPrevious}
+        className="px-5 py-3 rounded-full opacity-60 hover:opacity-80 transition-all ease-in-out duration-200 bg-sp-gray absolute top-1/2 left-2"
+      >
+        {"<"}
+      </button>
+      <button
+        onClick={handleScrollToNext}
+        className="px-5 py-3 rounded-full opacity-60 hover:opacity-80 transition-all ease-in-out duration-200 bg-sp-gray absolute top-1/2 right-2"
+      >
+        {">"}
+      </button>
     </div>
   )
 }

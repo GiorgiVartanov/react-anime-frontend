@@ -6,6 +6,8 @@ import { useAuthStore } from "../store/authStore"
 
 import { UserResponse } from "../types/user.types"
 
+import UserIcon from "../components/Person/UserIcon"
+
 const baseURL = import.meta.env.VITE_BACKEND_URL
 
 const Profile = () => {
@@ -22,9 +24,23 @@ const Profile = () => {
     staleTime: 1000000,
   })
 
+  if (!username || !data || !data.data) return
+
   // it will show loading while data is fetching
   if (isLoading) return <div>Loading...</div>
 
-  return <div className="mx-auto max-w-7xl w-full p-2 h-full">{username}</div>
+  const { createdAt } = data.data
+
+  return (
+    <div className="mx-auto max-w-7xl w-full p-2 h-full">
+      <div className="flex gap-2 text-center items-center justify-center mt-5">
+        <UserIcon username={username} />
+        <p className="text-center">{username}</p>
+      </div>
+      <p className="text-center mt-3 opacity-30">
+        this user registered {createdAt}
+      </p>
+    </div>
+  )
 }
 export default Profile

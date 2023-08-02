@@ -1,3 +1,6 @@
 export type UserResponse = {
-  username: string
+  data: {
+    username: string
+    createdAt: string
+  }
 }
