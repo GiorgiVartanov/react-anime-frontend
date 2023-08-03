@@ -193,7 +193,7 @@ const Anime = () => {
     if (Number(information[1].value) <= 1) information.splice(1, 1) // it will only show episodes amount if there are more than 1 episodes
 
     return (
-      <div className="backdrop-blur-2xl px-3 py-2 lg:py-12 lg:mx-0 max-w-lg mx-auto w-full lg:w-auto flex flex-col gap-1 shadow-sm bg-[#20242852]">
+      <div className="backdrop-blur-2xl px-3 py-2 lg:py-12 lg:mx-0 max-w-lg mx-auto w-full lg:w-auto flex flex-col gap-1 shadow-sm bg-[#cdced1471] dark:bg-[#20242852]">
         {information.map(({ title, value }) => (
           <div
             key={title}
@@ -247,7 +247,7 @@ const Anime = () => {
           }}
           className="bg-top bg-no-repeat bg-cover absolute top-0 left-0 w-full h-full"
         ></div>
-        <div className="relative z-20 backdrop-blur-2xl mb-8">
+        <div className="relative z-20 backdrop-blur-2xl mb-8 bg-[#e3e6eb42] dark:bg-transparent">
           <div className="mx-auto max-w-7xl w-full px-2 h-full">
             {renderAnimeDetails()}
           </div>
@@ -260,7 +260,7 @@ const Anime = () => {
             <AnimeTrailer videoId={trailer.youtube_id} />
             <AnimeCharacters id={id} />
           </div>
-          <div className="bg-sp-gray">
+          <div className="bg-sp-white dark:bg-sp-gray">
             <div className="mx-auto max-w-7xl w-full p-2 h-full mt-8 pt-8 ">
               <AnimeComments id={id} />
             </div>

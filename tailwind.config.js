@@ -35,7 +35,7 @@ export default {
         "sp-black": "#121212",
         "sp-gray": "#1e2125",
         "sp-light": "#5c6369",
-        "sp-white": "#c6ccd1",
+        "sp-white": "#e6eaee",
         "sp-green": "#20281c",
         "sp-main": "#e91e63",
       },
@@ -55,5 +55,6 @@ export default {
       },
     },
   },
+  darkMode: "class",
   plugins: [aspectRatio, backfaceVisibility, translateZ],
 }

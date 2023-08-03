@@ -24,7 +24,8 @@ const Profile = () => {
     staleTime: 1000000,
   })
 
-  if (!username || !data || !data.data) return
+  if (!username || !data || !data.data)
+    return <div>Something went wrong...</div>
 
   // it will show loading while data is fetching
   if (isLoading) return <div>Loading...</div>

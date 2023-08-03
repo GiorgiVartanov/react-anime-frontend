@@ -27,7 +27,7 @@ const AnimeCard = ({ mal_id, url, images, title, className }: Props) => {
           className="w-full h-full shadow-md hover:scale-105 transition-all ease-in-out duration-300"
         />
       </div>
-      <p className="text-sm whitespace-nowrap overflow-hidden transition-all ease-in-out duration-200 truncate">
+      <p className="text-sm whitespace-nowrap overflow-hidden transition-all ease-in-out duration-200 truncate text-sp-black dark:text-white ">
         {title}
       </p>
     </Link>

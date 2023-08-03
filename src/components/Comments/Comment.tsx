@@ -131,7 +131,10 @@ const Comment = ({ comment, token, isLoggedIn, animeId }: Props) => {
   const handleLike = () => {
     // will implement debouncing latter
 
-    if (!isLoggedIn) return
+    if (!isLoggedIn) {
+      toast.error(ToastContent)
+      return
+    }
 
     upvote.mutate()
   }
@@ -139,7 +142,10 @@ const Comment = ({ comment, token, isLoggedIn, animeId }: Props) => {
   const handleDislike = () => {
     // will implement debouncing latter
 
-    if (!isLoggedIn) return
+    if (!isLoggedIn) {
+      toast.error(ToastContent)
+      return
+    }
 
     downvote.mutate()
   }
@@ -152,7 +158,9 @@ const Comment = ({ comment, token, isLoggedIn, animeId }: Props) => {
           className="w-fit hover:opacity-90 transition-all ease-in-out duration-200 shadow-sm flex gap-2"
         >
           <UserIcon username={author} />
-          <p className="leading-8 ml-0.5">{author}</p>
+          <p className="leading-8 ml-0.5 text-sp-black dark:text-sp-white">
+            {author}
+          </p>
         </Link>
         <p className="text-sm opacity-25 leading-8">{posted}</p>
       </div>
@@ -165,7 +173,7 @@ const Comment = ({ comment, token, isLoggedIn, animeId }: Props) => {
           canVote={canVote}
           liked={false}
         />
-        <div className="bg-sp-black px-2 py-1 text-slate-300 shadow-sm rounded-tb-lg w-full">
+        <div className="bg-white dark:bg-sp-black px-2 py-1 text-sp-black dark:text-slate-300 shadow-sm rounded-tb-lg w-full">
           <p className="pb-4 pt-1">{text}</p>
         </div>
       </div>
@@ -173,3 +181,7 @@ const Comment = ({ comment, token, isLoggedIn, animeId }: Props) => {
   )
 }
 export default Comment
+
+function ToastContent() {
+  return <Link to="/register">you need to register, to be able to vote</Link>
+}

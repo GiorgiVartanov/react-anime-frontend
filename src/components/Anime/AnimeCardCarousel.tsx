@@ -80,8 +80,6 @@ const AnimeCardCarousel = ({
     else if (screenWidth < 1000) amountOfShownCards = 6
     else amountOfShownCards = 8
 
-    console.log(amountOfShownCards)
-
     setAmountOfShownCards(amountOfShownCards)
   }, [])
 

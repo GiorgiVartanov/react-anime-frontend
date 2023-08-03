@@ -1,14 +1,21 @@
 import { Link, NavLink, useNavigate } from "react-router-dom"
+import axios from "axios"
+import { useQuery } from "@tanstack/react-query"
 
 import { useAuthStore } from "../../store/authStore"
+
+import { FullAnimeData } from "../../types/anime.types"
 
 import NavigationLink from "../Navigation/NavigationLink"
 import HeaderNavigationLink from "../Navigation/HeaderNavigationLink"
 import Button from "./Button"
+import DarkModeToggle from "./DarkModeToggle"
 
 type Props = {
   pages: { name: string; href: string }[]
 }
+
+const baseURL = import.meta.env.VITE_API_URL
 
 const Header = ({ pages }: Props) => {
   const navigate = useNavigate()
@@ -24,6 +31,25 @@ const Header = ({ pages }: Props) => {
     navigate(`./login`)
   }
 
+  const fetchRandomAnime = async (): Promise<FullAnimeData> => {
+    const result = await axios.get(`${baseURL}/random/anime`)
+
+    return result.data.data
+  }
+
+  // fetches anime form API
+  const { isLoading, error, data, refetch } = useQuery({
+    queryKey: ["random-anime"],
+    queryFn: fetchRandomAnime,
+    staleTime: 0,
+  })
+
+  const findRandomAnime = () => {
+    refetch()
+    if (!data || isLoading) return
+    navigate(`./anime/${data.mal_id}`)
+  }
+
   // renders single navigation link
   const renderNavigationLink = (name: string, to: string) => {
     return (
@@ -37,19 +63,21 @@ const Header = ({ pages }: Props) => {
     return <HeaderNavigationLink to="/">header</HeaderNavigationLink>
   }
 
-  const renderLogOutButton = () => {
-    return <Button onClick={handleLogOutButton}>logout</Button>
-  }
+  // const renderLogOutButton = () => {
+  //   return <Button onClick={handleLogOutButton}>logout</Button>
+  // }
 
   const renderNavigation = () => {
     return (
       <nav className="grid place-content-center">
         <ul className="flex gap-1">
+          <DarkModeToggle />
+          {isLoading ? "" : <Button onClick={findRandomAnime}>random</Button>}
           {renderNavigationLink("search", "search")}
           {isLoggedIn ? (
             <>
               {renderNavigationLink("profile", `profile/${username}`)}
-              {renderLogOutButton()}
+              <Button onClick={handleLogOutButton}>logout</Button>
             </>
           ) : (
             <>{renderNavigationLink("login", "login")}</>

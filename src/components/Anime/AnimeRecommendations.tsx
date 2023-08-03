@@ -22,7 +22,7 @@ const AnimeRecommendations = ({ id }: Props) => {
   // fetches anime recommendations from the API
   const fetchAnime = (): Promise<AnimeRecommendation> =>
     axios
-      .get(`${baseURL}/anime/${id}/recommendations`)
+      .get(`${baseURL}/anime/${id}/recommendations?sfw`)
       .then((response) => response.data)
 
   const { isLoading, error, data } = useQuery({

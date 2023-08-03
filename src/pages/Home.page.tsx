@@ -66,12 +66,16 @@ const Home = () => {
   return (
     <div className="w-full p-2 h-full gap-6 flex flex-col">
       <div>
-        <h2 className="mx-auto max-w-7xl mb-1 text-xl">Popular this season</h2>
+        <h2 className="text-sp-black dark:text-white mx-auto max-w-7xl mb-1 text-xl">
+          Popular this season
+        </h2>
         <div className="h-0.5 w-full bg-sp-main mb-1"></div>
         {renderSeasonalAnime()}
       </div>
       <div>
-        <h2 className="mx-auto max-w-7xl mb-1 text-xl">Top Anime</h2>
+        <h2 className="text-sp-black dark:text-white mx-auto max-w-7xl mb-1 text-xl">
+          Top Anime
+        </h2>
         <div className="h-0.5 w-full bg-sp-main mb-1"></div>
         {renderTopAnime()}
       </div>

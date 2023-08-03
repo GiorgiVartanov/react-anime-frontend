@@ -4,6 +4,7 @@ import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 
 import { useAuthStore } from "./store/authStore"
+import { useSettingsStore } from "./store/settingsStore"
 
 import Header from "./components/UI/Header"
 
@@ -17,6 +18,10 @@ import PageNotFound from "./pages/PageNotFound.page"
 
 function App() {
   const [hasSessionExpired] = useAuthStore((state) => [state.hasSessionExpired])
+  const [isInDarkMode, toggleDarkMode] = useSettingsStore((state) => [
+    state.isInDarkMode,
+    state.toggleDarkMode,
+  ])
 
   // hasSessionExpired()
 
@@ -24,8 +29,22 @@ function App() {
     hasSessionExpired()
   }, [hasSessionExpired])
 
+  useEffect(() => {
+    console.log(isInDarkMode, localStorage.theme)
+
+    if (
+      localStorage.theme === "dark" ||
+      (!("theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+      document.documentElement.classList.add("dark")
+    } else {
+      document.documentElement.classList.remove("dark")
+    }
+  }, [])
+
   return (
-    <div className="bg-sp-black min-h-screen flex flex-col">
+    <div className="bg-white dark:bg-sp-black min-h-screen flex flex-col">
       <Header pages={[]} />
       <div className="h-full flex-1 flex flex-col">
         <Routes>
@@ -69,7 +88,7 @@ function App() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="dark"
+        theme={isInDarkMode ? "dark" : "light"}
       />
     </div>
   )
