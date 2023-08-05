@@ -6,7 +6,7 @@ import { toast } from "react-toastify"
 
 import { CommentType } from "../../types/comment.types"
 
-import ajax from "../../service/ajax"
+import ajax from "../../service/backendAjax"
 
 import UserIcon from "../Person/UserIcon"
 import Button from "../UI/Button"

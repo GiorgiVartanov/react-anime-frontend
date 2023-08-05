@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
 import { Routes, Route } from "react-router-dom"
 import axios from "axios"
+import apiAjax from "../service/APIAjax"
 
 import { FullAnimeData } from "../types/anime.types"
 
@@ -19,8 +20,6 @@ import AnimeRecommendations from "../components/Anime/AnimeRecommendations"
 import AnimeCharacters from "../components/Anime/AnimeCharacters"
 import AnimeComments from "../components/Anime/AnimeComments"
 
-const baseURL = import.meta.env.VITE_API_URL
-
 const Anime = () => {
   const [showFullText, setShowFullText] = useState<boolean>(false)
 
@@ -28,9 +27,9 @@ const Anime = () => {
 
   // function to fetch single anime
   const fetchAnime = async (): Promise<FullAnimeData> => {
-    const result = await axios.get(`${baseURL}/anime/${id}/full`)
+    const response = await apiAjax.get(`/anime/${id}/full`)
 
-    return result.data.data
+    return response.data.data
   }
 
   // fetches anime form API

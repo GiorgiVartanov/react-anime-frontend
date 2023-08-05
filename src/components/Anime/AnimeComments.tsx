@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import axios from "axios"
+import backendAjax from "../../service/backendAjax"
 import { toast } from "react-toastify"
 
 import { CommentType } from "../../types/comment.types"
@@ -33,7 +33,7 @@ const AnimeComments = ({ id }: Props) => {
 
     try {
       if (isLoggedIn) {
-        const response = await axios.get(`${baseURL}/comments/${id}/logged`, {
+        const response = await backendAjax.get(`comments/${id}/logged`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -41,7 +41,7 @@ const AnimeComments = ({ id }: Props) => {
 
         data = response.data
       } else {
-        const response = await axios.get(`${baseURL}/comments/${id}`)
+        const response = await backendAjax.get(`comments/${id}`)
 
         data = response.data
       }

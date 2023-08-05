@@ -14,6 +14,8 @@ import Anime from "./pages/Anime.page"
 import Login from "./pages/Login.page"
 import Register from "./pages/Register.page"
 import Profile from "./pages/Profile.page"
+import Stuff from "./pages/Stuff.page"
+import Character from "./pages/Character.page"
 import PageNotFound from "./pages/PageNotFound.page"
 
 function App() {
@@ -63,6 +65,14 @@ function App() {
           <Route
             path="/profile/:username"
             element={<Profile />}
+          />
+          <Route
+            path="/stuff/:id"
+            element={<Stuff />}
+          />
+          <Route
+            path="/character/:id"
+            element={<Character />}
           />
           <Route
             path="/anime/:id"

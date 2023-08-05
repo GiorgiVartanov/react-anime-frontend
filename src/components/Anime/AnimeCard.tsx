@@ -6,8 +6,8 @@ export interface Props {
   mal_id: number
   url: string
   images: {
-    jpg: ImageUrls
-    webp: ImageUrls
+    jpg?: ImageUrls
+    webp?: ImageUrls
   }
   title: string
   className?: string
@@ -21,7 +21,7 @@ const AnimeCard = ({ mal_id, url, images, title, className }: Props) => {
     >
       <div className="aspect-w-2 aspect-h-3 overflow-hidden">
         <img
-          src={images.webp.large_image_url}
+          src={images?.webp?.large_image_url}
           alt={title}
           loading="lazy"
           className="w-full h-full shadow-md hover:scale-105 transition-all ease-in-out duration-300"

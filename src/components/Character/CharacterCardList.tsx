@@ -6,10 +6,11 @@ import CharacterCard from "./CharacterCard"
 
 interface Props {
   data: CharacterDetails[]
+  showSelect?: boolean
 }
 
 // list of CharacterCard components
-const CharacterCardList = ({ data }: Props) => {
+const CharacterCardList = ({ data, showSelect = true }: Props) => {
   const [selectedLanguage, setSelectedLanguage] = useState<string>("Japanese")
 
   const languages = [
@@ -24,24 +25,30 @@ const CharacterCardList = ({ data }: Props) => {
     setSelectedLanguage(e.target.value)
   }
 
+  if (data.length <= 0) return <></>
+
   return (
     <div>
-      <select
-        name=""
-        id=""
-        className="w-full bold text-sp-black px-3 py-1 mb-3"
-        defaultValue={selectedLanguage}
-        onChange={handleVALanguageSelect}
-      >
-        {languages?.map((language) => (
-          <option
-            key={language}
-            value={language}
-          >
-            {language}
-          </option>
-        ))}
-      </select>
+      {showSelect ? (
+        <select
+          name=""
+          id=""
+          className="w-full bold text-sp-black px-3 py-1 mb-3"
+          defaultValue={selectedLanguage}
+          onChange={handleVALanguageSelect}
+        >
+          {languages?.map((language) => (
+            <option
+              key={language}
+              value={language}
+            >
+              {language}
+            </option>
+          ))}
+        </select>
+      ) : (
+        ""
+      )}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
         {data.map((item) => {
           const voiceActorToRender = item.voice_actors?.filter(
@@ -51,18 +58,20 @@ const CharacterCardList = ({ data }: Props) => {
           return (
             <CharacterCard
               key={item.character.mal_id}
+              characterId={item.character.mal_id}
               characterImageURL={
-                item.character.images.webp?.image_url ||
-                item.character.images.jpg?.image_url
+                item.character.images.jpg?.image_url ||
+                item.character.images.webp?.image_url
               }
               characterName={item.character.name}
               characterRole={item.role}
               VAName={voiceActorToRender?.person.name}
               VAImageURL={
-                voiceActorToRender?.person.images.webp?.image_url ||
-                voiceActorToRender?.person.images.jpg?.image_url
+                voiceActorToRender?.person.images.jpg?.image_url ||
+                voiceActorToRender?.person.images.webp?.image_url
               }
               VALanguage={voiceActorToRender?.language}
+              VAID={voiceActorToRender?.person.mal_id}
             />
           )
         })}

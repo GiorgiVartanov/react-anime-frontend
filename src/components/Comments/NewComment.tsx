@@ -6,7 +6,7 @@ import { KeyboardEvent } from "react"
 import { toast } from "react-toastify"
 
 import { useAuthStore } from "../../store/authStore"
-import ajax from "../../service/ajax"
+import ajax from "../../service/backendAjax"
 
 import { CommentType } from "../../types/comment.types"
 

@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom"
 import { useState } from "react"
 import { useQuery } from "@tanstack/react-query"
-import axios from "axios"
+import apiAjax from "../../service/APIAjax"
 
 import { AnimeRecommendation } from "../../types/anime.types"
 
@@ -20,10 +20,13 @@ const AnimeRecommendations = ({ id }: Props) => {
   const [showingMore, setShowingMore] = useState<boolean>(false)
 
   // fetches anime recommendations from the API
-  const fetchAnime = (): Promise<AnimeRecommendation> =>
-    axios
-      .get(`${baseURL}/anime/${id}/recommendations?sfw`)
-      .then((response) => response.data)
+  const fetchAnime = async (): Promise<AnimeRecommendation> => {
+    const response = await apiAjax.get(
+      `${baseURL}/anime/${id}/recommendations?sfw`
+    )
+
+    return response.data
+  }
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["anime-recommendations", id],

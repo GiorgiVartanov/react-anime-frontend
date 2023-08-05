@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 
 import { useSearchStore } from "../../store/searchStore"
-import ajax from "../../service/ajax"
+import ajax from "../../service/backendAjax"
 
 import { animeGenreResponse } from "../../types/anime.types"
 

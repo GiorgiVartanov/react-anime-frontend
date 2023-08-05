@@ -1,8 +1,8 @@
 import axios from "axios"
 
 // instance of axios with custom configurations
-const ajax = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_URL, // all requests will be made to this URL
+const apiAjax = axios.create({
+  baseURL: import.meta.env.VITE_API_URL, // all requests will be made to this URL
   timeout: 40000,
   headers: {
     Accept: "application/json",
@@ -10,7 +10,7 @@ const ajax = axios.create({
   },
 })
 
-ajax.interceptors.request.use(
+apiAjax.interceptors.request.use(
   (config) => {
     return config
   },
@@ -19,4 +19,4 @@ ajax.interceptors.request.use(
   }
 )
 
-export default ajax
+export default apiAjax

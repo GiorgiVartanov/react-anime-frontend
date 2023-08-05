@@ -23,7 +23,7 @@ export type VoiceActor = {
       }
       webp?: {
         image_url: string
-        small_image_url: string
+        small_image_url?: string
       }
     }
     name: string
@@ -34,6 +34,6 @@ export type VoiceActor = {
 export type CharacterDetails = {
   character: Character
   role: string
-  favorites: number
+  favorites?: number
   voice_actors?: VoiceActor[]
 }

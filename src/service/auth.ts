@@ -1,4 +1,4 @@
-import ajax from "./ajax"
+import ajax from "./backendAjax"
 
 import {
   LoginCredentialsType,
