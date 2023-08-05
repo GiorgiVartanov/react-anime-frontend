@@ -33,7 +33,7 @@ const Genre = ({
   return (
     <button
       onClick={handleGenreSelect}
-      className={`inline-block bg-sp-gray px-2 py-1 shadow-sm m-0.5 ease-in-out duration-200 translate-z-[0] backface-visible transition-all hover:opacity-80 ${
+      className={`flex-1 inline-block px-2 py-1 shadow-sm m-0.5 ease-in-out duration-200 translate-z-[0] backface-visible transition-all hover:opacity-80 bg-sp-white dark:bg-sp-gray whitespace-nowrap ${
         className || ""
       } ${
         isSelected

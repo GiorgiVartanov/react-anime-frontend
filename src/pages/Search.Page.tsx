@@ -1,9 +1,14 @@
-import { useQuery } from "@tanstack/react-query"
+import { useQuery, useInfiniteQuery } from "@tanstack/react-query"
 import axios from "axios"
+import { useEffect } from "react"
 
 import { useSearchStore } from "../store/searchStore"
 
-import { AnimeResponse } from "../types/anime.types"
+import {
+  AnimeResponse,
+  InfiniteAnimeResponse,
+  AnimeData,
+} from "../types/anime.types"
 
 import AnimeCardList from "../components/Anime/AnimeCardList"
 import SearchComponent from "../components/Search/Search"
@@ -15,40 +20,101 @@ const baseURL = import.meta.env.VITE_API_URL
 const Search = () => {
   const [
     limit,
-    page,
+    // page,
     categories,
     selectedGenres,
     season,
     seasonYear,
     sort,
     orderBy,
+    status,
+    rating,
     text,
+    goToNextPage,
   ] = useSearchStore((state) => [
     state.limit,
-    state.page,
+    // state.page,
     state.categories,
     state.selectedGenres,
     state.season,
     state.seasonYear,
     state.sort,
     state.orderBy,
+    state.status,
+    state.rating,
     state.text,
+    state.goToNextPage,
   ])
 
   // function that fetches anime from API
-  const fetchAnime = (): Promise<AnimeResponse> =>
-    axios
-      .get(
-        `${baseURL}/anime?limit=${limit}&sfw=true&page=${page}&order_by=${orderBy}&sort=${sort}&genres=${selectedGenres.join()}&q=${text}&page=1`
-      )
-      .then((response) => response.data)
+  const fetchAnime = async ({ pageParam = 1 }) => {
+    const url = new URL(`${baseURL}/anime`)
+
+    url.searchParams.set("limit", limit.toString())
+    url.searchParams.set("sfw", "true")
+    url.searchParams.set("sort", sort)
+    url.searchParams.set("order_by", orderBy)
+    if (selectedGenres.length > 0)
+      url.searchParams.set("genres", selectedGenres.join())
+    if (rating && rating.toLocaleLowerCase() !== "all")
+      url.searchParams.set("rating", rating)
+    if (status && status.toLocaleLowerCase() !== "all")
+      url.searchParams.set("status", status)
+    if (text) url.searchParams.set("q", text)
+    url.searchParams.set(
+      "genres_exclude",
+      "28,26,47,9,49,12,50,51,52,53,81,55,57,58,35,60,61,63,64,65,69,70,73,74,75,15"
+    )
+    url.searchParams.set("page", pageParam.toString())
+
+    const response = await axios.get(url.href)
+
+    const data = response.data
+
+    return data
+  }
 
   // gets data from API
-  const { isLoading, error, data } = useQuery({
-    queryKey: ["anime", limit, page, sort, selectedGenres.join(), text],
+  const {
+    isLoading,
+    error,
+    data,
+    fetchNextPage,
+    isSuccess,
+    hasNextPage,
+    // isFetching,
+    isFetchingNextPage,
+    status: fetchStatus,
+  } = useInfiniteQuery({
+    queryKey: [
+      "anime",
+      limit,
+      // page,
+      orderBy,
+      rating,
+      status,
+      sort,
+      selectedGenres.join(),
+      text,
+    ],
     queryFn: fetchAnime,
+    getNextPageParam: (lastPage, allPages) => {
+      if (lastPage?.pagination?.has_next_page) {
+        return lastPage?.pagination?.current_page + 1
+      } else {
+        return undefined
+      }
+    },
     staleTime: 1000000,
   })
+
+  // const hasNextPage = Boolean(
+  //   data &&
+  //     data.pages &&
+  //     data.pages[data.pages.length - 1]?.pagination?.has_next_page
+  // )
+
+  // console.log(isLoading)
 
   // function that renders anime cards
   const renderCardList = () => {
@@ -58,13 +124,52 @@ const Search = () => {
     // it will show error message if there is an error
     if (error || !data) return <div>something went wrong</div>
 
-    return <AnimeCardList data={data.data} />
+    const allData = data.pages.flatMap((item) => item.data)
+
+    return <AnimeCardList data={allData} />
+  }
+
+  let isFetching = false // isFetching, isLoading and isFetchingNextPage from getNextPageParam were not changing their values, idk why
+  // Function to handle scrolling and check if user reached the bottom
+  const handleScroll = () => {
+    const { scrollTop, clientHeight, scrollHeight } = document.documentElement
+    const distanceFromBottom = scrollHeight - (scrollTop + clientHeight)
+
+    if (
+      distanceFromBottom <= 350 &&
+      hasNextPage !== false &&
+      !isFetchingNextPage &&
+      !isFetching
+    ) {
+      isFetching = true
+      fetchNextPage()
+      setTimeout(() => {
+        isFetching = false
+      }, 350)
+    }
+  }
+
+  // Add event listener for scrolling when the component mounts
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll)
+    return () => {
+      // Remove the event listener when the component unmounts
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [])
+
+  const handleOnClick = () => {
+    fetchNextPage()
   }
 
   return (
     <div className="mx-auto max-w-7xl w-full p-2 h-full">
       <SearchComponent />
       {renderCardList()}
+
+      <button onClick={handleOnClick}>
+        {isFetchingNextPage ? "fetching next page" : "fetch more"}
+      </button>
     </div>
   )
 }

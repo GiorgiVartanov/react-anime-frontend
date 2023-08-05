@@ -1,8 +1,6 @@
 export type OrderType =
   | "mal_id"
   | "title"
-  | "type"
-  | "rating"
   | "start_date"
   | "end_date"
   | "episodes"
@@ -21,5 +19,9 @@ export type ShowTypeType =
   | "ona"
   | "music"
   | null
+
+export type StatusType = "airing" | "complete" | "upcoming" | null
+
+export type RatingType = "g" | "pg" | "pg13" | "r17" | null
 
 export type SortType = "desc" | "asc"

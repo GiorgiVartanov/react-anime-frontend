@@ -1,7 +1,7 @@
 import { create } from "zustand"
 
 interface settingsState {
-  isInDarkMode: boolean
+  theme: "dark" | "light"
   showAnimeTitlesInJP: boolean
 }
 
@@ -12,17 +12,17 @@ interface settingsActions {
 
 export const useSettingsStore = create<settingsState & settingsActions>(
   (set, get) => ({
-    isInDarkMode: localStorage.getItem("theme") === "dark" ? true : false,
+    theme:
+      localStorage.getItem("theme") === "dark" ? "dark" : "light" || "dark",
     showAnimeTitlesInJP:
       localStorage.getItem("showAnimeTitlesInJP") === "true"
         ? true
         : false || false,
     toggleDarkMode: () => {
-      const current = !get().isInDarkMode
+      const currentTheme = get().theme
+      const toggledTheme = currentTheme === "dark" ? "light" : "dark"
 
-      localStorage.setItem("theme", current.toString() ? "dark" : "light")
-
-      if (current === true) {
+      if (toggledTheme === "dark") {
         document.documentElement.classList.add("dark")
         localStorage.setItem("theme", "dark")
       } else {
@@ -31,17 +31,15 @@ export const useSettingsStore = create<settingsState & settingsActions>(
       }
 
       return set(() => ({
-        isInDarkMode: current,
+        theme: toggledTheme,
       }))
     },
     toggleShowAnimeTitlesInJP: () => {
-      const current = !get().showAnimeTitlesInJP
-
-      localStorage.setItem("showAnimeTitlesInJP", current.toString())
-
-      return set(() => ({
-        isInDarkMode: current,
-      }))
+      // const current = !get().showAnimeTitlesInJP
+      // localStorage.setItem("showAnimeTitlesInJP", current.toString())
+      // return set(() => ({
+      //   isInDarkMode: current,
+      // }))
     },
   })
 )

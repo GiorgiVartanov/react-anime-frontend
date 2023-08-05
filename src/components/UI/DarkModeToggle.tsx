@@ -4,8 +4,8 @@ import { ReactComponent as Sun } from "../../assets/icons/sun-solid.svg"
 import { ReactComponent as Moon } from "../../assets/icons/moon-solid.svg"
 
 const DarkModeToggle = () => {
-  const [isInDarkMode, toggleDarkMode] = useSettingsStore((state) => [
-    state.isInDarkMode,
+  const [theme, toggleDarkMode] = useSettingsStore((state) => [
+    state.theme,
     state.toggleDarkMode,
   ])
 
@@ -16,10 +16,10 @@ const DarkModeToggle = () => {
     >
       <div
         className={` transform-all ease-in-out duration-200 ${
-          isInDarkMode ? "px-0" : "px-7"
+          theme === "dark" ? "px-0" : "px-7"
         }`}
       >
-        {isInDarkMode ? (
+        {theme === "dark" ? (
           <Moon
             fill="rgb(230, 234, 238)"
             width="24"

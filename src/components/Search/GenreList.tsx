@@ -15,7 +15,7 @@ const GenreList = ({ genres, className }: Props) => {
   )
 
   return (
-    <div className={className}>
+    <div className={`flex flex-row flex-wrap ${className}`}>
       {genres.map((genre) => (
         <Genre
           key={genre.mal_id}

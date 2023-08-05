@@ -36,10 +36,10 @@ const Profile = () => {
     <div className="mx-auto max-w-7xl w-full p-2 h-full">
       <div className="flex gap-2 text-center items-center justify-center mt-5">
         <UserIcon username={username} />
-        <p className="text-center">{username}</p>
+        <p className="text-center ">{username}</p>
       </div>
-      <p className="text-center mt-3 opacity-30">
-        this user registered {createdAt}
+      <p className="text-center mt-3 opacity-30 dark:text-sp-white text-sp-black">
+        this user has registered {createdAt}
       </p>
     </div>
   )

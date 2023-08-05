@@ -15,7 +15,7 @@ type Props = {
   pages: { name: string; href: string }[]
 }
 
-const baseURL = import.meta.env.VITE_API_URL
+const baseURL = import.meta.env.VITE_BACKEND_URL
 
 const Header = ({ pages }: Props) => {
   const navigate = useNavigate()
@@ -32,13 +32,18 @@ const Header = ({ pages }: Props) => {
   }
 
   const fetchRandomAnime = async (): Promise<FullAnimeData> => {
-    const result = await axios.get(`${baseURL}/random/anime`)
+    const result = await axios.get(`${baseURL}/anime/random`)
 
     return result.data.data
   }
 
   // fetches anime form API
-  const { isLoading, error, data, refetch } = useQuery({
+  const {
+    isLoading,
+    error,
+    data: mal_id,
+    refetch,
+  } = useQuery({
     queryKey: ["random-anime"],
     queryFn: fetchRandomAnime,
     staleTime: 0,
@@ -46,8 +51,8 @@ const Header = ({ pages }: Props) => {
 
   const findRandomAnime = () => {
     refetch()
-    if (!data || isLoading) return
-    navigate(`./anime/${data.mal_id}`)
+    if (!mal_id || isLoading) return
+    navigate(`./anime/${mal_id}`)
   }
 
   // renders single navigation link
@@ -69,7 +74,7 @@ const Header = ({ pages }: Props) => {
 
   const renderNavigation = () => {
     return (
-      <nav className="grid place-content-center">
+      <nav className="grid place-content-center ">
         <ul className="flex gap-1">
           <DarkModeToggle />
           {isLoading ? "" : <Button onClick={findRandomAnime}>random</Button>}
@@ -88,7 +93,7 @@ const Header = ({ pages }: Props) => {
   }
 
   return (
-    <header className="bg-sp-gray py-1 shadow-sm relative z-20">
+    <header className="bg-sp-gray py-1 shadow-sm relative z-20 text-white">
       <div className="m-auto max-w-7xl px-2 py-1 flex justify-between">
         {renderHeader()}
         {renderNavigation()}

@@ -18,20 +18,16 @@ import PageNotFound from "./pages/PageNotFound.page"
 
 function App() {
   const [hasSessionExpired] = useAuthStore((state) => [state.hasSessionExpired])
-  const [isInDarkMode, toggleDarkMode] = useSettingsStore((state) => [
-    state.isInDarkMode,
+  const [theme, toggleDarkMode] = useSettingsStore((state) => [
+    state.theme,
     state.toggleDarkMode,
   ])
-
-  // hasSessionExpired()
 
   useEffect(() => {
     hasSessionExpired()
   }, [hasSessionExpired])
 
   useEffect(() => {
-    console.log(isInDarkMode, localStorage.theme)
-
     if (
       localStorage.theme === "dark" ||
       (!("theme" in localStorage) &&
@@ -44,7 +40,7 @@ function App() {
   }, [])
 
   return (
-    <div className="bg-white dark:bg-sp-black min-h-screen flex flex-col">
+    <div className="bg-white dark:bg-sp-black dark:text-sp-white text-sp-black min-h-screen flex flex-col">
       <Header pages={[]} />
       <div className="h-full flex-1 flex flex-col">
         <Routes>
@@ -88,7 +84,7 @@ function App() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme={isInDarkMode ? "dark" : "light"}
+        theme={theme}
       />
     </div>
   )

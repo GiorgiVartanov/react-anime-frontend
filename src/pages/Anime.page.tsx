@@ -88,7 +88,7 @@ const Anime = () => {
     streaming,
   } = data
 
-  // renders description
+  // renders description (synopsys) of a show
   const renderDescription = () => {
     // if the lengths of description exceeds 1200 characters it will only render 1200 characters and button
     // by pressing on button whole text will be rendered
@@ -149,60 +149,67 @@ const Anime = () => {
       {
         title: "Producers",
         value: producers.map((producer) => (
-          <span
-            key={producer.mal_id}
-            className="mr-1 bg-sp-black px-1"
-          >
-            {producer.name}
-          </span>
+          <div className="inline-flex">
+            {
+              <span
+                key={producer.mal_id}
+                className="mr-1 bg-sp-black px-1"
+              >
+                {producer.name}
+              </span>
+            }
+          </div>
         )),
       },
       {
         title: "Licensors",
-        value: licensors.map((licensor) => (
-          <span
-            key={licensor.mal_id}
-            className="mr-1 bg-sp-black px-1"
-          >
-            {licensor.name}
-          </span>
-        )),
+        value: (
+          <div className="inline">
+            {licensors.map((licensor) => (
+              <span
+                key={licensor.mal_id}
+                className="mr-1 bg-sp-black px-1"
+              >
+                {licensor.name}
+              </span>
+            ))}
+          </div>
+        ),
       },
       {
         title: "Studios",
         value: studios.map((studio) => (
-          <span
-            key={studio.mal_id}
-            className="mr-1 bg-sp-black px-1"
-          >
-            {studio.name}
-          </span>
+          <div className="inline-flex">
+            {
+              <span
+                key={studio.mal_id}
+                className="mr-1 bg-sp-black px-1"
+              >
+                {studio.name}
+              </span>
+            }
+          </div>
         )),
-      },
-      {
-        title: "Genres",
-        value: (
-          <GenreList
-            genres={genres}
-            className="inline"
-          />
-        ),
       },
     ]
 
     if (Number(information[1].value) <= 1) information.splice(1, 1) // it will only show episodes amount if there are more than 1 episodes
 
     return (
-      <div className="backdrop-blur-2xl px-3 py-2 lg:py-12 lg:mx-0 max-w-lg mx-auto w-full lg:w-auto flex flex-col gap-1 shadow-sm bg-[#cdced1471] dark:bg-[#20242852]">
+      <div className="backdrop-blur-2xl px-3 py-2 lg:py-12 lg:mx-0 max-w-lg mx-auto w-full lg:w-auto flex flex-col gap-1  shadow-sm bg-[#cdced1471] dark:bg-[#20242852]">
         {information.map(({ title, value }) => (
           <div
             key={title}
             className=""
           >
             <span className="font-semibold">{title}: </span>
-            <span className="opacity-60">{value}</span>
+            <span className="opacity-60 text-white">{value}</span>
           </div>
         ))}
+        <GenreList
+          genres={genres}
+          className="inline mt-3"
+        />
       </div>
     )
   }
@@ -220,7 +227,7 @@ const Anime = () => {
     )
   }
 
-  // renders title description and information
+  // renders image, title, description and information
   const renderAnimeDetails = () => {
     return (
       <div className="flex lg:flex-row flex-col gap-4 justify-between text-sm">

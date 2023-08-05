@@ -6,6 +6,7 @@ import { AnimeResponse } from "../types/anime.types"
 import AnimeCardList from "../components/Anime/AnimeCardList"
 import AnimeCardCarousel from "../components/Anime/AnimeCardCarousel"
 import SkeletonAnimeCardList from "../components/Anime/Skeleton/SkeletonAnimeCardList"
+import SkeletonAnimeCardCarousel from "../components/Anime/Skeleton/SkeletonAnimeCardCarousel"
 
 const baseURL = import.meta.env.VITE_API_URL
 
@@ -28,7 +29,7 @@ const Home = () => {
 
   const renderSeasonalAnime = () => {
     // is the data is still pending it will render skeleton component
-    if (isLoading_SeasonalAnime) return <SkeletonAnimeCardList amount={10} />
+    if (isLoading_SeasonalAnime) return <SkeletonAnimeCardCarousel />
 
     // it will show error message if there is an error
     if (error_SeasonalAnime || !data_SeasonalAnime)
@@ -55,7 +56,7 @@ const Home = () => {
 
   const renderTopAnime = () => {
     // is the data is still pending it will render skeleton component
-    if (isLoading_TopAnime) return <SkeletonAnimeCardList amount={10} />
+    if (isLoading_TopAnime) return <SkeletonAnimeCardCarousel />
 
     // it will show error message if there is an error
     if (error_TopAnime || !data_TopAnime) return <div>something went wrong</div>

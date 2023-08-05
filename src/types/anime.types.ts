@@ -185,6 +185,11 @@ export type AnimeResponse = {
   data: AnimeData[]
 }
 
+export type InfiniteAnimeResponse = {
+  pageParams: any[] // I don't know what type is should be, in the browser console its just says Array(1) 0:undefined
+  pages: AnimeResponse[]
+}
+
 export type AnimeRecommendationEntry = {
   entry: {
     mal_id: number

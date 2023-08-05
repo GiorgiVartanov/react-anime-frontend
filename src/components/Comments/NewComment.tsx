@@ -137,9 +137,9 @@ const NewComment = () => {
         value={text}
         onChange={handleTextChange}
         onKeyDown={handleKeyDown}
-        className="p-2 outline-none transition-all ease-in-out delay-50 duration-100 resize-none w-full dark:text-white text-sp-black dark:bg-sp-black overflow-wrap"
+        className="p-2 outline-none transition-all ease-in-out delay-50 duration-200 resize-none w-full dark:text-white text-sp-black dark:bg-sp-black overflow-wrap"
       />
-      <button className="bg-sp-black px-2 py-1 mt-1 shadow-sm hover:shadow-md ease-in-out duration-100">
+      <button className="dark:bg-sp-black bg-sp-white dark:text-sp-white text-sp-black px-2 py-1 mt-1 shadow-md hover:shadow-lg ease-in-out duration-200">
         comment
       </button>
     </form>

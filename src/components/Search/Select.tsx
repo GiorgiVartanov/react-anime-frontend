@@ -1,8 +1,14 @@
-import { SortType, ShowTypeType, OrderType } from "../../types/search.types"
+import {
+  SortType,
+  ShowTypeType,
+  OrderType,
+  RatingType,
+  StatusType,
+} from "../../types/search.types"
 
 interface Props {
-  selected: string
-  options: string[]
+  selected: string | null
+  options: (string | null)[]
   // select: (newValue: SortType | ShowTypeType | OrderType) => void
   // select: (newValue: SortType) => void | (newValue: ShowTypeType) => void | (newValue: OrderType) => void
   select: (newValue: any) => void // change latter
@@ -11,21 +17,29 @@ interface Props {
 
 const Select = ({ selected, options, select, className }: Props) => {
   const handleSelectSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    select(e.target.value as SortType | ShowTypeType | OrderType)
+    select(
+      e.target.value as
+        | SortType
+        | ShowTypeType
+        | OrderType
+        | RatingType
+        | StatusType
+    )
   }
 
   return (
     <select
-      defaultValue={selected}
+      defaultValue={selected || "All"}
       onChange={handleSelectSelect}
-      className={`text-sp-black ${className}`}
+      className={`flex-1 text-sp-black dark:text-sp-white bg-sp-white hover:opacity-80 dark:bg-sp-gray transition-all ease-in-out duration-200 p-2 ${className}`}
     >
       {options.map((option) => (
         <option
           key={option}
-          value={option}
+          value={option || "All"}
+          className="px-1"
         >
-          {option}
+          {option || "All"}
         </option>
       ))}
     </select>

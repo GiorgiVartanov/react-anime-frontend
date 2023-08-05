@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 
 import { useSearchStore } from "../../store/searchStore"
+import ajax from "../../service/ajax"
 
 import { animeGenreResponse } from "../../types/anime.types"
 
@@ -11,11 +12,6 @@ import GenreList from "./GenreList"
 import SearchSelectList from "./SearchSelectList"
 
 const baseURL = import.meta.env.VITE_API_URL
-
-const variants = {
-  open: { opacity: 1, y: 0 },
-  closed: { opacity: 0, y: -25 },
-}
 
 const Search = () => {
   const [
@@ -26,6 +22,11 @@ const Search = () => {
     setAnimeGenres,
     selectGenre,
     unSelectGenre,
+    clearFilters,
+    sort,
+    orderBy,
+    status,
+    rating,
   ] = useSearchStore((state) => [
     state.text,
     state.changeText,
@@ -34,18 +35,23 @@ const Search = () => {
     state.setAnimeGenres,
     state.selectGenre,
     state.unSelectGenre,
+    state.clearFilters,
+    state.sort,
+    state.orderBy,
+    state.status,
+    state.rating,
   ])
 
   const [isFilterMenuOpen, setIsFilterMenuOpen] = useState<boolean>(false)
 
   // function that fetches genres from the API (will change it later, so it fetches genres from the backend, because of some NSFW genres)
-  const fetchAnime = (): Promise<animeGenreResponse> =>
-    axios.get(`${baseURL}/genres/anime`).then((response) => response.data)
+  const fetchGenres = (): Promise<animeGenreResponse> =>
+    ajax.get(`anime/genres`).then((response) => response.data)
 
   // gets genres from API
   const { isLoading, error, data } = useQuery({
     queryKey: ["genres"],
-    queryFn: fetchAnime,
+    queryFn: fetchGenres,
     staleTime: 1000000,
   })
 
@@ -58,21 +64,44 @@ const Search = () => {
     setIsFilterMenuOpen((prevState) => !prevState)
   }
 
+  const handleClearFilters = () => {
+    clearFilters()
+  }
+
   return (
     <div className="mt-5 mb-8">
       <SearchBar
         value={text}
         handleTextChange={changeText}
       />
-      <button
-        onClick={handleFilterMenuOpen}
-        className="my-2 flex gap-1 mx-auto opacity-50"
-      >
-        <span>filter</span>
-        <span className={`${selectedGenres.length > 0 ? "text-sp-main" : ""}`}>
-          ({selectedGenres.length})
-        </span>
-      </button>
+      <div className="my-2 flex gap-6 mx-auto w-fit">
+        <button
+          onClick={handleFilterMenuOpen}
+          className="opacity-50 flex gap-1"
+        >
+          <span>filter</span>
+          <span
+            className={`${selectedGenres.length > 0 ? "text-sp-main" : ""}`}
+          >
+            ({selectedGenres.length})
+          </span>
+        </button>
+        {selectedGenres.length > 0 ||
+        sort !== "asc" ||
+        orderBy !== "popularity" ||
+        status !== null ||
+        rating !== null ? (
+          <button
+            onClick={handleClearFilters}
+            className="hover:opacity-80 transition-all ease-in-out duration-200"
+          >
+            clear filters
+          </button>
+        ) : (
+          ""
+        )}
+      </div>
+
       <div>
         {isFilterMenuOpen && !isLoading && !error ? (
           <>
