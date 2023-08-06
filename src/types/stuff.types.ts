@@ -1,7 +1,7 @@
 type ImageUrls = {
   image_url: string
-  small_image_url: string
-  large_image_url: string
+  small_image_url?: string
+  large_image_url?: string
 }
 
 type ImageType = {
@@ -42,7 +42,12 @@ type CharacterType = {
 
 export type VoiceType = {
   role: string
-  anime?: AnimeType
+  anime?: {
+    mal_id: number
+    url: string
+    images: ImageType
+    title: string
+  }
   character: CharacterType
 }
 

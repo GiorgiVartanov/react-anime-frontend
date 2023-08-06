@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query"
 
 import { useAuthStore } from "../../store/authStore"
 
-import { FullAnimeData } from "../../types/anime.types"
+import { FullAnimeType, FullAnimeResponse } from "../../types/anime.types"
 
 import NavigationLink from "../Navigation/NavigationLink"
 import HeaderNavigationLink from "../Navigation/HeaderNavigationLink"
@@ -31,7 +31,7 @@ const Header = ({ pages }: Props) => {
     navigate(`./login`)
   }
 
-  const fetchRandomAnime = async (): Promise<FullAnimeData> => {
+  const fetchRandomAnime = async (): Promise<FullAnimeType> => {
     const result = await axios.get(`${baseURL}/anime/random`)
 
     return result.data.data
@@ -65,12 +65,14 @@ const Header = ({ pages }: Props) => {
   }
 
   const renderHeader = () => {
-    return <HeaderNavigationLink to="/">header</HeaderNavigationLink>
+    return (
+      <HeaderNavigationLink to="/">
+        <h1 className="text-sp-main font-extrabold">
+          AX<span className="pl-1 text-white font-light">plorer</span>
+        </h1>
+      </HeaderNavigationLink>
+    )
   }
-
-  // const renderLogOutButton = () => {
-  //   return <Button onClick={handleLogOutButton}>logout</Button>
-  // }
 
   const renderNavigation = () => {
     return (

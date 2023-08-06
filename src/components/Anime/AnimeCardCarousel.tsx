@@ -1,12 +1,16 @@
 import { useState, useEffect } from "react"
 
-import { AnimeData, AnimeResponse } from "../../types/anime.types"
+import {
+  AnimeType,
+  AnimeResponse,
+  ShortAnimeType,
+} from "../../types/anime.types"
 import { Props as AnimeCardProps } from "./AnimeCard"
 
 import AnimeCard from "./AnimeCard"
 
 interface Props {
-  data: AnimeCardProps[] | AnimeData[]
+  data: AnimeCardProps[] | AnimeType[] | ShortAnimeType[]
   maxAmountShown?: number
   intervalDuration?: number
 }
@@ -18,9 +22,8 @@ const AnimeCardCarousel = ({
   intervalDuration = 5000,
 }: Props) => {
   const [amountOfShownCards, setAmountOfShownCards] = useState<number>(0)
-  const [dataToShow, setDataToShow] = useState<AnimeCardProps[] | AnimeData[]>(
-    data
-  )
+  const [dataToShow, setDataToShow] = useState<ShortAnimeType[]>(data)
+  const [isCursorOnComponent, setIsCursorOnComponent] = useState<boolean>(false)
   const [isOnPause, setIsOnPause] = useState(false)
 
   // scrolls back and also pauses automatic scroll for 5 seconds
@@ -53,6 +56,16 @@ const AnimeCardCarousel = ({
     }, intervalDuration)
   }
 
+  // detects when cursor enters the component
+  const handleMouseEnter = () => {
+    setIsCursorOnComponent(true)
+  }
+
+  // detects when cursor leaves the component
+  const handleMouseLeave = () => {
+    setIsCursorOnComponent(false)
+  }
+
   // scrolls forward
   const scrollToNext = () => {
     setDataToShow((prevState) => [
@@ -64,10 +77,12 @@ const AnimeCardCarousel = ({
   useEffect(() => {
     if (isOnPause) return
 
+    if (isCursorOnComponent) return
+
     const interval = setInterval(scrollToNext, intervalDuration)
 
     return () => clearInterval(interval) // cleans up the interval when component unmounts
-  }, [isOnPause, intervalDuration])
+  }, [isOnPause, isCursorOnComponent, intervalDuration])
 
   useEffect(() => {
     const screenWidth = window.innerWidth
@@ -84,7 +99,11 @@ const AnimeCardCarousel = ({
   }, [])
 
   return (
-    <div className="relative overflow-hidden">
+    <div
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className="relative overflow-hidden"
+    >
       <div className="flex gap-2">
         {dataToShow.slice(0, amountOfShownCards).map((anime) => (
           <AnimeCard
@@ -99,13 +118,13 @@ const AnimeCardCarousel = ({
       </div>
       <button
         onClick={handleScrollToPrevious}
-        className="px-5 py-3 rounded-full opacity-60 hover:opacity-80 transition-all ease-in-out duration-200 bg-sp-gray absolute top-1/2 left-2"
+        className="px-5 py-3 rounded-full opacity-60 hover:opacity-80 transition-all ease-in-out duration-200 font-bold text-white bg-sp-gray dark:bg-sp-white dark:text-sp-black absolute top-1/2 left-2 shadow-sm hover:shadow:md"
       >
         {"<"}
       </button>
       <button
         onClick={handleScrollToNext}
-        className="px-5 py-3 rounded-full opacity-60 hover:opacity-80 transition-all ease-in-out duration-200 bg-sp-gray absolute top-1/2 right-2"
+        className="px-5 py-3 rounded-full opacity-60 hover:opacity-80 transition-all ease-in-out duration-200 bg-sp-gray text-white font-bold dark:bg-sp-white dark:text-sp-black absolute top-1/2 right-2 shadow-sm hover:shadow:md"
       >
         {">"}
       </button>

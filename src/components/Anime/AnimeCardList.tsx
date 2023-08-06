@@ -1,10 +1,14 @@
-import { AnimeData, AnimeResponse } from "../../types/anime.types"
+import {
+  AnimeType,
+  AnimeResponse,
+  ShortAnimeType,
+} from "../../types/anime.types"
 import { Props as AnimeCardProps } from "./AnimeCard"
 
 import AnimeCard from "./AnimeCard"
 
 interface Props {
-  data: AnimeCardProps[] | AnimeData[]
+  data: AnimeCardProps[] | AnimeType[] | ShortAnimeType[]
 }
 
 const AnimeCardList = ({ data = [] }: Props) => {

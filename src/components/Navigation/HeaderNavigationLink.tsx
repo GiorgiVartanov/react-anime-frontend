@@ -24,7 +24,7 @@ const HeaderNavigationLink = ({
   return (
     <NavigationLink
       to={to}
-      inActiveClassNames="opacity-80"
+      inActiveClassNames={`opacity-80 ${className}`}
     >
       {children}
       <div
@@ -32,7 +32,7 @@ const HeaderNavigationLink = ({
           isActive
             ? `opacity-1 w-full ${activeClassName}`
             : `opacity-0 ${inActiveClassName}`
-        } ${className}`}
+        }`}
       ></div>
     </NavigationLink>
   )

@@ -30,10 +30,16 @@ const CharacterCard = ({
   }
 
   return (
-    <div className="flex justify-between outline-lime-100 outline-1 text-sm gap-5 max-w-12 bg-sp-white dark:bg-sp-gray text-sp-black dark:text-white relative h-[80px] shadow-sm ">
+    <div
+      className={`flex justify-between outline-lime-100 outline-1 text-sm gap-5 max-w-12 bg-sp-white dark:bg-sp-gray text-sp-black dark:text-white relative h-[80px] shadow-sm ${
+        VAName || VALanguage || VAImageURL ? "" : ""
+      }`}
+    >
       <Link
         to={`/character/${characterId}`}
-        className="flex gap-2 absolute left-2 bg-sp-white dark:bg-sp-gray p-1 pr-5 active:opacity-80  transition-all ease-in-out duration-200 group"
+        className={`flex gap-2 absolute bg-sp-white dark:bg-sp-gray p-1 pl-3 pr-5 active:opacity-80 transition-all ease-in-out duration-200 group ${
+          VAName || VALanguage || VAImageURL ? "" : "pr-1 w-full"
+        }`}
       >
         <img
           src={characterImageURL}

@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query"
 
 import { StuffType, VoiceType } from "../types/stuff.types"
 import { CharacterDetails } from "../types/character.types"
+import { AnimeType } from "../types/anime.types"
 
 import AnimeCardList from "../components/Anime/AnimeCardList"
 import CharacterCardList from "../components/Character/CharacterCardList"
@@ -63,29 +64,48 @@ const Stuff = () => {
     characterData as VoiceType[]
   )
 
+  // console.log(voices[0]?.anime?.images.jpg)
+
   return (
-    <div className="mx-auto max-w-7xl w-full p-2 h-full">
-      <div className="mx-auto mt-5">
-        {images?.jpg?.image_url ? (
-          <img
-            src={images?.jpg?.image_url}
-            alt=""
-            loading="lazy"
-            className="mx-auto"
-          />
-        ) : (
-          ""
-        )}
-        <p className="text-center text-lg my-2"> {name}</p>
+    <div>
+      <div className="relative shadow-sm pt-5">
+        <div
+          style={{
+            backgroundImage: `linear-gradient(to bottom, #202428c7, #202428c7), url(${
+              voices[0]?.anime?.images.jpg?.large_image_url ||
+              voices[0]?.anime?.images.jpg?.image_url
+            })`,
+          }}
+          className="bg-top bg-no-repeat bg-cover absolute top-0 left-0 w-full h-full"
+        ></div>
+        <div className="absolute z-10 bg-[#e3e6eb42] top-0 dark:bg-transparent backdrop-blur-2xl w-full h-full"></div>
+        <div className="mx-auto relative z-10 flex flex-col md:flex-row max-w-7xl w-full p-2 h-full">
+          <div>
+            {images?.jpg?.image_url ? (
+              <img
+                src={images?.jpg?.image_url}
+                alt=""
+                loading="lazy"
+                className="mx-auto shadow-md"
+              />
+            ) : (
+              ""
+            )}
+            <p className="text-lg my-1 md:text-left text-center"> {name}</p>
+          </div>
+
+          <div className="my-2 p-2 md:w-1/2">
+            <p>{about}</p>
+          </div>
+        </div>
       </div>
-      <div className="my-2">
-        <p>{about}</p>
+      <div className="mx-auto max-w-7xl w-full p-2 h-full">
+        {/* <AnimeCardList data={animeData} /> */}
+        <CharacterCardList
+          data={characterDataWithoutDuplicates as unknown as CharacterDetails[]} // I will fix it latter
+          showSelect={false}
+        />
       </div>
-      <AnimeCardList data={animeData} />
-      <CharacterCardList
-        data={characterDataWithoutDuplicates as unknown as CharacterDetails[]} // I will fix it latter
-        showSelect={false}
-      />
     </div>
   )
 }

@@ -7,6 +7,7 @@ import { useAuthStore } from "./store/authStore"
 import { useSettingsStore } from "./store/settingsStore"
 
 import Header from "./components/UI/Header"
+import Footer from "./components/UI/Footer"
 
 import Home from "./pages/Home.page"
 import Search from "./pages/Search.Page"
@@ -84,6 +85,7 @@ function App() {
           />
         </Routes>
       </div>
+      <Footer />
       <ToastContainer
         position="bottom-right"
         autoClose={5000}

@@ -9,10 +9,15 @@ export type Pagination = {
   }
 }
 
-export type ImageUrls = {
+type ImageUrls = {
   image_url: string
-  small_image_url: string
-  large_image_url: string
+  small_image_url?: string
+  large_image_url?: string
+}
+
+export type ImageType = {
+  jpg?: ImageUrls
+  webp: ImageUrls
 }
 
 export type TrailerImages = {
@@ -65,7 +70,7 @@ export type Entry = {
   url: string
 }
 
-export type FullAnimeData = {
+export type FullAnimeType = {
   mal_id: number
   url: string
   images: {
@@ -130,10 +135,10 @@ export type FullAnimeData = {
 
 export type FullAnimeResponse = {
   pagination: Pagination
-  data: FullAnimeData[]
+  data: FullAnimeType[]
 }
 
-export type AnimeData = {
+export type AnimeType = {
   mal_id: number
   url: string
   images: {
@@ -180,9 +185,16 @@ export type AnimeData = {
   demographics: any[]
 }
 
+export type ShortAnimeType = {
+  images: ImageType
+  mal_id: number
+  title: string
+  url: string
+}
+
 export type AnimeResponse = {
   pagination: Pagination
-  data: AnimeData[]
+  data: AnimeType[]
 }
 
 export type InfiniteAnimeResponse = {

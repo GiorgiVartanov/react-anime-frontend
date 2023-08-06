@@ -1,15 +1,8 @@
 import { Link } from "react-router-dom"
 
-import { ImageUrls } from "../../types/anime.types"
+import { ShortAnimeType } from "../../types/anime.types"
 
-export interface Props {
-  mal_id: number
-  url: string
-  images: {
-    jpg?: ImageUrls
-    webp?: ImageUrls
-  }
-  title: string
+export interface Props extends ShortAnimeType {
   className?: string
 }
 
