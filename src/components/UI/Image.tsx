@@ -46,7 +46,7 @@ const Image = ({
                   <img
                     src={src}
                     alt={alt}
-                    loading={loading}
+                    loading="eager"
                     className={`cursor-pointer shadow-xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[400px] max-h-[600px]`}
                     onClick={handleOpenFullscreen}
                   />

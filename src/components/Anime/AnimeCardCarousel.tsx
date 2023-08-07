@@ -16,11 +16,7 @@ interface Props {
 }
 
 // carousel that shows anime cards
-const AnimeCardCarousel = ({
-  data = [],
-  maxAmountShown = 5,
-  intervalDuration = 5000,
-}: Props) => {
+const AnimeCardCarousel = ({ data = [], intervalDuration = 5000 }: Props) => {
   const [amountOfShownCards, setAmountOfShownCards] = useState<number>(0)
   const [dataToShow, setDataToShow] = useState<ShortAnimeType[]>(data)
   const [isCursorOnComponent, setIsCursorOnComponent] = useState<boolean>(false)

@@ -49,9 +49,14 @@ export default {
           "0%": { opacity: 0 },
           "100%": { opacity: 1 },
         },
+        shake: {
+          "0%, 100%": { transform: "rotate(-5deg)" },
+          "50%": { transform: "rotate(5deg)" },
+        },
       },
       animation: {
         appear: "appear 1s ease-in-out",
+        shake: "shake 0.25s ease-in-out",
       },
     },
   },
