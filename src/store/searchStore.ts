@@ -55,11 +55,11 @@ export const useSearchStore = create<searchState & searchActions>(
     selectedGenres: [],
     season: null,
     seasonYear: null,
-    sort: "asc",
+    sort: "desc",
     sortOptions: ["desc", "asc"],
     types: null,
     typesOptions: ["all", "tv", "movie", "ova", "special", "ona", "music"],
-    orderBy: "popularity",
+    orderBy: "score",
     orderByOptions: [
       "mal_id",
       "title",
@@ -120,8 +120,8 @@ export const useSearchStore = create<searchState & searchActions>(
         selectedGenres: [],
         status: null,
         rating: null,
-        sort: "asc",
-        orderBy: "popularity",
+        sort: "desc",
+        orderBy: "score",
       })),
   })
 )

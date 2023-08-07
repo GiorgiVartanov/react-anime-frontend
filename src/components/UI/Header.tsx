@@ -10,6 +10,7 @@ import NavigationLink from "../Navigation/NavigationLink"
 import HeaderNavigationLink from "../Navigation/HeaderNavigationLink"
 import Button from "./Button"
 import DarkModeToggle from "./DarkModeToggle"
+import Navigation from "./Navigation"
 
 type Props = {
   pages: { name: string; href: string }[]
@@ -18,87 +19,15 @@ type Props = {
 const baseURL = import.meta.env.VITE_BACKEND_URL
 
 const Header = ({ pages }: Props) => {
-  const navigate = useNavigate()
-
-  const [username, isLoggedIn, logoutUser] = useAuthStore((state) => [
-    state.username,
-    state.isLoggedIn,
-    state.logoutUser,
-  ])
-
-  const handleLogOutButton = () => {
-    logoutUser()
-    navigate(`./login`)
-  }
-
-  const fetchRandomAnime = async (): Promise<FullAnimeType> => {
-    const result = await axios.get(`${baseURL}/anime/random`)
-
-    return result.data.data
-  }
-
-  // fetches anime form API
-  const {
-    isLoading,
-    error,
-    data: mal_id,
-    refetch,
-  } = useQuery({
-    queryKey: ["random-anime"],
-    queryFn: fetchRandomAnime,
-    staleTime: 0,
-  })
-
-  const findRandomAnime = () => {
-    refetch()
-    if (!mal_id || isLoading) return
-    navigate(`./anime/${mal_id}`)
-  }
-
-  // renders single navigation link
-  const renderNavigationLink = (name: string, to: string) => {
-    return (
-      <li className="list-none">
-        <HeaderNavigationLink to={to}>{name}</HeaderNavigationLink>
-      </li>
-    )
-  }
-
-  const renderHeader = () => {
-    return (
-      <HeaderNavigationLink to="/">
-        <h1 className="text-sp-main font-extrabold">
-          AX<span className="pl-1 text-white font-light">plorer</span>
-        </h1>
-      </HeaderNavigationLink>
-    )
-  }
-
-  const renderNavigation = () => {
-    return (
-      <nav className="grid place-content-center ">
-        <ul className="flex gap-1">
-          <DarkModeToggle />
-          {isLoading ? "" : <Button onClick={findRandomAnime}>random</Button>}
-          {renderNavigationLink("search", "search")}
-          {isLoggedIn ? (
-            <>
-              {renderNavigationLink("profile", `profile/${username}`)}
-              <Button onClick={handleLogOutButton}>logout</Button>
-            </>
-          ) : (
-            <>{renderNavigationLink("login", "login")}</>
-          )}
-        </ul>
-      </nav>
-    )
-  }
-
   return (
     <header className="bg-sp-gray py-1 shadow-sm relative z-20 text-white">
       <div className="m-auto max-w-7xl px-2 py-1 flex justify-between">
-        {renderHeader()}
-        {renderNavigation()}
+        <HeaderNavigationLink to="/">
+          <h1 className="text-sp-main font-extrabold">
+            AX<span className="text-white font-extrabold">P</span>
+          </h1>
+        </HeaderNavigationLink>
+        <Navigation />
       </div>
     </header>
   )

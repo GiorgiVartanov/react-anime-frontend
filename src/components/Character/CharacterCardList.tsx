@@ -33,7 +33,7 @@ const CharacterCardList = ({ data, showSelect = true }: Props) => {
         <select
           name=""
           id=""
-          className="w-full bold text-sp-black px-3 py-1 mb-3"
+          className="w-full bold text-sp-black bg-sp-white transition-all ease-in-out duration-200 shadow-sm hover:shadow-md dark:bg-white px-3 py-1 mb-3"
           defaultValue={selectedLanguage}
           onChange={handleVALanguageSelect}
         >

@@ -6,6 +6,7 @@ import { FullCharacterType } from "../types/character.types"
 import { AnimeType } from "../types/anime.types"
 
 import AnimeCardList from "../components/Anime/AnimeCardList"
+import Image from "../components/UI/Image"
 
 const Character = () => {
   const { id } = useParams()
@@ -35,8 +36,6 @@ const Character = () => {
 
   const animeData = anime.map((item) => item.anime)
 
-  console.log(animeData)
-
   return (
     <div>
       <div className="relative shadow-sm pt-5">
@@ -54,10 +53,10 @@ const Character = () => {
           <div className="mx-auto relative z-10 flex flex-col md:flex-row max-w-7xl w-full p-2 h-full">
             <div>
               {images?.jpg?.image_url ? (
-                <img
+                <Image
                   src={images?.jpg?.image_url}
-                  alt=""
-                  loading="lazy"
+                  alt={name}
+                  loading="eager"
                   className="mx-auto shadow-md min-w-[240px] md:min-w-[280px]"
                 />
               ) : (

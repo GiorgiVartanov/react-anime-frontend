@@ -74,6 +74,21 @@ const AnimeCardCarousel = ({
     ])
   }
 
+  const calculateAmountOfCardsShown = () => {
+    const screenWidth = window.innerWidth
+
+    let newAmountOfShownCards = 2
+
+    if (screenWidth < 400) newAmountOfShownCards = 2
+    else if (screenWidth < 600) newAmountOfShownCards = 3
+    else if (screenWidth < 800) newAmountOfShownCards = 4
+    else if (screenWidth < 1000) newAmountOfShownCards = 6
+    else newAmountOfShownCards = 8
+
+    if (amountOfShownCards === amountOfShownCards)
+      setAmountOfShownCards(newAmountOfShownCards)
+  }
+
   useEffect(() => {
     if (isOnPause) return
 
@@ -85,17 +100,12 @@ const AnimeCardCarousel = ({
   }, [isOnPause, isCursorOnComponent, intervalDuration])
 
   useEffect(() => {
-    const screenWidth = window.innerWidth
+    calculateAmountOfCardsShown()
 
-    let amountOfShownCards = 2
-
-    if (screenWidth < 400) amountOfShownCards = 2
-    else if (screenWidth < 600) amountOfShownCards = 3
-    else if (screenWidth < 800) amountOfShownCards = 4
-    else if (screenWidth < 1000) amountOfShownCards = 6
-    else amountOfShownCards = 8
-
-    setAmountOfShownCards(amountOfShownCards)
+    window.addEventListener("resize", calculateAmountOfCardsShown)
+    return () => {
+      window.removeEventListener("resize", calculateAmountOfCardsShown)
+    }
   }, [])
 
   return (
@@ -118,13 +128,13 @@ const AnimeCardCarousel = ({
       </div>
       <button
         onClick={handleScrollToPrevious}
-        className="px-5 py-3 rounded-full opacity-60 hover:opacity-80 transition-all ease-in-out duration-200 font-bold text-white bg-sp-gray dark:bg-sp-white dark:text-sp-black absolute top-1/2 left-2 shadow-sm hover:shadow:md"
+        className="px-5 py-3 rounded-full opacity-60 hover:opacity-80 transition-all ease-in-out duration-200 font-bold dark:text-white dark:bg-sp-gray bg-sp-white text-sp-black absolute top-1/2 left-2 shadow-sm hover:shadow:md"
       >
         {"<"}
       </button>
       <button
         onClick={handleScrollToNext}
-        className="px-5 py-3 rounded-full opacity-60 hover:opacity-80 transition-all ease-in-out duration-200 bg-sp-gray text-white font-bold dark:bg-sp-white dark:text-sp-black absolute top-1/2 right-2 shadow-sm hover:shadow:md"
+        className="px-5 py-3 rounded-full opacity-60 hover:opacity-80 transition-all ease-in-out duration-200 dark:bg-sp-gray dark:text-white font-bold bg-sp-white text-sp-black absolute top-1/2 right-2 shadow-sm hover:shadow:md"
       >
         {">"}
       </button>

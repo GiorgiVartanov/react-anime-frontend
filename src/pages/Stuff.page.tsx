@@ -8,6 +8,7 @@ import { AnimeType } from "../types/anime.types"
 
 import AnimeCardList from "../components/Anime/AnimeCardList"
 import CharacterCardList from "../components/Character/CharacterCardList"
+import Image from "../components/UI/Image"
 
 const Stuff = () => {
   const { id } = useParams()
@@ -82,10 +83,10 @@ const Stuff = () => {
         <div className="mx-auto relative z-10 flex flex-col md:flex-row max-w-7xl w-full p-2 h-full">
           <div>
             {images?.jpg?.image_url ? (
-              <img
+              <Image
                 src={images?.jpg?.image_url}
-                alt=""
-                loading="lazy"
+                alt={name}
+                loading="eager"
                 className="mx-auto shadow-md"
               />
             ) : (

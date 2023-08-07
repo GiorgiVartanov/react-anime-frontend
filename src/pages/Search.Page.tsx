@@ -7,7 +7,7 @@ import { useSearchStore } from "../store/searchStore"
 import {
   AnimeResponse,
   InfiniteAnimeResponse,
-  AnimeData,
+  AnimeType,
 } from "../types/anime.types"
 
 import AnimeCardList from "../components/Anime/AnimeCardList"

@@ -7,6 +7,9 @@
     font-family: Poppins, system-ui, sans-serif;
     color: whitesmoke;
   }
+  .body {
+    position: relative;
+  }
 }
 
 :root {

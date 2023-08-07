@@ -5,7 +5,7 @@ import { Routes, Route } from "react-router-dom"
 import axios from "axios"
 import apiAjax from "../service/APIAjax"
 
-import { FullAnimeData } from "../types/anime.types"
+import { FullAnimeType } from "../types/anime.types"
 
 import { useDocumentTitle } from "../hooks/useDocumentTitle"
 
@@ -15,6 +15,7 @@ import AnimeRecommendationCardList from "../components/Anime/AnimeRecommendation
 import GenreList from "../components/Search/GenreList"
 import SkeletonAnimePage from "../components/Skeletons/SkeletonAnimePage"
 
+import Image from "../components/UI/Image"
 import AnimeTrailer from "../components/Anime/AnimeTrailer"
 import AnimeRecommendations from "../components/Anime/AnimeRecommendations"
 import AnimeCharacters from "../components/Anime/AnimeCharacters"
@@ -26,7 +27,7 @@ const Anime = () => {
   const { id, slug } = useParams<{ id: string; slug: string }>()
 
   // function to fetch single anime
-  const fetchAnime = async (): Promise<FullAnimeData> => {
+  const fetchAnime = async (): Promise<FullAnimeType> => {
     const response = await apiAjax.get(`/anime/${id}/full`)
 
     return response.data.data
@@ -147,18 +148,18 @@ const Anime = () => {
       { title: "Score", value: score },
       {
         title: "Producers",
-        value: producers.map((producer) => (
-          <div className="inline-flex">
-            {
+        value: (
+          <div className="inline">
+            {producers.map((producer) => (
               <span
                 key={producer.mal_id}
                 className="mr-1 bg-sp-black px-1"
               >
                 {producer.name}
               </span>
-            }
+            ))}
           </div>
-        )),
+        ),
       },
       {
         title: "Licensors",
@@ -177,25 +178,27 @@ const Anime = () => {
       },
       {
         title: "Studios",
-        value: studios.map((studio) => (
+        value: (
           <div className="inline-flex">
-            {
+            {studios.map((studio) => (
               <span
                 key={studio.mal_id}
                 className="mr-1 bg-sp-black px-1"
               >
                 {studio.name}
               </span>
-            }
+            ))}
           </div>
-        )),
+        ),
       },
     ]
 
     if (Number(information[1].value) <= 1) information.splice(1, 1) // it will only show episodes amount if there are more than 1 episodes
 
+    // information.map(({ title, value }) => console.log(value))
+
     return (
-      <div className="backdrop-blur-2xl px-3 py-2 lg:py-12 lg:mx-0 max-w-lg mx-auto w-full lg:w-auto flex flex-col gap-1  shadow-sm bg-[#cdced1471] dark:bg-[#20242852]">
+      <div className="backdrop-blur-2xl px-3 py-2 lg:py-12 lg:mx-0 max-w-lg mx-auto w-full lg:w-auto flex flex-col gap-1 shadow-sm bg-[#cdced1471] dark:bg-[#20242852]">
         {information.map(({ title, value }) => (
           <div
             key={title}
@@ -215,10 +218,10 @@ const Anime = () => {
 
   const renderImage = () => {
     return (
-      <img
-        src={images.jpg.large_image_url}
+      <Image
+        src={images.jpg.large_image_url || images.jpg.image_url}
         alt={title}
-        loading="lazy"
+        loading="eager"
         height="300"
         width="200"
         className="shadow-md w-[200px] h-[300px] mx-auto md:mx-0"
