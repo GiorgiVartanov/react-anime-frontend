@@ -1,18 +1,18 @@
 import { useEffect, RefObject } from "react"
 
-type EventHandler = (event: MouseEvent | TouchEvent) => void
+type EventHandler = (e: MouseEvent | TouchEvent) => void
 
 export const useOnClickOutside = (
   ref: RefObject<HTMLElement>,
   handler: EventHandler
 ) => {
   useEffect(() => {
-    const listener = (event: MouseEvent | TouchEvent) => {
-      if (!ref.current || ref.current.contains(event.target as Node)) {
+    const listener = (e: MouseEvent | TouchEvent) => {
+      if (!ref.current || ref.current.contains(e.target as Node)) {
         return
       }
 
-      handler(event)
+      handler(e)
     }
 
     document.addEventListener("mousedown", listener)

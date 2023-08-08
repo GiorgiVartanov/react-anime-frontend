@@ -25,7 +25,7 @@ const Input = ({
         type={type}
         value={value}
         onChange={onChange}
-        className={`outline-offset-0 w-full ${
+        className={`outline-offset-0 shadow-sm hover:shadow-md focus:shadow-md transition-all ease-in-out duration-200 w-full ${
           error && error.length > 0 ? "border-l-2 border-l-red-400" : ""
         } ${
           value.length > 0 && error && error.length === 0

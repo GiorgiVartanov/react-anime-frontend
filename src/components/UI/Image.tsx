@@ -47,7 +47,7 @@ const Image = ({
                     src={src}
                     alt={alt}
                     loading="eager"
-                    className={`cursor-pointer shadow-xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[400px] max-h-[600px]`}
+                    className={`cursor-pointer shadow-xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[400px] max-h-[600px] p-2`}
                     onClick={handleOpenFullscreen}
                   />
                 </a>

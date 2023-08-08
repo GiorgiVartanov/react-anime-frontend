@@ -12,8 +12,11 @@ interface settingsActions {
 
 export const useSettingsStore = create<settingsState & settingsActions>(
   (set, get) => ({
-    theme:
-      localStorage.getItem("theme") === "dark" ? "dark" : "light" || "dark",
+    theme: localStorage.theme
+      ? localStorage.theme
+      : window.matchMedia("(prefers-color-scheme: dark)").matches === true
+      ? "dark"
+      : "light",
     showAnimeTitlesInJP:
       localStorage.getItem("showAnimeTitlesInJP") === "true"
         ? true
@@ -29,6 +32,14 @@ export const useSettingsStore = create<settingsState & settingsActions>(
         document.documentElement.classList.remove("dark")
         localStorage.setItem("theme", "light")
       }
+
+      console.log(
+        localStorage.theme
+          ? localStorage.theme
+          : window.matchMedia("(prefers-color-scheme: dark)").matches === true
+          ? "dark"
+          : "light"
+      )
 
       return set(() => ({
         theme: toggledTheme,

@@ -27,8 +27,12 @@ const Navigation = () => {
 
   const [isHamburgerMenuOpen, setIsHamburgerMenuOpen] = useState<boolean>(false)
 
-  const handleClickOutside = () => {
+  const handleCloseMenu = () => {
     setIsHamburgerMenuOpen(false)
+  }
+
+  const handleClickOutside = () => {
+    handleCloseMenu()
   }
 
   useOnClickOutside(hamburgerMenuRef, handleClickOutside)
@@ -69,7 +73,13 @@ const Navigation = () => {
   const renderNavigationLink = (name: string, to: string) => {
     return (
       <li className="list-none">
-        <HeaderNavigationLink to={to}>{name}</HeaderNavigationLink>
+        <HeaderNavigationLink
+          to={to}
+          onClick={handleCloseMenu}
+          className="block py-3 sm:py-1"
+        >
+          {name}
+        </HeaderNavigationLink>
       </li>
     )
   }
@@ -87,34 +97,63 @@ const Navigation = () => {
           <CloseMark
             width={32}
             height={32}
+            fill={"#e91e63"}
             className="animate-shake"
           />
         ) : (
           <HamburgerMenu
             width={32}
             height={32}
+            fill={"#e91e63"}
             className="animate-shake"
           />
         )}
       </button>
       <ul
-        className={`sm:flex gap-1 ${
+        className={`sm:flex h-fit gap-1  ${
           isHamburgerMenuOpen
-            ? "flex flex-col sm:flex-row gap-2 sm:gap-1 absolute sm:static left-0 top-[50px] bg-sp-gray w-full sm:w-auto text-center sm:text-left pt-1 sm:pt-0 pb-3 sm:pb-0"
+            ? "flex flex-col sm:flex-row gap-2 sm:gap-1 absolute sm:static left-0 top-[50px] dark:bg-sp-gray bg-sp-white w-full sm:w-auto text-center sm:text-left pt-1 -mt-1 sm:mt-0 sm:pt-0 pb-3 sm:pb-0 shadow-xl sm:shadow-none"
             : "hidden"
         }`}
       >
-        <DarkModeToggle
-          className={`${
-            isHamburgerMenuOpen ? "mx-auto mb-1 sm:mb-0 sm:mx-2.5" : ""
-          }`}
-        />
-        {isLoading ? "" : <Button onClick={findRandomAnime}>random</Button>}
+        <li className="flex flex-col justify-center">
+          <DarkModeToggle
+            className={`${
+              isHamburgerMenuOpen ? "mx-auto mb-1 sm:mb-0 sm:mx-2.5" : ""
+            }`}
+          />
+        </li>
+
+        {isLoading ? (
+          ""
+        ) : (
+          <li className="flex flex-col justify-center">
+            <Button
+              onClick={() => {
+                handleCloseMenu()
+                findRandomAnime()
+              }}
+              className="bg-transparent sm:w-auto w-full dark:text-white active:opacity-50 sm:py-1 py-3 hover:opacity-50 sm:text-base text-lg"
+            >
+              random
+            </Button>
+          </li>
+        )}
         {renderNavigationLink("search", "search")}
         {isLoggedIn ? (
           <>
             {renderNavigationLink("profile", `profile/${username}`)}
-            <Button onClick={handleLogOutButton}>logout</Button>
+            <li className="flex flex-col justify-center">
+              <Button
+                onClick={() => {
+                  handleCloseMenu()
+                  handleLogOutButton()
+                }}
+                className="sm:w-auto w-full dark:text-white active:opacity-50 hover:opacity-50 sm:py-1 mt-3 sm:mt-0 py-2 sm:text-base text-lg"
+              >
+                logout
+              </Button>
+            </li>
           </>
         ) : (
           <>{renderNavigationLink("login", "login")}</>

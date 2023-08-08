@@ -41,7 +41,7 @@ const SearchBar = ({ value, className, handleTextChange }: Props) => {
         type="search"
         value={searchValue}
         placeholder="search"
-        className={`w-full py-2 px-2 text-center shadow-md dark:shadow-sm focus:shadow-lg transition-all ease-in-out duration-200 outline-none text-sp-black  ${className}`}
+        className={`w-full py-2 px-2 text-center drop-shadow-md dark:drop-shadow-sm focus:drop-shadow-lg transition-all ease-in-out duration-200 outline-none text-sp-black ${className}`}
         onChange={handleOnChange}
         onKeyDown={handleOnKeyDown}
       />

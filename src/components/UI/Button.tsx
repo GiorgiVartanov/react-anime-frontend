@@ -8,7 +8,7 @@ const Button = ({ onClick, className, children }: Props) => {
   return (
     <button
       onClick={onClick}
-      className={`bg-sp-main px-1 py-1 will-change-transform ${className}`}
+      className={`bg-sp-main px-1 py-1 transition-all ease-in-out duration-200 ${className}`}
     >
       {children}
     </button>

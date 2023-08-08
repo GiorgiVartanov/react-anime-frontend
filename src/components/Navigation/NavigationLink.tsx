@@ -22,7 +22,7 @@ const NavigationLink = ({
     <NavLink
       to={to}
       className={({ isActive }) =>
-        `px-2 py-1 block transition-all ease-in-out duration-200 hover:opacity-90 ${className} ${
+        `px-1 py-1 transition-all ease-in-out duration-200 active:opacity-50 hover:opacity-50 ${className} ${
           isActive ? activeClassNames : inActiveClassNames
         }`
       }

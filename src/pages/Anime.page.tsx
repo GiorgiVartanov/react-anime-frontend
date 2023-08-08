@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Routes, Route } from "react-router-dom"
 import axios from "axios"
 import apiAjax from "../service/APIAjax"
+import backendAjax from "../service/backendAjax"
 
 import { FullAnimeType } from "../types/anime.types"
 
@@ -20,6 +21,8 @@ import AnimeTrailer from "../components/Anime/AnimeTrailer"
 import AnimeRecommendations from "../components/Anime/AnimeRecommendations"
 import AnimeCharacters from "../components/Anime/AnimeCharacters"
 import AnimeComments from "../components/Anime/AnimeComments"
+import Button from "../components/UI/Button"
+import AddToFavoritesButton from "../components/Anime/AddToFavoritesButton"
 
 const Anime = () => {
   const [showFullText, setShowFullText] = useState<boolean>(false)
@@ -224,7 +227,7 @@ const Anime = () => {
         loading="eager"
         height="300"
         width="200"
-        className="shadow-md w-[200px] h-[300px] mx-auto md:mx-0"
+        className="shadow-md w-[200px] h-[300px] mx-auto min-w-[200px] md:mx-0"
       />
     )
   }
@@ -241,7 +244,9 @@ const Anime = () => {
             </h2>
             {renderDescription()}
           </div>
+          <AddToFavoritesButton animeId={id || ""} />
         </div>
+
         {renderInformation()}
       </div>
     )

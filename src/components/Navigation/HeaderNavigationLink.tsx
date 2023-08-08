@@ -8,6 +8,7 @@ interface Props {
   activeClassName?: string
   inActiveClassName?: string
   children: React.ReactNode
+  [x: string]: any
 }
 
 // NavigationLink that will be rendered in header, it has animation
@@ -17,6 +18,7 @@ const HeaderNavigationLink = ({
   activeClassName,
   inActiveClassName,
   children,
+  ...rest
 }: Props) => {
   const location = useLocation() // function to get user's location (path)
   const isActive = to === (location.pathname.substring(1) || "/") // checks if the user is on the current page
@@ -24,16 +26,19 @@ const HeaderNavigationLink = ({
   return (
     <NavigationLink
       to={to}
-      inActiveClassNames={`opacity-80 ${className}`}
+      className={`sm:text-base text-lg ${className}`}
+      {...rest}
     >
-      {children}
-      <div
-        className={`h-0.5 bg-sp-main  w-0 transition-all ease-in-out duration-200 ${
-          isActive
-            ? `opacity-1 w-full ${activeClassName}`
-            : `opacity-0 ${inActiveClassName}`
-        }`}
-      ></div>
+      <div className="relative">
+        {children}
+        <div
+          className={`h-0.5 bg-sp-main w-0 transition-all ease-in-out duration-200 absolute  ${
+            isActive
+              ? `opacity-1 w-full ${activeClassName}`
+              : `opacity-0 ${inActiveClassName}`
+          }`}
+        ></div>
+      </div>
     </NavigationLink>
   )
 }

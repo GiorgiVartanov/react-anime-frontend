@@ -16,7 +16,7 @@ const DarkModeToggle = ({ className }: Props) => {
   return (
     <button
       onClick={toggleDarkMode}
-      className={`mx-2.5 w-16 p-1 rounded-full bg-sp-white dark:bg-sp-black ${className}`}
+      className={`mx-2.5 w-16 p-1 rounded-full dark:bg-sp-white bg-sp-black ${className}`}
     >
       <div
         className={`transform-all ease-in-out duration-200 ${
@@ -25,14 +25,14 @@ const DarkModeToggle = ({ className }: Props) => {
       >
         {theme === "dark" ? (
           <Moon
-            fill="rgb(230, 234, 238)"
+            fill="rgb(18, 18, 18)"
             width="24"
             height="24"
             className="animate-shake"
           />
         ) : (
           <Sun
-            fill="rgb(18, 18, 18)"
+            fill="rgb(230, 234, 238)"
             width="24"
             height="24"
             className="animate-shake"

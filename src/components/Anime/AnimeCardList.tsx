@@ -13,7 +13,7 @@ interface Props {
 
 const AnimeCardList = ({ data = [] }: Props) => {
   return (
-    <div className="grid grid-cols-1 xss:grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 justify-around">
+    <div className="grid grid-cols-1 xss:grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 justify-center">
       {data.map((anime) => (
         <AnimeCard
           key={anime.mal_id}
