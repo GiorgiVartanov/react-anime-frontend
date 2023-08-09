@@ -87,7 +87,7 @@ const Login = () => {
         <Input
           name="email"
           type="text"
-          placeholder="email"
+          placeholder="email or username"
           value={credentials.email}
           onChange={handleOnUsernameChange}
           error={credentialsError.email}

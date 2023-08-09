@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom"
 import axios from "axios"
 
 import { useAuthStore } from "../store/authStore"
+import { useDocumentTitle } from "../hooks/useDocumentTitle"
 
 import { UserResponse } from "../types/user.types"
 
@@ -27,15 +28,15 @@ const Profile = () => {
     staleTime: 1000000,
   })
 
+  useDocumentTitle(pageOwnersUsername || "aniPage")
+
   // it will show loading while data is fetching
   if (isLoading) return <div>Loading...</div>
 
-  if (!pageOwnersUsername || !data || !data.data)
+  if (!pageOwnersUsername || !data || !data.data || error)
     return <div>Something went wrong...</div>
 
-  const { createdAt, favoriteAnime } = data.data
-
-  console.log(favoriteAnime)
+  const { createdAt, favoriteAnimeIds } = data.data
 
   return (
     <div className="mx-auto max-w-7xl w-full p-2 h-full">
@@ -47,14 +48,17 @@ const Profile = () => {
         this user has registered {createdAt}
       </p>
 
-      <div className="mt-8">
-        <h2>
-          {username === pageOwnersUsername ? "your" : "this user's"} favorite
-          anime
-        </h2>
-        <div className="h-0.5 w-full bg-sp-main mb-1"></div>
-        <AnimeCardList data={favoriteAnime} />
-      </div>
+      {favoriteAnimeIds.length !== 0
+        ? // <div className="mt-8">
+          //   <h2>
+          //     {username === pageOwnersUsername ? "your" : "this user's"} favorite
+          //     anime
+          //   </h2>
+          //   <div className="h-0.5 w-full bg-sp-main mb-1"></div>
+          //   {/* <AnimeCardList data={favoriteAnime} /> */}
+          // </div>
+          favoriteAnimeIds.map((id) => <div key={id}>{id}</div>)
+        : ""}
     </div>
   )
 }

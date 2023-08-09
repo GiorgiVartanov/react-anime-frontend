@@ -34,7 +34,7 @@ const AnimeCardCarousel = ({ data = [], intervalDuration = 5000 }: Props) => {
   }
 
   // scrolls back
-  const scrollToPrevious = () => {
+  const scrollToNext = () => {
     setDataToShow((prevState) => [
       ...prevState.slice(1, prevState.length),
       prevState[0],
@@ -52,6 +52,14 @@ const AnimeCardCarousel = ({ data = [], intervalDuration = 5000 }: Props) => {
     }, intervalDuration)
   }
 
+  // scrolls forward
+  const scrollToPrevious = () => {
+    setDataToShow((prevState) => [
+      prevState[prevState.length - 1],
+      ...prevState.slice(0, prevState.length - 1),
+    ])
+  }
+
   // detects when cursor enters the component
   const handleMouseEnter = () => {
     setIsCursorOnComponent(true)
@@ -60,29 +68,6 @@ const AnimeCardCarousel = ({ data = [], intervalDuration = 5000 }: Props) => {
   // detects when cursor leaves the component
   const handleMouseLeave = () => {
     setIsCursorOnComponent(false)
-  }
-
-  // scrolls forward
-  const scrollToNext = () => {
-    setDataToShow((prevState) => [
-      prevState[prevState.length - 1],
-      ...prevState.slice(0, prevState.length - 1),
-    ])
-  }
-
-  const calculateAmountOfCardsShown = () => {
-    const screenWidth = window.innerWidth
-
-    let newAmountOfShownCards = 2
-
-    if (screenWidth < 400) newAmountOfShownCards = 2
-    else if (screenWidth < 600) newAmountOfShownCards = 3
-    else if (screenWidth < 800) newAmountOfShownCards = 4
-    else if (screenWidth < 1000) newAmountOfShownCards = 6
-    else newAmountOfShownCards = 8
-
-    if (amountOfShownCards === amountOfShownCards)
-      setAmountOfShownCards(newAmountOfShownCards)
   }
 
   useEffect(() => {
@@ -96,6 +81,21 @@ const AnimeCardCarousel = ({ data = [], intervalDuration = 5000 }: Props) => {
   }, [isOnPause, isCursorOnComponent, intervalDuration])
 
   useEffect(() => {
+    const calculateAmountOfCardsShown = () => {
+      const screenWidth = window.innerWidth
+
+      let newAmountOfShownCards = 2
+
+      if (screenWidth < 400) newAmountOfShownCards = 2
+      else if (screenWidth < 600) newAmountOfShownCards = 3
+      else if (screenWidth < 800) newAmountOfShownCards = 4
+      else if (screenWidth < 1000) newAmountOfShownCards = 6
+      else newAmountOfShownCards = 8
+
+      if (amountOfShownCards === amountOfShownCards)
+        setAmountOfShownCards(newAmountOfShownCards)
+    }
+
     calculateAmountOfCardsShown()
 
     window.addEventListener("resize", calculateAmountOfCardsShown)

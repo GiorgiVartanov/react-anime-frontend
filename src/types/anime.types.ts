@@ -230,3 +230,20 @@ export type animeGenre = {
 export type animeGenreResponse = {
   data: animeGenre[]
 }
+
+export type animePictureType = {
+  jpg: {
+    image_url: string
+    small_image_url: string
+    large_image_url: string
+  }
+  webp: {
+    image_url: string
+    small_image_url: string
+    large_image_url: string
+  }
+}
+
+export type animePicturesResponseType = {
+  data: animePictureType[]
+}

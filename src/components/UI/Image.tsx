@@ -62,7 +62,7 @@ const Image = ({
         height={height}
         width={width}
         loading={loading}
-        className={`cursor-pointer ${className}`}
+        className={`cursor-pointer transition-all ease-in-out duration-200 hover:opacity-80 ${className}`}
         onClick={handleOpenFullscreen}
       />
     </>

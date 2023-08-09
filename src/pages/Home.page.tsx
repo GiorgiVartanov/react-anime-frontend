@@ -117,7 +117,6 @@ const Home = () => {
             see all Top anime
           </button>
         </h2>
-
         <div className="h-0.5 w-full bg-sp-main mb-1"></div>
         {renderTopAnime()}
       </div>

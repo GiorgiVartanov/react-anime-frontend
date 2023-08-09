@@ -1,6 +1,6 @@
 import { NavLink, Outlet, useParams } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Routes, Route } from "react-router-dom"
 import axios from "axios"
 import apiAjax from "../service/APIAjax"
@@ -16,6 +16,7 @@ import AnimeRecommendationCardList from "../components/Anime/AnimeRecommendation
 import GenreList from "../components/Search/GenreList"
 import SkeletonAnimePage from "../components/Skeletons/SkeletonAnimePage"
 
+import AnimePictures from "../components/Anime/AnimePictures"
 import Image from "../components/UI/Image"
 import AnimeTrailer from "../components/Anime/AnimeTrailer"
 import AnimeRecommendations from "../components/Anime/AnimeRecommendations"
@@ -237,16 +238,20 @@ const Anime = () => {
     return (
       <div className="flex lg:flex-row flex-col gap-4 justify-between text-sm">
         <div className="flex md:flex-row mx-auto lg:mx-0 flex-col relative z-20 gap-4 justify-between py-12">
-          {renderImage()}
+          <div className="w-[200px] mx-auto min-w-[200px] md:mx-0">
+            {renderImage()}
+            <AddToFavoritesButton
+              animeId={id || ""}
+              className="w-full mt-3"
+            />
+          </div>
           <div className="max-w-md">
             <h2 className="font-bold text-sp-main text-lg mb-2">
               {title} <span className="ml-2 opacity-20">{title_japanese}</span>
             </h2>
             {renderDescription()}
           </div>
-          <AddToFavoritesButton animeId={id || ""} />
         </div>
-
         {renderInformation()}
       </div>
     )
@@ -270,9 +275,34 @@ const Anime = () => {
       {id ? (
         <div>
           <div className="mx-auto max-w-7xl w-full p-2 h-full flex flex-col gap-8">
-            <AnimeRecommendations id={id} />
-            <AnimeTrailer videoId={trailer.youtube_id} />
-            <AnimeCharacters id={id} />
+            <div>
+              <h2 className="text-sp-black dark:text-white mx-auto max-w-7xl mb-1 text-xl">
+                Images
+              </h2>
+              <div className="h-0.5 w-full bg-sp-main mb-1"></div>
+              <AnimePictures animeId={id} />
+            </div>
+            <div>
+              <h2 className="text-sp-black dark:text-white mx-auto max-w-7xl mb-1 text-xl">
+                More anime like this one
+              </h2>
+              <div className="h-0.5 w-full bg-sp-main mb-1"></div>
+              <AnimeRecommendations id={id} />
+            </div>
+            <div>
+              <h2 className="text-sp-black dark:text-white mx-auto max-w-7xl mb-1 text-xl">
+                Trailer
+              </h2>
+              <div className="h-0.5 w-full bg-sp-main mb-1"></div>
+              <AnimeTrailer videoId={trailer.youtube_id} />
+            </div>
+            <div>
+              <h2 className="text-sp-black dark:text-white mx-auto max-w-7xl mb-1 text-xl">
+                Characters & Voice Actors
+              </h2>
+              <div className="h-0.5 w-full bg-sp-main mb-1"></div>
+              <AnimeCharacters id={id} />
+            </div>
           </div>
           <div className="bg-sp-white dark:bg-sp-gray">
             <div className="mx-auto max-w-7xl w-full p-2 h-full mt-8 pt-8 ">

@@ -89,9 +89,9 @@ const Navigation = () => {
       ref={hamburgerMenuRef}
       className="grid place-content-center "
     >
-      <button
+      <Button
         onClick={handleHamburgerMenu}
-        className={`sm:hidden`}
+        className={`sm:hidden bg-transparent active:opacity-50 hover:opacity-50`}
       >
         {isHamburgerMenuOpen ? (
           <CloseMark
@@ -108,7 +108,7 @@ const Navigation = () => {
             className="animate-shake"
           />
         )}
-      </button>
+      </Button>
       <ul
         className={`sm:flex h-fit gap-1  ${
           isHamburgerMenuOpen
