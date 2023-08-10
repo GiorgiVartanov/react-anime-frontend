@@ -19,7 +19,9 @@ const Profile = () => {
 
   // function to fetch user's data
   const fetchUserData = (): Promise<UserResponse> =>
-    axios.get(`${baseURL}/user/${username}`).then((response) => response.data)
+    axios
+      .get(`${baseURL}/user/${pageOwnersUsername}`)
+      .then((response) => response.data)
 
   // fetches user data
   const { isLoading, error, data } = useQuery({
@@ -42,7 +44,7 @@ const Profile = () => {
     <div className="mx-auto max-w-7xl w-full p-2 h-full">
       <div className="flex gap-2 text-center items-center justify-center mt-5">
         <UserIcon username={pageOwnersUsername} />
-        <p className="text-center ">{username}</p>
+        <p className="text-center">{pageOwnersUsername}</p>
       </div>
       <p className="text-center mt-3 opacity-30 dark:text-sp-white text-sp-black">
         this user has registered {createdAt}

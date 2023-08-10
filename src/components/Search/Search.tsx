@@ -7,6 +7,7 @@ import ajax from "../../service/backendAjax"
 
 import { animeGenreResponse } from "../../types/anime.types"
 
+import { ReactComponent as Arrow } from "../../assets/icons/angle-up-solid.svg"
 import SearchBar from "./SearchBar"
 import GenreList from "./GenreList"
 import SearchSelectList from "./SearchSelectList"
@@ -27,6 +28,7 @@ const Search = () => {
     orderBy,
     status,
     rating,
+    getAmountOfFilters,
   ] = useSearchStore((state) => [
     state.text,
     state.changeText,
@@ -40,6 +42,7 @@ const Search = () => {
     state.orderBy,
     state.status,
     state.rating,
+    state.getAmountOfFilters,
   ])
 
   const [isFilterMenuOpen, setIsFilterMenuOpen] = useState<boolean>(false)
@@ -80,11 +83,16 @@ const Search = () => {
           className="opacity-50 flex gap-1"
         >
           <span>filter</span>
-          <span
-            className={`${selectedGenres.length > 0 ? "text-sp-main" : ""}`}
-          >
-            ({selectedGenres.length})
-          </span>
+          <div className="h-full flex flex-col justify-center">
+            <Arrow
+              height={18}
+              width={18}
+              fill={getAmountOfFilters() > 0 ? "#e91e63" : ""}
+              className={`transition-all ease-in-out duration-200 ${
+                isFilterMenuOpen ? "-rotate-180" : "rotate-0"
+              }`}
+            />
+          </div>
         </button>
         {selectedGenres.length > 0 ||
         sort !== "asc" ||

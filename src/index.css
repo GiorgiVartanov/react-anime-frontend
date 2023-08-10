@@ -10,6 +10,9 @@
   .body {
     position: relative;
   }
+  .no-scroll {
+    overflow: hidden;
+  }
 }
 
 :root {

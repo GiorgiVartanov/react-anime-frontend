@@ -44,6 +44,7 @@ interface searchActions {
   changeRating: (newRating: RatingType) => void
   goToNextPage: () => void
   clearFilters: () => void
+  getAmountOfFilters: () => number
 }
 
 export const useSearchStore = create<searchState & searchActions>(
@@ -115,13 +116,25 @@ export const useSearchStore = create<searchState & searchActions>(
     changeStatus: (newStatus: StatusType) => set(() => ({ status: newStatus })),
     changeRating: (newRating: RatingType) => set(() => ({ rating: newRating })),
     goToNextPage: () => set(() => ({ page: get().page + 1 })),
-    clearFilters: () =>
+    clearFilters: () => {
+      console.log(get().rating)
       set(() => ({
         selectedGenres: [],
         status: null,
         rating: null,
         sort: "desc",
         orderBy: "score",
-      })),
+      }))
+    },
+    getAmountOfFilters: () => {
+      let amountOfFilters = get().selectedGenres.length
+
+      if (get().sort !== "desc") amountOfFilters += 1
+      if (get().orderBy !== "score") amountOfFilters += 1
+      if (get().status !== null) amountOfFilters += 1
+      if (get().rating !== null) amountOfFilters += 1
+
+      return amountOfFilters
+    },
   })
 )

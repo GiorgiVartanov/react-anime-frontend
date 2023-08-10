@@ -92,7 +92,10 @@ const AddToFavoritesButton = ({ animeId, className }: Props) => {
   })
 
   const handleAddToFavorites = () => {
-    if (!isLoggedIn) toast.error(ToastErrorMessage)
+    if (!isLoggedIn) {
+      toast.error(ToastErrorMessage)
+      return
+    }
 
     mutation.mutate()
   }
@@ -106,7 +109,7 @@ const AddToFavoritesButton = ({ animeId, className }: Props) => {
       onClick={handleAddToFavorites}
       className={`font-semibold ${className}`}
     >
-      {data.data.favoriteAnimeIds.includes(animeId)
+      {data?.data?.favoriteAnimeIds?.includes(animeId)
         ? "remove from favorites"
         : "mark as favorite"}
     </Button>

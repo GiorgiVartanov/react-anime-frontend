@@ -4,7 +4,8 @@ import { useQuery } from "@tanstack/react-query"
 
 import { animePicturesResponseType } from "../../types/anime.types"
 
-import PictureList from "../UI/PictureList"
+import Carousel from "../UI/Carousel"
+import Image from "../UI/Image"
 
 interface Props {
   animeId: string
@@ -26,6 +27,22 @@ const AnimePictures = ({ animeId }: Props) => {
   if (isLoading) return <div>loading...</div>
   if (error || !data) return <div>something went wrong</div>
 
-  return <PictureList images={data.data} />
+  const images = data.data
+
+  return (
+    <Carousel>
+      {images.map((image, index) => (
+        <Image
+          key={image.jpg.image_url}
+          src={image.jpg.large_image_url || image.jpg.image_url}
+          alt={`anime-${index}`}
+          loading="lazy"
+          height="300"
+          width="200"
+          className="shadow-md w-[200px] h-[300px] max-w-[200px] max-h-[300px] mx-auto md:mx-0 flex-1"
+        />
+      ))}
+    </Carousel>
+  )
 }
 export default AnimePictures

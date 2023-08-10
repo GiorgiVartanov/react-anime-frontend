@@ -26,7 +26,7 @@ const Home = () => {
     ])
 
   const fetchSeasonalAnime = async (): Promise<AnimeResponse> => {
-    const result = await apiAjax.get(`seasons/now?limit=10`)
+    const result = await apiAjax.get(`seasons/now?limit=20`)
 
     return result.data
   }
@@ -53,7 +53,7 @@ const Home = () => {
   }
 
   const fetchTopAnime = async (): Promise<AnimeResponse> => {
-    const result = await apiAjax.get(`top/anime?limit=10`)
+    const result = await apiAjax.get(`top/anime?limit=20`)
 
     return result.data
   }

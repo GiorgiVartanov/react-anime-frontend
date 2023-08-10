@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { createPortal } from "react-dom"
 
 import { useOnClickOutside } from "../../hooks/useOnClickOutside"
@@ -10,6 +10,7 @@ interface Props {
   width?: string | number
   loading?: "lazy" | "eager"
   className?: string
+  [x: string]: any
 }
 
 const Image = ({
@@ -19,6 +20,7 @@ const Image = ({
   width,
   loading = "lazy",
   className,
+  ...rest
 }: Props) => {
   const [isImageOpen, setIsImageOpen] = useState<boolean>(false)
 
@@ -29,6 +31,12 @@ const Image = ({
   const handleCloseFullscreen = () => {
     setIsImageOpen(false)
   }
+
+  useEffect(() => {
+    if (isImageOpen) document.body.classList.add("no-scroll")
+    // page won't be scrollable if image is in open state
+    else document.body.classList.remove("no-scroll") // if user exits it page will become scrollable again
+  }, [isImageOpen])
 
   return (
     <>
@@ -64,6 +72,7 @@ const Image = ({
         loading={loading}
         className={`cursor-pointer transition-all ease-in-out duration-200 hover:opacity-80 ${className}`}
         onClick={handleOpenFullscreen}
+        {...rest}
       />
     </>
   )

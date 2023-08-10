@@ -29,7 +29,8 @@ const Select = ({ selected, options, select, className }: Props) => {
 
   return (
     <select
-      defaultValue={selected || "All"}
+      value={selected || "All"}
+      // defaultValue={selected || "All"}
       onChange={handleSelectSelect}
       className={`flex-1 text-sp-black dark:text-sp-white bg-sp-white hover:opacity-80 dark:bg-sp-gray transition-all ease-in-out duration-200 p-2 ${className}`}
     >
