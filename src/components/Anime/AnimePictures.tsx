@@ -29,20 +29,28 @@ const AnimePictures = ({ animeId }: Props) => {
 
   const images = data.data
 
+  if (images.length === 0) return <></>
+
   return (
-    <Carousel>
-      {images.map((image, index) => (
-        <Image
-          key={image.jpg.image_url}
-          src={image.jpg.large_image_url || image.jpg.image_url}
-          alt={`anime-${index}`}
-          loading="lazy"
-          height="300"
-          width="200"
-          className="shadow-md w-[200px] h-[300px] max-w-[200px] max-h-[300px] mx-auto md:mx-0 flex-1"
-        />
-      ))}
-    </Carousel>
+    <div>
+      <h2 className="text-sp-black dark:text-white mx-auto max-w-7xl mb-1 text-xl">
+        Images
+      </h2>
+      <div className="h-0.5 w-full bg-sp-main mb-1"></div>
+      <Carousel>
+        {images.map((image, index) => (
+          <Image
+            key={image.jpg.image_url}
+            src={image.jpg.large_image_url || image.jpg.image_url}
+            alt={`anime-${index}`}
+            loading="lazy"
+            height="300"
+            width="200"
+            className="shadow-md w-[200px] h-[300px] max-w-[200px] max-h-[300px] mx-auto md:mx-0 flex-1"
+          />
+        ))}
+      </Carousel>
+    </div>
   )
 }
 export default AnimePictures

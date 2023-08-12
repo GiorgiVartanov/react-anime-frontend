@@ -108,14 +108,6 @@ const Search = () => {
     staleTime: 1000000,
   })
 
-  // const hasNextPage = Boolean(
-  //   data &&
-  //     data.pages &&
-  //     data.pages[data.pages.length - 1]?.pagination?.has_next_page
-  // )
-
-  // console.log(isLoading)
-
   // function that renders anime cards
   const renderCardList = () => {
     // is the data is still pending it will render skeleton component
@@ -149,27 +141,20 @@ const Search = () => {
     }
   }
 
-  // Add event listener for scrolling when the component mounts
+  // adds an event listener for scrolling when the component mounts
   useEffect(() => {
     window.addEventListener("scroll", handleScroll)
     return () => {
-      // Remove the event listener when the component unmounts
+      // removes an event listener when the component unmounts
       window.removeEventListener("scroll", handleScroll)
     }
   }, [])
-
-  const handleOnClick = () => {
-    fetchNextPage()
-  }
 
   return (
     <div className="mx-auto max-w-7xl w-full p-2 h-full">
       <SearchComponent />
       {renderCardList()}
-
-      <button onClick={handleOnClick}>
-        {isFetchingNextPage ? "fetching next page" : "fetch more"}
-      </button>
+      {isFetchingNextPage ? <SkeletonAnimeCardList amount={20} /> : ""}
     </div>
   )
 }

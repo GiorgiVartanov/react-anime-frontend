@@ -28,6 +28,11 @@ import AddToFavoritesButton from "../components/Anime/AddToFavoritesButton"
 const Anime = () => {
   const [showFullText, setShowFullText] = useState<boolean>(false)
 
+  const [hasPictures, setHasPictures] = useState<boolean>(true) // if anime has no images
+  const [hasRecommendations, setHasRecommendations] = useState<boolean>(true) // if there are no recommendations
+  const [hasTrailer, setHasTrailer] = useState<boolean>(true) // if it has trailer
+  const [hasCharacters, setHasCharacters] = useState<boolean>(true) // if it has characters (some very unpopular or new shows have empty fields on this value)
+
   const { id, slug } = useParams<{ id: string; slug: string }>()
 
   // function to fetch single anime
@@ -275,34 +280,10 @@ const Anime = () => {
       {id ? (
         <div>
           <div className="mx-auto max-w-7xl w-full p-2 h-full flex flex-col gap-8">
-            <div>
-              <h2 className="text-sp-black dark:text-white mx-auto max-w-7xl mb-1 text-xl">
-                Images
-              </h2>
-              <div className="h-0.5 w-full bg-sp-main mb-1"></div>
-              <AnimePictures animeId={id} />
-            </div>
-            <div>
-              <h2 className="text-sp-black dark:text-white mx-auto max-w-7xl mb-1 text-xl">
-                More anime like this one
-              </h2>
-              <div className="h-0.5 w-full bg-sp-main mb-1"></div>
-              <AnimeRecommendations id={id} />
-            </div>
-            <div>
-              <h2 className="text-sp-black dark:text-white mx-auto max-w-7xl mb-1 text-xl">
-                Trailer
-              </h2>
-              <div className="h-0.5 w-full bg-sp-main mb-1"></div>
-              <AnimeTrailer videoId={trailer.youtube_id} />
-            </div>
-            <div>
-              <h2 className="text-sp-black dark:text-white mx-auto max-w-7xl mb-1 text-xl">
-                Characters & Voice Actors
-              </h2>
-              <div className="h-0.5 w-full bg-sp-main mb-1"></div>
-              <AnimeCharacters id={id} />
-            </div>
+            <AnimePictures animeId={id} />
+            <AnimeRecommendations id={id} />
+            <AnimeTrailer videoId={trailer.youtube_id} />
+            <AnimeCharacters id={id} />
           </div>
           <div className="bg-sp-white dark:bg-sp-gray">
             <div className="mx-auto max-w-7xl w-full p-2 h-full mt-8 pt-8 ">

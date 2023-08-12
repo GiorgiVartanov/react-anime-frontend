@@ -44,8 +44,14 @@ const AnimeRecommendations = ({ id }: Props) => {
   // renders error message if it occurs
   if (error || !data) return <div>An error has occurred</div>
 
+  if (data.data.length <= 0) return <></>
+
   return (
     <div>
+      <h2 className="text-sp-black dark:text-white mx-auto max-w-7xl mb-1 text-xl">
+        More anime like this one
+      </h2>
+      <div className="h-0.5 w-full bg-sp-main mb-1"></div>
       <AnimeCardList
         data={data.data.slice(0, showingMore ? 24 : 12).map((item) => ({
           ...item.entry,

@@ -44,7 +44,7 @@ const Image = ({
         ? createPortal(
             <div
               onClick={handleCloseFullscreen}
-              className="absolute top-0 left-0 z-20 w-full h-full dark:bg-sp-gray bg-sp-white bg-opacity-70 dark:bg-opacity-80"
+              className="fixed top-0 left-0 z-20 w-full h-full dark:bg-sp-gray bg-sp-white bg-opacity-70 dark:bg-opacity-80"
             >
               <div className="w-full h-screen relative">
                 <a

@@ -42,13 +42,19 @@ const AnimeCharacters = ({ id }: Props) => {
 
   if (error || !data) return <div>"An error has occurred"</div>
 
+  if (data.length <= 0) return <></>
+
   let showingItems = 0
 
   if (showingMore) showingItems = 18
   else showingItems = 9
 
   return (
-    <div className="mx-auto max-w-7xl w-full h-full">
+    <div>
+      <h2 className="text-sp-black dark:text-white mx-auto max-w-7xl mb-1 text-xl">
+        Characters & Voice Actors
+      </h2>
+      <div className="h-0.5 w-full bg-sp-main mb-1"></div>
       <CharacterCardList data={data.slice(0, showingItems)} />
       {data.length > 9 ? (
         <div className="flex">

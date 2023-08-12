@@ -49,6 +49,11 @@ export default {
           "0%": { opacity: 0 },
           "100%": { opacity: 1 },
         },
+        slide: {
+          "0%": { transform: "translateY(-10%)", opacity: 0 },
+          "50%": { opacity: 0.3 },
+          "100%": { transform: "translateY(0)", opacity: 1 },
+        },
         shake: {
           "0%, 100%": { transform: "rotate(-5deg)" },
           "50%": { transform: "rotate(5deg)" },
@@ -56,6 +61,7 @@ export default {
       },
       animation: {
         appear: "appear 1s ease-in-out",
+        slide: "slide 0.2s ease-in-out",
         shake: "shake 0.25s ease-in-out",
       },
     },

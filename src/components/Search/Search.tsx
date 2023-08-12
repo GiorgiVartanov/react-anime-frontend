@@ -80,28 +80,24 @@ const Search = () => {
       <div className="my-2 flex gap-6 mx-auto w-fit">
         <button
           onClick={handleFilterMenuOpen}
-          className="opacity-50 flex gap-1"
+          className="text-sp-light hover:opacity-80 transition-all ease-in-out duration-200 flex gap-1"
         >
           <span>filter</span>
           <div className="h-full flex flex-col justify-center">
             <Arrow
               height={18}
               width={18}
-              fill={getAmountOfFilters() > 0 ? "#e91e63" : ""}
+              fill={getAmountOfFilters() > 0 ? "#e91e63" : "#5c6369"}
               className={`transition-all ease-in-out duration-200 ${
                 isFilterMenuOpen ? "-rotate-180" : "rotate-0"
               }`}
             />
           </div>
         </button>
-        {selectedGenres.length > 0 ||
-        sort !== "asc" ||
-        orderBy !== "popularity" ||
-        status !== null ||
-        rating !== null ? (
+        {getAmountOfFilters() > 0 ? (
           <button
             onClick={handleClearFilters}
-            className="hover:opacity-80 transition-all ease-in-out duration-200"
+            className="text-sp-light hover:opacity-80 transition-all ease-in-out duration-200"
           >
             clear filters
           </button>
@@ -112,10 +108,10 @@ const Search = () => {
 
       <div>
         {isFilterMenuOpen && !isLoading && !error ? (
-          <>
+          <div className="animate-slide relative">
             <GenreList genres={genres} />
             <SearchSelectList />
-          </>
+          </div>
         ) : (
           ""
         )}
