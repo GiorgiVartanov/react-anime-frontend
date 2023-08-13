@@ -56,7 +56,7 @@ const AnimeTrailer = ({ videoId }: Props) => {
   if (!isAvailable) return <></>
 
   return (
-    <div>
+    <section>
       <h2 className="text-sp-black dark:text-white mx-auto max-w-7xl mb-1 text-xl">
         Trailer
       </h2>
@@ -71,7 +71,7 @@ const AnimeTrailer = ({ videoId }: Props) => {
           frameBorder="0"
         />
       </div>
-    </div>
+    </section>
   )
 }
 export default AnimeTrailer

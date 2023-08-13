@@ -47,7 +47,7 @@ const AnimeRecommendations = ({ id }: Props) => {
   if (data.data.length <= 0) return <></>
 
   return (
-    <div>
+    <section>
       <h2 className="text-sp-black dark:text-white mx-auto max-w-7xl mb-1 text-xl">
         More anime like this one
       </h2>
@@ -69,7 +69,7 @@ const AnimeRecommendations = ({ id }: Props) => {
       ) : (
         ""
       )}
-    </div>
+    </section>
   )
 }
 export default AnimeRecommendations

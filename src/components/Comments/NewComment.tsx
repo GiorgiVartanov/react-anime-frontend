@@ -54,8 +54,6 @@ const NewComment = () => {
         wasUpdated: false,
       }
 
-      console.log(optimisticallyAddedComment)
-
       await queryClient.cancelQueries(["anime-comments", id])
 
       queryClient.setQueryData(["anime-comments", id], {
@@ -76,8 +74,6 @@ const NewComment = () => {
       const commentToAdd = newComment?.data
 
       await queryClient.cancelQueries(["anime-comments", id])
-
-      console.log(commentToAdd)
 
       queryClient.setQueryData(["anime-comments", id], {
         data: [commentToAdd, ...previousComments],

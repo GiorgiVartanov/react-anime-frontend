@@ -32,7 +32,7 @@ const AnimePictures = ({ animeId }: Props) => {
   if (images.length === 0) return <></>
 
   return (
-    <div>
+    <section>
       <h2 className="text-sp-black dark:text-white mx-auto max-w-7xl mb-1 text-xl">
         Images
       </h2>
@@ -50,7 +50,7 @@ const AnimePictures = ({ animeId }: Props) => {
           />
         ))}
       </Carousel>
-    </div>
+    </section>
   )
 }
 export default AnimePictures

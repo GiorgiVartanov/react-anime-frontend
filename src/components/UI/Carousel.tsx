@@ -138,11 +138,6 @@ const Carousel = ({ children, intervalDuration = 5000, className }: Props) => {
       onMouseLeave={handleMouseLeave}
       className={`relative ${className}`}
     >
-      <h2>
-        {isCursorOnComponent
-          ? "cursor is on the component"
-          : "cursor is not on the component"}
-      </h2>
       <div
         ref={carouselRef}
         onTouchStart={handleTouchStart}

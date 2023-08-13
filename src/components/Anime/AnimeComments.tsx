@@ -79,7 +79,7 @@ const AnimeComments = ({ id }: Props) => {
   const showPerPage = 8
 
   return (
-    <div>
+    <section>
       <CommentList
         comments={data.data}
         showPerPage={showPerPage}
@@ -97,7 +97,7 @@ const AnimeComments = ({ id }: Props) => {
       ) : (
         ""
       )} */}
-    </div>
+    </section>
   )
 }
 export default AnimeComments

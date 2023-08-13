@@ -158,9 +158,6 @@ const Comment = ({ comment, token, isLoggedIn, animeId }: Props) => {
           className="w-fit hover:opacity-90 transition-all ease-in-out duration-200 shadow-sm flex gap-2"
         >
           <UserIcon username={author} />
-          <p className="leading-8 ml-0.5 text-sp-black dark:text-sp-white">
-            {author}
-          </p>
         </Link>
         <p className="text-sm opacity-25 leading-8">{posted}</p>
       </div>

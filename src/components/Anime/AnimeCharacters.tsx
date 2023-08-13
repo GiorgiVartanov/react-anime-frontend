@@ -50,7 +50,7 @@ const AnimeCharacters = ({ id }: Props) => {
   else showingItems = 9
 
   return (
-    <div>
+    <section>
       <h2 className="text-sp-black dark:text-white mx-auto max-w-7xl mb-1 text-xl">
         Characters & Voice Actors
       </h2>
@@ -68,7 +68,7 @@ const AnimeCharacters = ({ id }: Props) => {
       ) : (
         ""
       )}
-    </div>
+    </section>
   )
 }
 export default AnimeCharacters
