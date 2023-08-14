@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { useParams } from "react-router-dom"
 import backendAjax from "../service/backendAjax"
+import { motion } from "framer-motion"
 
 import { useAuthStore } from "../store/authStore"
 import { useDocumentTitle } from "../hooks/useDocumentTitle"
@@ -18,7 +19,28 @@ const Profile = () => {
 
   const [username] = useAuthStore((state) => [state.username])
 
-  const fetchFriends = async (): Promise<FriendsResponseType> => {
+  // function to fetch logged in user's friend list
+  const fetchUsersFriends = async (): Promise<FriendsResponseType | null> => {
+    if (!username) return null
+
+    const response = await backendAjax.get(`/user/${username}/friends`)
+    const data = response.data
+    return data
+  }
+
+  // fetches logged in user's friends list
+  const {
+    data: usersFriendsData,
+    isLoading: usersFriendsDataIsLoading,
+    error: usersDataError,
+  } = useQuery({
+    queryKey: ["friends", username],
+    queryFn: fetchUsersFriends,
+    staleTime: 1000000,
+  })
+
+  // function to fetch page owner's friends list
+  const fetchPageOwnersFriends = async (): Promise<FriendsResponseType> => {
     const response = await backendAjax.get(
       `/user/${pageOwnersUsername}/friends`
     )
@@ -26,13 +48,14 @@ const Profile = () => {
     return data
   }
 
+  // fetches page owner's friend list
   const {
-    data: friends_data,
-    isLoading: friends_isLoading,
-    error: friends_error,
+    data: ownersFriendsData,
+    isLoading: ownersFriendsDataIsLoading,
+    error: ownersFriendsDataError,
   } = useQuery({
     queryKey: ["friends", pageOwnersUsername],
-    queryFn: fetchFriends,
+    queryFn: fetchPageOwnersFriends,
     staleTime: 1000000,
   })
 
@@ -53,7 +76,8 @@ const Profile = () => {
   useDocumentTitle(pageOwnersUsername || "aniPage")
 
   // it will show loading while data is fetching
-  if (isLoading || friends_isLoading) return <div>Loading...</div>
+  if (isLoading || ownersFriendsDataIsLoading || usersFriendsDataIsLoading)
+    return <div>Loading...</div>
 
   if (!pageOwnersUsername || !data || !data.data || error)
     return <div>Something went wrong...</div>
@@ -61,13 +85,21 @@ const Profile = () => {
   const { createdAt, favoriteAnimeIds } = data.data
 
   return (
-    <div className="mx-auto max-w-7xl w-full p-2 h-full">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="mx-auto max-w-7xl w-full p-2 h-full"
+    >
       <div className="flex justify-center mt-5 gap-4">
         <div className="flex gap-2 text-center items-center justify-center">
           <UserIcon username={pageOwnersUsername} />
         </div>
-        {username !== pageOwnersUsername && friends_data?.data !== undefined ? (
-          friends_data.data.includes(pageOwnersUsername) ? (
+        {username !== pageOwnersUsername &&
+        usersFriendsData?.data !== undefined &&
+        username &&
+        !usersDataError ? (
+          usersFriendsData?.data.includes(pageOwnersUsername) ? (
             <RemoveFriendButton username={pageOwnersUsername} />
           ) : (
             <AddFriendButton username={pageOwnersUsername} />
@@ -81,8 +113,10 @@ const Profile = () => {
         this user has registered {createdAt}
       </p>
       <div className="my-3">
-        {!friends_isLoading && !friends_error && friends_data?.data ? (
-          <FriendList friends={friends_data?.data || []} />
+        {!ownersFriendsDataIsLoading &&
+        !ownersFriendsDataError &&
+        ownersFriendsData?.data ? (
+          <FriendList friends={ownersFriendsData?.data || []} />
         ) : (
           ""
         )}
@@ -99,7 +133,7 @@ const Profile = () => {
           // </div>
           favoriteAnimeIds.map((id) => <div key={id}>{id}</div>)
         : ""}
-    </div>
+    </motion.div>
   )
 }
 export default Profile

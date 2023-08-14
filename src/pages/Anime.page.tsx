@@ -2,20 +2,17 @@ import { NavLink, Outlet, useParams } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query"
 import { useState, useEffect } from "react"
 import { Routes, Route } from "react-router-dom"
-import axios from "axios"
 import apiAjax from "../service/APIAjax"
 import backendAjax from "../service/backendAjax"
+import { motion } from "framer-motion"
 
 import { FullAnimeType } from "../types/anime.types"
 
 import { useDocumentTitle } from "../hooks/useDocumentTitle"
 
-import NavigationLink from "../components/Navigation/NavigationLink"
-import SkeletonAnimeCardList from "../components/Anime/Skeleton/SkeletonAnimeCardList"
 import AnimeRecommendationCardList from "../components/Anime/AnimeRecommendationCardList"
 import GenreList from "../components/Search/GenreList"
-import SkeletonAnimePage from "../components/Skeletons/SkeletonAnimePage"
-
+import NavigationLink from "../components/Navigation/NavigationLink"
 import AnimePictures from "../components/Anime/AnimePictures"
 import Image from "../components/UI/Image"
 import AnimeTrailer from "../components/Anime/AnimeTrailer"
@@ -52,7 +49,7 @@ const Anime = () => {
   // changes page's title
   useDocumentTitle(slug || "aniPage")
 
-  if (isLoading) return <SkeletonAnimePage />
+  if (isLoading) return <></>
 
   if (error || !data) return <div>An error has occurred</div>
 
@@ -263,7 +260,11 @@ const Anime = () => {
   }
 
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <div className="relative shadow-sm">
         <div
           style={{
@@ -294,7 +295,7 @@ const Anime = () => {
       ) : (
         ""
       )}
-    </div>
+    </motion.div>
   )
 }
 

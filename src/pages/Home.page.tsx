@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query"
 import { Link } from "react-router-dom"
 import apiAjax from "../service/APIAjax"
 import { useNavigate } from "react-router-dom"
+import { motion } from "framer-motion"
 
 import { AnimeResponse } from "../types/anime.types"
 
@@ -9,8 +10,8 @@ import { useSearchStore } from "../store/searchStore"
 
 import AnimeCardList from "../components/Anime/AnimeCardList"
 import AnimeCardCarousel from "../components/Anime/AnimeCardCarousel"
-import SkeletonAnimeCardList from "../components/Anime/Skeleton/SkeletonAnimeCardList"
-import SkeletonAnimeCardCarousel from "../components/Anime/Skeleton/SkeletonAnimeCardCarousel"
+// import SkeletonAnimeCardList from "../components/Anime/Skeleton/SkeletonAnimeCardList"
+// import SkeletonAnimeCardCarousel from "../components/Anime/Skeleton/SkeletonAnimeCardCarousel"
 
 const baseURL = import.meta.env.VITE_API_URL
 
@@ -43,11 +44,13 @@ const Home = () => {
 
   const renderSeasonalAnime = () => {
     // is the data is still pending it will render skeleton component
-    if (isLoading_SeasonalAnime) return <SkeletonAnimeCardCarousel />
+    if (isLoading_SeasonalAnime) return <></>
 
     // it will show error message if there is an error
-    if (error_SeasonalAnime || !data_SeasonalAnime)
+    if (error_SeasonalAnime || !data_SeasonalAnime) {
+      console.log(error_SeasonalAnime)
       return <div>something went wrong</div>
+    }
 
     return <AnimeCardCarousel data={data_SeasonalAnime.data} />
   }
@@ -70,10 +73,13 @@ const Home = () => {
 
   const renderTopAnime = () => {
     // is the data is still pending it will render skeleton component
-    if (isLoading_TopAnime) return <SkeletonAnimeCardCarousel />
+    if (isLoading_TopAnime) return <></>
 
     // it will show error message if there is an error
-    if (error_TopAnime || !data_TopAnime) return <div>something went wrong</div>
+    if (error_TopAnime || !data_TopAnime) {
+      console.log(error_TopAnime)
+      return <div>something went wrong</div>
+    }
 
     return <AnimeCardCarousel data={data_TopAnime.data} />
   }
@@ -92,8 +98,15 @@ const Home = () => {
     navigate("/search")
   }
 
+  if (isLoading_TopAnime || isLoading_SeasonalAnime) return <></>
+
   return (
-    <div className="w-full p-2 h-full gap-6 flex flex-col">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="w-full p-2 h-full gap-6 flex flex-col"
+    >
       <div>
         <h2 className="text-sp-black dark:text-white mx-auto max-w-7xl mb-1 text-xl">
           Popular this season
@@ -120,7 +133,7 @@ const Home = () => {
         <div className="h-0.5 w-full bg-sp-main mb-1"></div>
         {renderTopAnime()}
       </div>
-    </div>
+    </motion.div>
   )
 }
 export default Home

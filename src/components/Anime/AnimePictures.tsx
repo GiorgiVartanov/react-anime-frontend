@@ -45,8 +45,8 @@ const AnimePictures = ({ animeId }: Props) => {
             alt={`anime-${index}`}
             loading="lazy"
             height="300"
-            width="200"
-            className="shadow-md w-[200px] h-[300px] max-w-[200px] max-h-[300px] mx-auto md:mx-0 flex-1"
+            // width="200"
+            className="shadow-md w-auto h-[300px] mx-auto md:mx-0 flex-1"
           />
         ))}
       </Carousel>

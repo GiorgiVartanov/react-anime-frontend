@@ -53,9 +53,11 @@ const AnimeRecommendations = ({ id }: Props) => {
       </h2>
       <div className="h-0.5 w-full bg-sp-main mb-1"></div>
       <AnimeCardList
-        data={data.data.slice(0, showingMore ? 24 : 12).map((item) => ({
-          ...item.entry,
-        }))}
+        data={[
+          data.data.slice(0, showingMore ? 24 : 12).map((item) => ({
+            ...item.entry,
+          })),
+        ]}
       />
       {data.data.length > 12 ? (
         <div className="flex">

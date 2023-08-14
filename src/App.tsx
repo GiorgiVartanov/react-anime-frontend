@@ -1,7 +1,8 @@
-import { Routes, Route, Link } from "react-router-dom"
+import { Routes, Route, Link, useLocation } from "react-router-dom"
 import { useEffect } from "react"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+import { AnimatePresence } from "framer-motion"
 
 import { useAuthStore } from "./store/authStore"
 import { useSettingsStore } from "./store/settingsStore"
@@ -20,6 +21,8 @@ import Character from "./pages/Character.page"
 import PageNotFound from "./pages/PageNotFound.page"
 
 function App() {
+  const location = useLocation()
+
   const [hasSessionExpired] = useAuthStore((state) => [state.hasSessionExpired])
   const [theme, toggleDarkMode] = useSettingsStore((state) => [
     state.theme,
@@ -46,44 +49,49 @@ function App() {
     <div className="bg-white dark:bg-sp-black dark:text-sp-white text-sp-black min-h-screen flex flex-col">
       <Header pages={[]} />
       <div className="h-full flex-1 flex flex-col">
-        <Routes>
-          <Route
-            path="/"
-            element={<Home />}
-          />
-          <Route
-            path="/search"
-            element={<Search />}
-          />
-          <Route
-            path="/login"
-            element={<Login />}
-          />
-          <Route
-            path="/register"
-            element={<Register />}
-          />
-          <Route
-            path="/profile/:username"
-            element={<Profile />}
-          />
-          <Route
-            path="/stuff/:id"
-            element={<Stuff />}
-          />
-          <Route
-            path="/character/:id"
-            element={<Character />}
-          />
-          <Route
-            path="/anime/:id"
-            element={<Anime />}
-          />
-          <Route
-            path="/*"
-            element={<PageNotFound />}
-          />
-        </Routes>
+        <AnimatePresence>
+          <Routes
+            location={location}
+            key={location.pathname}
+          >
+            <Route
+              path="/"
+              element={<Home />}
+            />
+            <Route
+              path="/search"
+              element={<Search />}
+            />
+            <Route
+              path="/login"
+              element={<Login />}
+            />
+            <Route
+              path="/register"
+              element={<Register />}
+            />
+            <Route
+              path="/profile/:username"
+              element={<Profile />}
+            />
+            <Route
+              path="/stuff/:id"
+              element={<Stuff />}
+            />
+            <Route
+              path="/character/:id"
+              element={<Character />}
+            />
+            <Route
+              path="/anime/:id"
+              element={<Anime />}
+            />
+            <Route
+              path="/*"
+              element={<PageNotFound />}
+            />
+          </Routes>
+        </AnimatePresence>
       </div>
       <Footer />
       <ToastContainer

@@ -3,8 +3,6 @@ import { NavLink } from "react-router-dom"
 interface Props {
   to: string
   className?: string
-  activeClassNames?: string
-  inActiveClassNames?: string
   children: React.ReactNode
   [x: string]: any
 }
@@ -22,7 +20,7 @@ const NavigationLink = ({
     <NavLink
       to={to}
       className={({ isActive }) =>
-        `px-1 py-1 transition-all ease-in-out duration-200 active:opacity-50 hover:opacity-50 ${className} ${
+        `px-1 py-1 transition-all ease-in-out duration-200 ${className} ${
           isActive ? activeClassNames : inActiveClassNames
         }`
       }

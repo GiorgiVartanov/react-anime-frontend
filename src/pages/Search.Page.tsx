@@ -1,6 +1,7 @@
 import { useQuery, useInfiniteQuery } from "@tanstack/react-query"
 import axios from "axios"
 import { useEffect } from "react"
+import { motion } from "framer-motion"
 
 import { useSearchStore } from "../store/searchStore"
 
@@ -111,12 +112,12 @@ const Search = () => {
   // function that renders anime cards
   const renderCardList = () => {
     // is the data is still pending it will render skeleton component
-    if (isLoading) return <SkeletonAnimeCardList amount={20} />
+    if (isLoading) return <></>
 
     // it will show error message if there is an error
     if (error || !data) return <div>something went wrong</div>
 
-    const allData = data.pages.flatMap((item) => item.data)
+    const allData = data.pages.map((item) => item.data)
 
     return <AnimeCardList data={allData} />
   }
@@ -151,11 +152,16 @@ const Search = () => {
   }, [])
 
   return (
-    <div className="mx-auto max-w-7xl w-full p-2 h-full">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="mx-auto max-w-7xl w-full p-2 h-full"
+    >
       <SearchComponent />
       {renderCardList()}
-      {isFetchingNextPage ? <SkeletonAnimeCardList amount={20} /> : ""}
-    </div>
+      {/* {isFetchingNextPage ? <SkeletonAnimeCardList amount={20} /> : ""} */}
+    </motion.div>
   )
 }
 

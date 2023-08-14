@@ -1,3 +1,5 @@
+import { motion } from "framer-motion"
+
 interface Props {
   onClick: (event: React.MouseEvent<HTMLElement>) => void
   className?: string
@@ -6,12 +8,15 @@ interface Props {
 
 const Button = ({ onClick, className, children }: Props) => {
   return (
-    <button
+    <motion.button
+      initial={{ opacity: 1 }}
+      whileHover={{ opacity: 0.65 }}
+      whileTap={{ scale: 0.9 }}
       onClick={onClick}
-      className={`block bg-sp-main px-1 py-1 transition-all ease-in-out duration-200 hover:opacity-80 active:opacity-80 ${className}`}
+      className={`block bg-sp-main px-1 py-1 transition-all ease-in-out duration-200 ${className}`}
     >
       {children}
-    </button>
+    </motion.button>
   )
 }
 export default Button

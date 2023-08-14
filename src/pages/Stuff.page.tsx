@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom"
 import apiAjax from "../service/APIAjax"
 import { useQuery } from "@tanstack/react-query"
+import { motion } from "framer-motion"
 
 import { StuffType, VoiceType } from "../types/stuff.types"
 import { CharacterDetails } from "../types/character.types"
@@ -68,7 +69,11 @@ const Stuff = () => {
   // console.log(voices[0]?.anime?.images.jpg)
 
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <div className="relative shadow-sm pt-5">
         <div
           style={{
@@ -107,7 +112,7 @@ const Stuff = () => {
           showSelect={false}
         />
       </div>
-    </div>
+    </motion.div>
   )
 }
 export default Stuff

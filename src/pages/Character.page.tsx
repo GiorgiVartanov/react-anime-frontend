@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query"
 import apiAjax from "../service/APIAjax"
+import { motion } from "framer-motion"
 
 import { FullCharacterType } from "../types/character.types"
 import { AnimeType } from "../types/anime.types"
@@ -37,7 +38,11 @@ const Character = () => {
   const animeData = anime.map((item) => item.anime)
 
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <div className="relative shadow-sm pt-5">
         <div
           style={{
@@ -74,7 +79,7 @@ const Character = () => {
       <div className="mx-auto max-w-7xl w-full p-2 h-full">
         <AnimeCardList data={animeData} />
       </div>
-    </div>
+    </motion.div>
   )
 }
 export default Character

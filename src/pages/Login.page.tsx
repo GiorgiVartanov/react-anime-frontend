@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { useNavigate, Link } from "react-router-dom"
+import { motion } from "framer-motion"
 
 import {
   LoginCredentialsType,
@@ -82,7 +83,12 @@ const Login = () => {
   }, [isLoggedIn, navigate])
 
   return (
-    <div className="h-full grid place-content-center mt-80 mx-auto max-w-7xl w-full p-2">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="h-full grid place-content-center mt-80 mx-auto max-w-7xl w-full p-2"
+    >
       <Form onSubmit={handleSubmit}>
         <Input
           name="email"
@@ -110,7 +116,7 @@ const Login = () => {
           don't have account yet? register
         </Link>
       </Form>
-    </div>
+    </motion.div>
   )
 }
 export default Login

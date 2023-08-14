@@ -1,3 +1,5 @@
+import { motion } from "framer-motion"
+
 import { useSettingsStore } from "../../store/settingsStore"
 
 import { ReactComponent as Sun } from "../../assets/icons/sun-solid.svg"
@@ -14,9 +16,12 @@ const DarkModeToggle = ({ className }: Props) => {
   ])
 
   return (
-    <button
+    <motion.button
+      initial={{ opacity: 1 }}
+      whileHover={{ opacity: 0.65 }}
+      whileTap={{ scale: 0.9 }}
       onClick={toggleDarkMode}
-      className={`mx-2.5 w-16 p-1 rounded-full dark:bg-sp-white bg-sp-black ${className}`}
+      className={`w-16 p-1 rounded-full dark:bg-sp-white bg-sp-black ${className}`}
     >
       <div
         className={`transform-all ease-in-out duration-200 ${
@@ -39,7 +44,7 @@ const DarkModeToggle = ({ className }: Props) => {
           />
         )}
       </div>
-    </button>
+    </motion.button>
   )
 }
 export default DarkModeToggle
