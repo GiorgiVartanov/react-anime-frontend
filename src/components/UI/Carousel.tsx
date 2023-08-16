@@ -1,4 +1,18 @@
 import { useEffect, useState, useRef } from "react"
+import { motion } from "framer-motion"
+
+import Button from "./Button"
+
+const container = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      delayChildren: 0.2,
+      staggerChildren: 0.1,
+    },
+  },
+}
 
 interface Props {
   children: React.ReactNode[]
@@ -11,7 +25,7 @@ interface Props {
 // scrolls by itself to the right once in a 5 seconds (if different intervalDuration was not passed)
 // on mobile can be scrolled by swipe, after swipe ends it will round position to the multiplier of child
 const Carousel = ({ children, intervalDuration = 5000, className }: Props) => {
-  const carouselRef = useRef<HTMLDivElement>(null) // ref that will store carousel, parent of content that is scrolled
+  const carouselRef = useRef<HTMLUListElement>(null) // ref that will store carousel, parent of content that is scrolled
 
   const [isCursorOnComponent, setIsCursorOnComponent] = useState<boolean>(false)
   const [isOnPause, setIsOnPause] = useState<boolean>(false)
@@ -69,11 +83,11 @@ const Carousel = ({ children, intervalDuration = 5000, className }: Props) => {
   // tracks touch interactions
   let touchStartX = 0
 
-  const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
+  const handleTouchStart = (event: React.TouchEvent<HTMLUListElement>) => {
     touchStartX = event.touches[0].clientX
   }
 
-  const handleTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
+  const handleTouchMove = (event: React.TouchEvent<HTMLUListElement>) => {
     if (
       carouselRef?.current?.scrollLeft === undefined ||
       carouselRef?.current?.scrollLeft === null
@@ -120,17 +134,17 @@ const Carousel = ({ children, intervalDuration = 5000, className }: Props) => {
   }
 
   // auto scrolls when user's cursor is not on carousel and they have not clicked move left or move right buttons in the past 5 seconds
-  useEffect(() => {
-    if (isOnPause || isCursorOnComponent) return
+  // useEffect(() => {
+  //   if (isOnPause || isCursorOnComponent) return
 
-    const interval = setInterval(() => {
-      handleScroll("right")
-    }, intervalDuration)
+  //   const interval = setInterval(() => {
+  //     handleScroll("right")
+  //   }, intervalDuration)
 
-    return () => {
-      clearInterval(interval)
-    } // cleans up the interval when component unmounts
-  }, [isOnPause, isCursorOnComponent])
+  //   return () => {
+  //     clearInterval(interval)
+  //   } // cleans up the interval when component unmounts
+  // }, [isOnPause, isCursorOnComponent])
 
   return (
     <div
@@ -138,34 +152,47 @@ const Carousel = ({ children, intervalDuration = 5000, className }: Props) => {
       onMouseLeave={handleMouseLeave}
       className={`relative ${className}`}
     >
-      <div
+      <motion.ul
         ref={carouselRef}
+        variants={container}
+        initial="hidden"
+        animate="visible"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
         className="flex gap-2 overflow-x-hidden"
       >
         {children}
-      </div>
+      </motion.ul>
       {carouselRef?.current?.scrollWidth !==
-      carouselRef?.current?.clientWidth ? (
+        carouselRef?.current?.clientWidth ||
+      carouselRef?.current?.scrollWidth === undefined ||
+      carouselRef?.current?.clientWidth === undefined ? (
         <>
-          <button
+          <motion.button
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.6 }}
+            whileHover={{ opacity: 0.8 }}
+            whileTap={{ scale: 0.9 }}
             onClick={() => {
               handleScroll("left")
             }}
             className="px-5 py-3 rounded-full opacity-60 hover:opacity-80 transition-all ease-in-out duration-200 font-bold dark:text-white dark:bg-sp-gray bg-sp-white text-sp-black absolute top-1/2 left-2 shadow-sm hover:shadow:md"
           >
             {"<"}
-          </button>
-          <button
+          </motion.button>
+          <motion.button
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.6 }}
+            whileHover={{ opacity: 0.8 }}
+            whileTap={{ scale: 0.9 }}
             onClick={() => {
               handleScroll("right")
             }}
             className="px-5 py-3 rounded-full opacity-60 hover:opacity-80 transition-all ease-in-out duration-200 dark:bg-sp-gray dark:text-white font-bold bg-sp-white text-sp-black absolute top-1/2 right-2 shadow-sm hover:shadow:md"
           >
             {">"}
-          </button>{" "}
+          </motion.button>{" "}
         </>
       ) : (
         ""

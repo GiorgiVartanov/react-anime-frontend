@@ -13,6 +13,7 @@ import AnimeCardList from "../components/Anime/AnimeCardList"
 import FriendList from "../components/Person/FriendList"
 import AddFriendButton from "../components/Person/AddFriendButton"
 import RemoveFriendButton from "../components/Person/RemoveFriendButton"
+import Loading from "../components/UI/Loading"
 
 const Profile = () => {
   const { username: pageOwnersUsername } = useParams()
@@ -77,10 +78,9 @@ const Profile = () => {
 
   // it will show loading while data is fetching
   if (isLoading || ownersFriendsDataIsLoading || usersFriendsDataIsLoading)
-    return <div>Loading...</div>
+    return <Loading />
 
-  if (!pageOwnersUsername || !data || !data.data || error)
-    return <div>Something went wrong...</div>
+  if (!pageOwnersUsername || !data || !data.data || error) return <></>
 
   const { createdAt, favoriteAnimeIds } = data.data
 
@@ -121,7 +121,6 @@ const Profile = () => {
           ""
         )}
       </div>
-
       {favoriteAnimeIds.length !== 0
         ? // <div className="mt-8">
           //   <h2>

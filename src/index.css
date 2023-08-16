@@ -15,6 +15,49 @@
   }
 }
 
+/* firefox light mode scrollbar */
+html {
+  scrollbar-color: #1e2125 #e6eaee;
+  scrollbar-width: thin;
+}
+
+/* firefox dark mode scrollbar */
+html.dark {
+  scrollbar-color: #e6eaee #1e2125;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* other browser's light mode scrollbar background */
+::-webkit-scrollbar-track {
+  background-color: #e6eaee;
+}
+
+/* other browser's dark mode scrollbar background */
+.dark ::-webkit-scrollbar-track {
+  background-color: #1e2125;
+}
+
+/* other browser's light mode scrollbar */
+::-webkit-scrollbar-thumb {
+  background-color: #121212;
+}
+
+/* other browser's dark mode scrollbar */
+.dark ::-webkit-scrollbar-thumb {
+  background-color: #e6eaee;
+}
+
+/* ::-webkit-scrollbar-thumb:hover {
+  background-color: #c8d0d6;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background-color: #c8d0d6;
+} */
+
 :root {
   --toastify-color-light: #fff;
   --toastify-color-dark: #121212;

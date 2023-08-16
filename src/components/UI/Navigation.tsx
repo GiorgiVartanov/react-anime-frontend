@@ -22,7 +22,7 @@ const dropdownMenu = {
     y: 0,
     transition: {
       delayChildren: 0.1,
-      staggerChildren: 0.1,
+      staggerChildren: 0.05,
       staggerDirection: -1,
     },
   },
@@ -136,14 +136,12 @@ const Navigation = () => {
             width={32}
             height={32}
             fill={"#e91e63"}
-            className="animate-shake"
           />
         ) : (
           <HamburgerMenu
             width={32}
             height={32}
             fill={"#e91e63"}
-            className="animate-shake"
           />
         )}
       </Button>
@@ -152,10 +150,11 @@ const Navigation = () => {
         animate={
           isHamburgerMenuOpen || screenWidth > 640 ? "visible" : "hidden"
         }
+        exit="hidden"
         variants={dropdownMenu}
         className={`sm:flex h-fit gap-4 ${
           isHamburgerMenuOpen
-            ? "flex flex-col sm:flex-row gap-2 sm:gap-1 absolute sm:static left-0 top-[50px] dark:bg-sp-gray bg-sp-white w-full sm:w-auto text-center sm:text-left pt-1 -mt-1 sm:mt-0 sm:pt-0 pb-3 sm:pb-0 shadow-xl sm:shadow-none "
+            ? "flex flex-col sm:flex-row gap-2 sm:gap-1 absolute sm:static left-0 top-[50px] dark:bg-sp-gray bg-sp-white w-full sm:w-auto text-center sm:text-left pt-1 -mt-1 sm:mt-0 sm:pt-0 pb-3 sm:pb-0 shadow-xl sm:shadow-none px-4"
             : "hidden"
         }`}
       >

@@ -1,7 +1,15 @@
 import { useState, useEffect } from "react"
 import { createPortal } from "react-dom"
+import { motion } from "framer-motion"
 
 import { useOnClickOutside } from "../../hooks/useOnClickOutside"
+
+const item = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+  },
+}
 
 interface Props {
   src: string
@@ -64,13 +72,17 @@ const Image = ({
             document.body
           )
         : ""}
-      <img
+      <motion.img
+        variants={item}
+        // initial={{ opacity: 1 }}
+        animate={{ opacity: 1 }}
+        whileHover={{ opacity: 0.8 }}
         src={src}
         alt={alt}
         height={height}
         width={width}
         loading={loading}
-        className={`cursor-pointer transition-all ease-in-out duration-200 hover:opacity-80 object-cover ${className}`}
+        className={`cursor-pointer object-cover ${className}`}
         onClick={handleOpenFullscreen}
         {...rest}
       />

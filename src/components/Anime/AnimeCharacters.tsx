@@ -33,12 +33,7 @@ const AnimeCharacters = ({ id }: Props) => {
     setShowingMore((prevState) => !prevState)
   }
 
-  if (isLoading)
-    return (
-      <div className="mx-auto max-w-7xl w-full h-full">
-        <SkeletonCharacterCardList amount={9} />
-      </div>
-    )
+  if (isLoading) return <></>
 
   if (error || !data) return <div>"An error has occurred"</div>
 

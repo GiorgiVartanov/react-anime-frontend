@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { useQuery } from "@tanstack/react-query"
-import axios from "axios"
+import { motion } from "framer-motion"
 
 import { useSearchStore } from "../../store/searchStore"
 import ajax from "../../service/backendAjax"
@@ -78,22 +78,28 @@ const Search = () => {
         handleTextChange={changeText}
       />
       <div className="my-2 flex gap-6 mx-auto w-fit">
-        <button
+        <motion.button
+          initial={{ opacity: 1 }}
+          whileHover={{ opacity: 0.8 }}
+          whileTap={{ scale: 0.95 }}
           onClick={handleFilterMenuOpen}
-          className="text-sp-light hover:opacity-80 transition-all ease-in-out duration-200 flex gap-1"
+          className="text-sp-light flex gap-1"
         >
           <span>filter</span>
-          <div className="h-full flex flex-col justify-center">
+          <motion.div
+            animate={{ rotateZ: `${isFilterMenuOpen ? "-180deg" : "0deg"}` }}
+            className="h-full flex flex-col justify-center"
+          >
             <Arrow
               height={18}
               width={18}
               fill={getAmountOfFilters() > 0 ? "#e91e63" : "#5c6369"}
-              className={`transition-all ease-in-out duration-200 ${
-                isFilterMenuOpen ? "-rotate-180" : "rotate-0"
-              }`}
+              // className={`transition-all ease-in-out duration-200 ${
+              //   isFilterMenuOpen ? "-rotate-180" : "rotate-0"
+              // }`}
             />
-          </div>
-        </button>
+          </motion.div>
+        </motion.button>
         {getAmountOfFilters() > 0 ? (
           <button
             onClick={handleClearFilters}
@@ -108,10 +114,14 @@ const Search = () => {
 
       <div>
         {isFilterMenuOpen && !isLoading && !error ? (
-          <div className="animate-slide relative">
+          <motion.div
+            initial={{ opacity: 0, y: "-10%" }}
+            animate={{ opacity: 1, y: 0 }}
+            className="relative"
+          >
             <GenreList genres={genres} />
             <SearchSelectList />
-          </div>
+          </motion.div>
         ) : (
           ""
         )}

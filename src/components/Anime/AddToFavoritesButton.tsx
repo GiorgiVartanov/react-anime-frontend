@@ -86,8 +86,8 @@ const AddToFavoritesButton = ({ animeId, className }: Props) => {
         // toast.success("successfully marked anime as favorite")
       }
     },
-    onSettled: async (a) => {
-      console.log(a)
+    onSettled: async (res) => {
+      console.log(res)
     },
   })
 
@@ -100,14 +100,16 @@ const AddToFavoritesButton = ({ animeId, className }: Props) => {
     mutation.mutate()
   }
 
-  if (isLoading) return <div>loading...</div>
+  // if (isLoading) return <div>loading...</div>
 
-  if (error || !data) return <div>something went wrong</div>
+  // if (error || !data) return <div>something went wrong</div>
 
   return (
     <Button
       onClick={handleAddToFavorites}
-      className={`font-semibold ${className}`}
+      className={`font-semibold ${
+        data?.data?.favoriteAnimeIds?.includes(animeId) ? "bg-opacity-50" : ""
+      } ${className}`}
     >
       {data?.data?.favoriteAnimeIds?.includes(animeId)
         ? "remove from favorites"

@@ -21,6 +21,7 @@ import AnimeCharacters from "../components/Anime/AnimeCharacters"
 import AnimeComments from "../components/Anime/AnimeComments"
 import Button from "../components/UI/Button"
 import AddToFavoritesButton from "../components/Anime/AddToFavoritesButton"
+import Loading from "../components/UI/Loading"
 
 const Anime = () => {
   const [showFullText, setShowFullText] = useState<boolean>(false)
@@ -49,7 +50,7 @@ const Anime = () => {
   // changes page's title
   useDocumentTitle(slug || "aniPage")
 
-  if (isLoading) return <></>
+  if (isLoading) return <Loading />
 
   if (error || !data) return <div>An error has occurred</div>
 
@@ -228,9 +229,9 @@ const Anime = () => {
         src={images.jpg.large_image_url || images.jpg.image_url}
         alt={title}
         loading="eager"
-        height="300"
-        width="200"
-        className="shadow-md w-[200px] h-[300px] mx-auto min-w-[200px] md:mx-0"
+        // height="300"
+        // width="200"
+        className="shadow-md mx-auto md:mx-0 md:w-[200px] md:h-[300px] md:min-w-[200px]"
       />
     )
   }
@@ -240,7 +241,7 @@ const Anime = () => {
     return (
       <div className="flex lg:flex-row flex-col gap-4 justify-between text-sm">
         <div className="flex md:flex-row mx-auto lg:mx-0 flex-col relative z-20 gap-4 justify-between py-12">
-          <div className="w-[200px] mx-auto min-w-[200px] md:mx-0">
+          <div className="md:w-[200px] mx-auto md:min-w-[200px] md:mx-0">
             {renderImage()}
             <AddToFavoritesButton
               animeId={id || ""}
@@ -264,6 +265,7 @@ const Anime = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
+      // transition={{ duration: 0.5 }}
     >
       <div className="relative shadow-sm">
         <div

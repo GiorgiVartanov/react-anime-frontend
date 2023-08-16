@@ -2,6 +2,8 @@ import { motion } from "framer-motion"
 
 import { useSettingsStore } from "../../store/settingsStore"
 
+import sun from "../../assets/icons/sun-solid.svg"
+import moon from "../../assets/icons/moon-solid.svg"
 import { ReactComponent as Sun } from "../../assets/icons/sun-solid.svg"
 import { ReactComponent as Moon } from "../../assets/icons/moon-solid.svg"
 
@@ -23,11 +25,7 @@ const DarkModeToggle = ({ className }: Props) => {
       onClick={toggleDarkMode}
       className={`w-16 p-1 rounded-full dark:bg-sp-white bg-sp-black ${className}`}
     >
-      <div
-        className={`transform-all ease-in-out duration-200 ${
-          theme === "dark" ? "px-0" : "px-7"
-        }`}
-      >
+      <motion.div animate={{ x: `${theme === "dark" ? "0" : "1.8rem"}` }}>
         {theme === "dark" ? (
           <Moon
             fill="rgb(18, 18, 18)"
@@ -43,7 +41,7 @@ const DarkModeToggle = ({ className }: Props) => {
             className="animate-shake"
           />
         )}
-      </div>
+      </motion.div>
     </motion.button>
   )
 }

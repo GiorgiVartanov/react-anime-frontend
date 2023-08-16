@@ -1,4 +1,5 @@
 import { toast } from "react-toastify"
+import { motion } from "framer-motion"
 
 interface Props {
   genre: string
@@ -31,9 +32,12 @@ const Genre = ({
   }
 
   return (
-    <button
+    <motion.button
+      initial={{ opacity: 1 }}
+      whileTap={{ scale: 0.95 }}
+      whileHover={{ opacity: 0.8 }}
       onClick={handleGenreSelect}
-      className={`flex-1 inline-block px-2 py-1 shadow-sm m-0.5 ease-in-out duration-200 translate-z-[0] backface-visible transition-all hover:opacity-80 bg-sp-white dark:bg-sp-gray whitespace-nowrap ${
+      className={`flex-1 inline-block px-2 py-1 shadow-sm m-0.5 ease-in-out duration-200 translate-z-[0] backface-visible bg-sp-white dark:bg-sp-gray whitespace-nowrap ${
         className || ""
       } ${
         isSelected
@@ -42,7 +46,7 @@ const Genre = ({
       } `}
     >
       <p>{genre}</p>
-    </button>
+    </motion.button>
   )
 }
 export default Genre

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { BsSearch } from "react-icons/bs"
+import { motion } from "framer-motion"
 
 interface Props {
   value: string | null
@@ -37,7 +37,10 @@ const SearchBar = ({ value, className, handleTextChange }: Props) => {
 
   return (
     <div className="flex gap-2">
-      <input
+      <motion.input
+        initial={{ opacity: 0, width: 0, margin: "auto" }}
+        animate={{ opacity: 1, width: "100%", margin: 0 }}
+        transition={{ duration: 0.05 }}
         type="search"
         value={searchValue}
         placeholder="search"

@@ -88,7 +88,9 @@ const NewComment = () => {
       return
     }
 
-    if (!text || text === "") {
+    console.log(text)
+
+    if (!text || text.trimStart() === "") {
       toast.error("you can't post empty comment")
       return
     }

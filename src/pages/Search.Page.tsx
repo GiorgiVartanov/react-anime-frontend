@@ -14,6 +14,7 @@ import {
 import AnimeCardList from "../components/Anime/AnimeCardList"
 import SearchComponent from "../components/Search/Search"
 import SkeletonAnimeCardList from "../components/Anime/Skeleton/SkeletonAnimeCardList"
+import Loading from "../components/UI/Loading"
 
 const baseURL = import.meta.env.VITE_API_URL
 
@@ -112,7 +113,7 @@ const Search = () => {
   // function that renders anime cards
   const renderCardList = () => {
     // is the data is still pending it will render skeleton component
-    if (isLoading) return <></>
+    if (isLoading) return <Loading />
 
     // it will show error message if there is an error
     if (error || !data) return <div>something went wrong</div>

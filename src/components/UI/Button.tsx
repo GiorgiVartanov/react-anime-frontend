@@ -13,7 +13,7 @@ const Button = ({ onClick, className, children }: Props) => {
       whileHover={{ opacity: 0.65 }}
       whileTap={{ scale: 0.9 }}
       onClick={onClick}
-      className={`block bg-sp-main px-1 py-1 transition-all ease-in-out duration-200 ${className}`}
+      className={`block bg-sp-main px-1 py-1 ${className}`}
     >
       {children}
     </motion.button>

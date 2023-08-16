@@ -49,7 +49,7 @@ function App() {
     <div className="bg-white dark:bg-sp-black dark:text-sp-white text-sp-black min-h-screen flex flex-col">
       <Header pages={[]} />
       <div className="h-full flex-1 flex flex-col">
-        <AnimatePresence>
+        <AnimatePresence mode="wait">
           <Routes
             location={location}
             key={location.pathname}

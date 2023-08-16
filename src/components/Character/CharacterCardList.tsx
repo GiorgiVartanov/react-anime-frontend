@@ -1,8 +1,20 @@
 import { useState } from "react"
+import { motion } from "framer-motion"
 
 import { CharacterDetails, VoiceActor } from "../../types/character.types"
 
 import CharacterCard from "./CharacterCard"
+
+const container = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      delayChildren: 0.2,
+      staggerChildren: 0.1,
+    },
+  },
+}
 
 interface Props {
   data: CharacterDetails[]
@@ -51,7 +63,12 @@ const CharacterCardList = ({ data, showSelect = true }: Props) => {
       ) : (
         ""
       )}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+      <motion.div
+        variants={container}
+        initial="hidden"
+        animate="visible"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2"
+      >
         {data.map((item) => {
           const voiceActorToRender = item.voice_actors?.filter(
             (voiceActor) => voiceActor.language === selectedLanguage
@@ -77,7 +94,7 @@ const CharacterCardList = ({ data, showSelect = true }: Props) => {
             />
           )
         })}
-      </div>
+      </motion.div>
     </div>
   )
 }
