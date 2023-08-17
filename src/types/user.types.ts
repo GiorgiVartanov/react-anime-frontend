@@ -1,9 +1,16 @@
 import { AnimeType } from "./anime.types"
+import { ImageType } from "./anime.types"
+
+export type FavoriteAnime = {
+  mal_id: string
+  title: string
+  images: ImageType
+}
 
 type UserType = {
   username: string
   createdAt: string
-  favoriteAnimeIds: string[]
+  favoriteAnime: FavoriteAnime[]
   friends: string[]
 }
 

@@ -16,7 +16,7 @@ const FriendList = ({ friends }: Props) => {
   return (
     <div>
       {friends.length > 0 ? (
-        <div className="flex gap-3">
+        <div className="flex gap-3 mt-2 mb-4">
           {friends.map((friend) => (
             <Friend
               key={friend}

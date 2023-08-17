@@ -8,15 +8,18 @@ import { useEffect } from "react"
 import { useAuthStore } from "../../store/authStore"
 
 import { UserResponse } from "../../types/user.types"
+import { ImageType } from "../../types/anime.types"
 
 import Button from "../UI/Button"
 
 interface Props {
-  animeId: string
+  mal_id: string
+  title: string
+  images: ImageType
   className?: string
 }
 
-const AddToFavoritesButton = ({ animeId, className }: Props) => {
+const AddToFavoritesButton = ({ mal_id, title, images, className }: Props) => {
   const queryClient = useQueryClient()
 
   const [isLoggedIn, username, token] = useAuthStore((state) => [
@@ -39,7 +42,7 @@ const AddToFavoritesButton = ({ animeId, className }: Props) => {
   const addToFavorite = () => {
     return backendAjax.post(
       "favorite/add",
-      { animeId: animeId },
+      { animeId: mal_id },
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -59,14 +62,18 @@ const AddToFavoritesButton = ({ animeId, className }: Props) => {
 
       if (!user) return
 
-      const oldFavorites = user.favoriteAnimeIds || []
+      const oldFavorites = user.favoriteAnime
+
+      const oldFavoriteIds = oldFavorites.map((item) => item.mal_id) || []
 
       // if it is already marked as favorite it will be removed
-      if (oldFavorites.includes(animeId)) {
-        const newFavorites = oldFavorites.filter((id) => id !== animeId)
+      if (oldFavoriteIds.includes(mal_id)) {
+        const newFavorites = user.favoriteAnime.filter(
+          (favorite) => favorite.mal_id !== mal_id
+        )
 
         const newUserData = user
-        newUserData.favoriteAnimeIds = newFavorites
+        newUserData.favoriteAnime = newFavorites
 
         queryClient.setQueryData(["user", username], {
           data: user,
@@ -74,10 +81,10 @@ const AddToFavoritesButton = ({ animeId, className }: Props) => {
 
         // toast.success("successfully removed anime from favorites")
       } else {
-        const newFavorites = [...oldFavorites, animeId]
+        const newFavorites = [...oldFavorites, { mal_id, title, images }]
 
         const newUserData = user
-        newUserData.favoriteAnimeIds = newFavorites
+        newUserData.favoriteAnime = newFavorites
 
         queryClient.setQueryData(["user", username], {
           data: user,
@@ -100,18 +107,16 @@ const AddToFavoritesButton = ({ animeId, className }: Props) => {
     mutation.mutate()
   }
 
-  // if (isLoading) return <div>loading...</div>
-
-  // if (error || !data) return <div>something went wrong</div>
-
   return (
     <Button
       onClick={handleAddToFavorites}
       className={`font-semibold ${
-        data?.data?.favoriteAnimeIds?.includes(animeId) ? "bg-opacity-50" : ""
+        data?.data?.favoriteAnime?.map((item) => item.mal_id).includes(mal_id)
+          ? "bg-opacity-50"
+          : ""
       } ${className}`}
     >
-      {data?.data?.favoriteAnimeIds?.includes(animeId)
+      {data?.data?.favoriteAnime?.map((item) => item.mal_id).includes(mal_id)
         ? "remove from favorites"
         : "mark as favorite"}
     </Button>

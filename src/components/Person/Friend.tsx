@@ -12,7 +12,11 @@ const Friend = ({ username }: Props) => {
       to={`../profile/${username}`}
       className="flex gap-2 text-center items-center"
     >
-      <UserIcon username={username} />
+      <UserIcon
+        whileTap={{ scale: 0.95 }}
+        whileHover={{ opacity: 0.8 }}
+        username={username}
+      />
     </Link>
   )
 }

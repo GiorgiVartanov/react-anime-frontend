@@ -80,23 +80,15 @@ const AnimeComments = ({ id }: Props) => {
 
   return (
     <section>
+      <h2 className="text-sp-black dark:text-white mx-auto max-w-7xl mb-1 text-xl">
+        Comments
+      </h2>
+      <div className="h-0.5 w-full bg-sp-main mb-1"></div>
       <CommentList
         comments={data.data}
         showPerPage={showPerPage}
         animeId={id}
       />
-      {/* {data.data.length > 4 ? (
-        <div className="flex">
-          <button
-            onClick={handleShowMore}
-            className="mt-1 ml-auto opacity-50 hover:opacity-75 active:opacity-75 transition-all ease-in-out duration-100"
-          >
-            {showingMore ? "show less" : "show more"}
-          </button>
-        </div>
-      ) : (
-        ""
-      )} */}
     </section>
   )
 }

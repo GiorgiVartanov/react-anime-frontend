@@ -244,7 +244,9 @@ const Anime = () => {
           <div className="md:w-[200px] mx-auto md:min-w-[200px] md:mx-0">
             {renderImage()}
             <AddToFavoritesButton
-              animeId={id || ""}
+              mal_id={id || ""}
+              title={title || ""}
+              images={images}
               className="w-full mt-3"
             />
           </div>

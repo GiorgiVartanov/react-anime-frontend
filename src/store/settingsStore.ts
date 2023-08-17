@@ -33,14 +33,6 @@ export const useSettingsStore = create<settingsState & settingsActions>(
         localStorage.setItem("theme", "light")
       }
 
-      console.log(
-        localStorage.theme
-          ? localStorage.theme
-          : window.matchMedia("(prefers-color-scheme: dark)").matches === true
-          ? "dark"
-          : "light"
-      )
-
       return set(() => ({
         theme: toggledTheme,
       }))

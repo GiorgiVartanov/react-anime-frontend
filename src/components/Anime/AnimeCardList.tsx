@@ -5,6 +5,7 @@ import {
   AnimeResponse,
   ShortAnimeType,
 } from "../../types/anime.types"
+import { FavoriteAnime } from "../../types/user.types"
 import { Props as AnimeCardProps } from "./AnimeCard"
 
 import AnimeCard from "./AnimeCard"
@@ -21,7 +22,11 @@ const container = {
 }
 
 interface Props {
-  data: AnimeCardProps[][] | AnimeType[][] | ShortAnimeType[][]
+  data:
+    | AnimeCardProps[][]
+    | AnimeType[][]
+    | ShortAnimeType[][]
+    | FavoriteAnime[][]
 }
 
 const AnimeCardList = ({ data = [] }: Props) => {
@@ -38,8 +43,7 @@ const AnimeCardList = ({ data = [] }: Props) => {
           {animePage?.map((anime) => (
             <AnimeCard
               key={anime.mal_id}
-              mal_id={anime.mal_id}
-              url={anime.url}
+              mal_id={Number(anime.mal_id)}
               images={anime.images}
               title={anime.title}
               className=""

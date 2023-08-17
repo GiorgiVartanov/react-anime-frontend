@@ -189,7 +189,6 @@ export type ShortAnimeType = {
   images: ImageType
   mal_id: number
   title: string
-  url: string
 }
 
 export type AnimeResponse = {

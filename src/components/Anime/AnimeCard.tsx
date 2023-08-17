@@ -15,7 +15,7 @@ export interface Props extends ShortAnimeType {
   className?: string
 }
 
-const AnimeCard = ({ mal_id, url, images, title, className }: Props) => {
+const AnimeCard = ({ mal_id, images, title, className }: Props) => {
   return (
     <motion.li
       variants={item}

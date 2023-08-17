@@ -7,6 +7,7 @@ import { useAuthStore } from "../store/authStore"
 import { useDocumentTitle } from "../hooks/useDocumentTitle"
 
 import { UserResponse, FriendsResponseType } from "../types/user.types"
+import { AnimeType } from "../types/anime.types"
 
 import UserIcon from "../components/Person/UserIcon"
 import AnimeCardList from "../components/Anime/AnimeCardList"
@@ -82,7 +83,7 @@ const Profile = () => {
 
   if (!pageOwnersUsername || !data || !data.data || error) return <></>
 
-  const { createdAt, favoriteAnimeIds } = data.data
+  const { createdAt, favoriteAnime } = data.data
 
   return (
     <motion.div
@@ -112,26 +113,35 @@ const Profile = () => {
       <p className="text-center mt-3 opacity-30 dark:text-sp-white text-sp-black">
         this user has registered {createdAt}
       </p>
-      <div className="my-3">
+      <div className="flex flex-col gap-2 mt-5">
         {!ownersFriendsDataIsLoading &&
         !ownersFriendsDataError &&
-        ownersFriendsData?.data ? (
-          <FriendList friends={ownersFriendsData?.data || []} />
+        ownersFriendsData?.data &&
+        ownersFriendsData?.data.length > 0 ? (
+          <div>
+            <h2 className="text-sp-black dark:text-white mx-auto max-w-7xl mb-1 text-xl">
+              {username}
+              <span className="opacity-50">`s friends</span>
+            </h2>
+            <div className="h-0.5 w-full bg-sp-main mb-1"></div>
+            <FriendList friends={ownersFriendsData?.data || []} />
+          </div>
+        ) : (
+          ""
+        )}
+        {favoriteAnime.length > 0 ? (
+          <div>
+            <h2 className="text-sp-black dark:text-white mx-auto max-w-7xl mb-1 text-xl">
+              {username}
+              <span className="opacity-50">`s favorite anime</span>
+            </h2>
+            <div className="h-0.5 w-full bg-sp-main mb-1"></div>
+            <AnimeCardList data={[favoriteAnime]} />
+          </div>
         ) : (
           ""
         )}
       </div>
-      {favoriteAnimeIds.length !== 0
-        ? // <div className="mt-8">
-          //   <h2>
-          //     {username === pageOwnersUsername ? "your" : "this user's"} favorite
-          //     anime
-          //   </h2>
-          //   <div className="h-0.5 w-full bg-sp-main mb-1"></div>
-          //   {/* <AnimeCardList data={favoriteAnime} /> */}
-          // </div>
-          favoriteAnimeIds.map((id) => <div key={id}>{id}</div>)
-        : ""}
     </motion.div>
   )
 }
