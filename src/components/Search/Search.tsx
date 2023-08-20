@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query"
 import { motion } from "framer-motion"
 
 import { useSearchStore } from "../../store/searchStore"
-import ajax from "../../service/backendAjax"
+import backendAjax from "../../service/backendAjax"
 
 import { animeGenreResponse } from "../../types/anime.types"
 
@@ -11,8 +11,6 @@ import { ReactComponent as Arrow } from "../../assets/icons/angle-up-solid.svg"
 import SearchBar from "./SearchBar"
 import GenreList from "./GenreList"
 import SearchSelectList from "./SearchSelectList"
-
-const baseURL = import.meta.env.VITE_API_URL
 
 const Search = () => {
   const [
@@ -48,8 +46,11 @@ const Search = () => {
   const [isFilterMenuOpen, setIsFilterMenuOpen] = useState<boolean>(false)
 
   // function that fetches genres from the API (will change it later, so it fetches genres from the backend, because of some NSFW genres)
-  const fetchGenres = (): Promise<animeGenreResponse> =>
-    ajax.get(`anime/genres`).then((response) => response.data)
+  const fetchGenres = async (): Promise<animeGenreResponse> => {
+    const response = await backendAjax.get(`anime/genres`)
+
+    return response.data
+  }
 
   // gets genres from API
   const { isLoading, error, data } = useQuery({

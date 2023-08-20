@@ -37,8 +37,6 @@ const CharacterCardList = ({ data, showSelect = true }: Props) => {
     setSelectedLanguage(e.target.value)
   }
 
-  console.log(showSelect && languages.length <= 1)
-
   if (data.length <= 0) return <></>
 
   return (

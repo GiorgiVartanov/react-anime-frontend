@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query"
 import { useParams } from "react-router-dom"
 import backendAjax from "../service/backendAjax"
 import { motion } from "framer-motion"
+import { Link } from "react-router-dom"
 
 import { useAuthStore } from "../store/authStore"
 import { useDocumentTitle } from "../hooks/useDocumentTitle"
@@ -15,6 +16,7 @@ import FriendList from "../components/Person/FriendList"
 import AddFriendButton from "../components/Person/AddFriendButton"
 import RemoveFriendButton from "../components/Person/RemoveFriendButton"
 import Loading from "../components/UI/Loading"
+import Button from "../components/UI/Button"
 
 const Profile = () => {
   const { username: pageOwnersUsername } = useParams()
@@ -94,7 +96,8 @@ const Profile = () => {
     >
       <div className="flex justify-center mt-5 gap-4">
         <div className="flex gap-2 text-center items-center justify-center">
-          <UserIcon username={pageOwnersUsername} />
+          <UserIcon username={pageOwnersUsername} />{" "}
+          <Link to="../settings">settings</Link>
         </div>
         {username !== pageOwnersUsername &&
         usersFriendsData?.data !== undefined &&
@@ -109,7 +112,6 @@ const Profile = () => {
           ""
         )}
       </div>
-
       <p className="text-center mt-3 opacity-30 dark:text-sp-white text-sp-black">
         this user has registered {createdAt}
       </p>
@@ -120,7 +122,7 @@ const Profile = () => {
         ownersFriendsData?.data.length > 0 ? (
           <div>
             <h2 className="text-sp-black dark:text-white mx-auto max-w-7xl mb-1 text-xl">
-              {username}
+              {pageOwnersUsername}
               <span className="opacity-50">`s friends</span>
             </h2>
             <div className="h-0.5 w-full bg-sp-main mb-1"></div>
@@ -132,7 +134,7 @@ const Profile = () => {
         {favoriteAnime.length > 0 ? (
           <div>
             <h2 className="text-sp-black dark:text-white mx-auto max-w-7xl mb-1 text-xl">
-              {username}
+              {pageOwnersUsername}
               <span className="opacity-50">`s favorite anime</span>
             </h2>
             <div className="h-0.5 w-full bg-sp-main mb-1"></div>

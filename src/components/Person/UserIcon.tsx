@@ -1,4 +1,5 @@
 import { motion } from "framer-motion"
+import { useCallback } from "react"
 
 import generateColor from "../../util/generateColor"
 import generateNegativeColor from "../../util/generateNegativeColor"
@@ -10,8 +11,16 @@ interface Props {
 
 // renders icon with username's first character
 const UserIcon = ({ username, ...rest }: Props) => {
-  const color = generateColor(username)
-  const negativeColor = generateNegativeColor(color)
+  const getColor = useCallback((username: string) => {
+    return generateColor(username)
+  }, [])
+
+  const getNegativeColor = useCallback((color: string) => {
+    return generateNegativeColor(color)
+  }, [])
+
+  const color = getColor(username)
+  const negativeColor = getNegativeColor(color)
 
   return (
     <motion.div

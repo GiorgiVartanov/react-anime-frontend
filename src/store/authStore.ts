@@ -1,13 +1,15 @@
 import { create } from "zustand"
 import { Navigate } from "react-router-dom"
 
-import { loginUser, registerUser } from "../service/auth"
+import { loginUser, registerUser, changePassword } from "../service/auth"
 
 import {
   LoginCredentialsType,
   RegisterCredentialsType,
   LoginCredentialsErrorType,
   RegisterCredentialsErrorType,
+  PasswordChangeType,
+  PasswordChangeErrorType,
 } from "../types/auth.types"
 
 interface AuthState {
@@ -16,6 +18,7 @@ interface AuthState {
   isLoggedIn: boolean // true if user is logged in, false is isn't
   loginError: LoginCredentialsErrorType // stores errors for login's credentials
   registerError: RegisterCredentialsErrorType // stores errors for register's credentials
+  changePasswordError: PasswordChangeErrorType
   wasUserRegistered: boolean | null // true is registration was successful, false if wasn't
   tokenExpirationDate: number
 }
@@ -23,6 +26,7 @@ interface AuthState {
 interface AuthActions {
   loginUser: (credentials: LoginCredentialsType) => void // function that logins user with the passed credentials
   registerUser: (credentials: RegisterCredentialsType) => void // function that registers user with the passed credentials
+  changePassword: (credentials: PasswordChangeType) => void // function to change user's password
   logoutUser: () => void // logs out user
   hasSessionExpired: () => void
 }
@@ -33,6 +37,7 @@ export const useAuthStore = create<AuthState & AuthActions>()((set, get) => ({
   isLoggedIn: localStorage.getItem("token") ? true : false,
   loginError: { email: [], password: [] },
   registerError: { username: [], email: [], password: [], confirmPassword: [] },
+  changePasswordError: { password: [], newPassword: [] },
   wasUserRegistered: false,
   tokenExpirationDate: Number(localStorage.getItem("tokenExpirationDate")) || 0,
   loginUser: async (credentials: LoginCredentialsType) => {
@@ -131,6 +136,29 @@ export const useAuthStore = create<AuthState & AuthActions>()((set, get) => ({
             email: ["User with this email already exists"],
             password: [],
             confirmPassword: [],
+          },
+        }))
+      }
+    }
+  },
+  changePassword: async (credentials: PasswordChangeType) => {
+    try {
+      const response = await changePassword(credentials)
+
+      return set(() => ({
+        changePasswordError: {
+          password: [],
+          newPassword: [],
+        },
+      }))
+    } catch (error: any) {
+      console.log(error.response.data.message)
+
+      if (error.response.data.message === "Invalid credentials") {
+        return set(() => ({
+          changePasswordError: {
+            password: ["incorrect password"],
+            newPassword: [],
           },
         }))
       }

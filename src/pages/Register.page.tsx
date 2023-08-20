@@ -270,16 +270,14 @@ const Register = () => {
       exit={{ opacity: 0 }}
       className="h-full grid place-content-center mt-80 mx-auto max-w-7xl w-full p-2"
     >
-      <Form
-        onSubmit={handleSubmit}
-        autoComplete="off"
-      >
+      <Form onSubmit={handleSubmit}>
         <Input
           name="username"
           type="text"
           placeholder="username"
           value={credentials.username}
           onChange={handleOnUsernameChange}
+          autoComplete="off"
           error={credentialsError.username}
         />
         <Input
@@ -288,6 +286,7 @@ const Register = () => {
           placeholder="email"
           value={credentials.email}
           onChange={handleOnEmailChange}
+          autoComplete="off"
           error={credentialsError.email}
         />
         <Input
@@ -296,6 +295,7 @@ const Register = () => {
           placeholder="password"
           value={credentials.password}
           onChange={handleOnPasswordChange}
+          autoComplete="new-password"
           error={credentialsError.password}
         />
         <Input
@@ -304,6 +304,7 @@ const Register = () => {
           placeholder="confirm password"
           value={credentials.confirmPassword}
           onChange={handleOnConfirmPasswordChange}
+          autoComplete="new-password"
           error={credentialsError.confirmPassword}
         />
         <button className="bg-sp-main p-1 hover:opacity-90 transform-all ease-in-out duration-200">

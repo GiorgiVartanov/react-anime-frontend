@@ -29,8 +29,12 @@ const AddToFavoritesButton = ({ mal_id, title, images, className }: Props) => {
   ])
 
   // function to fetch user's data
-  const fetchUserData = (): Promise<UserResponse> =>
-    backendAjax.get(`user/${username}`).then((response) => response.data)
+  const fetchUserData = async (): Promise<UserResponse | null> => {
+    if (!username) return null
+
+    const response = await backendAjax.get(`user/${username}`)
+    return response.data
+  }
 
   // fetches user data
   const { isLoading, error, data } = useQuery({
@@ -126,6 +130,8 @@ export default AddToFavoritesButton
 
 function ToastErrorMessage() {
   return (
-    <Link to={`/login`}>you need to log in, to add anime to favorites</Link>
+    <Link to={`../register`}>
+      you need to Sign Up, to add anime to favorites
+    </Link>
   )
 }

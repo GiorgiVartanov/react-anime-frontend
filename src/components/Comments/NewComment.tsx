@@ -147,5 +147,5 @@ const NewComment = () => {
 export default NewComment
 
 function ToastLink() {
-  return <Link to="../login">you need to log in to write a comment</Link>
+  return <Link to="../register">you need to Sign Up to write a comment</Link>
 }

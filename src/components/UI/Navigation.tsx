@@ -21,8 +21,8 @@ const dropdownMenu = {
     opacity: 1,
     y: 0,
     transition: {
-      delayChildren: 0.1,
-      staggerChildren: 0.05,
+      delayChildren: 0.2,
+      staggerChildren: 0.1,
       staggerDirection: -1,
     },
   },
@@ -202,7 +202,7 @@ const Navigation = () => {
             </motion.li>
           </>
         ) : (
-          <>{renderNavigationLink("login", "login")}</>
+          <>{renderNavigationLink("sign up", "register")}</>
         )}
       </motion.ul>
     </nav>

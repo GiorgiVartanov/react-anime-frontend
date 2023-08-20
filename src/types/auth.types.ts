@@ -21,3 +21,13 @@ export type RegisterCredentialsErrorType = {
   password: string[]
   confirmPassword: string[]
 }
+
+export type PasswordChangeType = {
+  password: string
+  newPassword: string
+}
+
+export type PasswordChangeErrorType = {
+  password: string[]
+  newPassword: string[]
+}

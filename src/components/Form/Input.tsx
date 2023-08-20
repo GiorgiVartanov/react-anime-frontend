@@ -1,9 +1,12 @@
+import { motion } from "framer-motion"
+
 interface Props {
   name: string
   type: string
   placeholder: string
   value: string
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+  autoComplete?: string
   className?: string
   error?: string[]
 }
@@ -14,18 +17,22 @@ const Input = ({
   placeholder,
   value,
   onChange,
+  autoComplete = "on",
   className,
   error,
 }: Props) => {
   return (
     <>
-      <input
+      <motion.input
+        whileHover={{ boxShadow: "0 0 4px #e91e63" }}
+        whileFocus={{ boxShadow: "0 0 4px #e91e63" }}
         name={name}
         placeholder={placeholder}
         type={type}
         value={value}
         onChange={onChange}
-        className={`outline-offset-0 shadow-sm hover:shadow-md focus:shadow-md transition-all ease-in-out duration-200 w-full ${
+        autoComplete={autoComplete}
+        className={`outline-offset-0 shadow-sm transition-all ease-in-out duration-200 w-full ${
           error && error.length > 0 ? "border-l-2 border-l-red-400" : ""
         } ${
           value.length > 0 && error && error.length === 0

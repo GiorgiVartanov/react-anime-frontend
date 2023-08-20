@@ -17,6 +17,7 @@ import Login from "./pages/Login.page"
 import Register from "./pages/Register.page"
 import Profile from "./pages/Profile.page"
 import Stuff from "./pages/Stuff.page"
+import Settings from "./pages/Settings"
 import Character from "./pages/Character.page"
 import PageNotFound from "./pages/PageNotFound.page"
 
@@ -69,6 +70,10 @@ function App() {
             <Route
               path="/register"
               element={<Register />}
+            />
+            <Route
+              path="/settings"
+              element={<Settings />}
             />
             <Route
               path="/profile/:username"
