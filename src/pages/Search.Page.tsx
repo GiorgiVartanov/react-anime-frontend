@@ -11,6 +11,7 @@ import {
   AnimeType,
 } from "../types/anime.types"
 
+import Page from "../components/UI/Page"
 import AnimeCardList from "../components/Anime/AnimeCardList"
 import SearchComponent from "../components/Search/Search"
 import SkeletonAnimeCardList from "../components/Anime/Skeleton/SkeletonAnimeCardList"
@@ -153,16 +154,11 @@ const Search = () => {
   }, [])
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="mx-auto max-w-7xl w-full p-2 h-full"
-    >
+    <Page className="mx-auto max-w-7xl w-full p-2 h-full">
       <SearchComponent />
       {renderCardList()}
       {/* {isFetchingNextPage ? <SkeletonAnimeCardList amount={20} /> : ""} */}
-    </motion.div>
+    </Page>
   )
 }
 

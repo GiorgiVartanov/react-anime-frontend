@@ -12,5 +12,12 @@ export const loginUser = (credentials: LoginCredentialsType) =>
 export const registerUser = (credentials: RegisterCredentialsType) =>
   backendAjax.post("/auth/register", credentials) // registers user with the passed data
 
-export const changePassword = (credentials: PasswordChangeType) =>
-  backendAjax.post("/auth/reset", credentials)
+export const changePassword = (
+  credentials: PasswordChangeType,
+  token: string
+) =>
+  backendAjax.post("/auth/reset", credentials, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })

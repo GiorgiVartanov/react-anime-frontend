@@ -67,7 +67,7 @@ const Carousel = ({ children, intervalDuration = 5000, className }: Props) => {
     let nextScrollLeft = currentScrollLeft + distance
 
     // if its on last element and user scrolls to the next it will scroll to the start, if its on first element and user scrolls to the previous it will go to the last
-    if (nextScrollLeft < -distance + 1) {
+    if (nextScrollLeft + 10 <= 0) {
       nextScrollLeft = scrollWidth - container.clientWidth
     } else if (nextScrollLeft - distance >= scrollWidth - clientWidth) {
       nextScrollLeft = 0
@@ -133,18 +133,18 @@ const Carousel = ({ children, intervalDuration = 5000, className }: Props) => {
     setIsCursorOnComponent(false)
   }
 
-  // auto scrolls when user's cursor is not on carousel and they have not clicked move left or move right buttons in the past 5 seconds
-  // useEffect(() => {
-  //   if (isOnPause || isCursorOnComponent) return
+  // automatically scrolls when user's cursor is not on carousel and they have not clicked move left or move right buttons in the past 5 seconds
+  useEffect(() => {
+    if (isOnPause || isCursorOnComponent) return
 
-  //   const interval = setInterval(() => {
-  //     handleScroll("right")
-  //   }, intervalDuration)
+    const interval = setInterval(() => {
+      handleScroll("right")
+    }, intervalDuration)
 
-  //   return () => {
-  //     clearInterval(interval)
-  //   } // cleans up the interval when component unmounts
-  // }, [isOnPause, isCursorOnComponent])
+    return () => {
+      clearInterval(interval)
+    } // cleans up the interval when component unmounts
+  }, [isOnPause, isCursorOnComponent])
 
   return (
     <div

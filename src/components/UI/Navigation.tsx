@@ -41,11 +41,14 @@ const Navigation = () => {
 
   const navigate = useNavigate()
 
-  const [username, isLoggedIn, logoutUser] = useAuthStore((state) => [
-    state.username,
-    state.isLoggedIn,
-    state.logoutUser,
-  ])
+  const [username, isLoggedIn, logoutUser, accountType] = useAuthStore(
+    (state) => [
+      state.username,
+      state.isLoggedIn,
+      state.logoutUser,
+      state.accountType,
+    ]
+  )
 
   const [isHamburgerMenuOpen, setIsHamburgerMenuOpen] = useState<boolean>(false)
   const [screenWidth, setScreenWidth] = useState<number>(window.innerWidth)
@@ -186,6 +189,9 @@ const Navigation = () => {
         {isLoggedIn ? (
           <>
             {renderNavigationLink("profile", `profile/${username}`)}
+            {accountType === "Admin"
+              ? renderNavigationLink("dashboard", "dashboard")
+              : ""}
             <motion.li
               variants={menuItem}
               className="flex flex-col justify-center"

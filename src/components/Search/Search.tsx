@@ -78,7 +78,7 @@ const Search = () => {
         value={text}
         handleTextChange={changeText}
       />
-      <div className="my-2 flex gap-6 mx-auto w-fit">
+      <div className="my-2 flex gap-6 mx-auto w-fit relative">
         <motion.button
           initial={{ opacity: 1 }}
           whileHover={{ opacity: 0.8 }}
@@ -101,18 +101,22 @@ const Search = () => {
             />
           </motion.div>
         </motion.button>
-        {getAmountOfFilters() > 0 ? (
-          <button
+        {getAmountOfFilters() > 0 && isFilterMenuOpen ? (
+          <motion.button
+            initial={{ opacity: 0, x: "-50%" }}
+            animate={{ opacity: 1, x: 0 }}
+            whileHover={{ opacity: 0.8 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.05 }}
             onClick={handleClearFilters}
-            className="text-sp-light hover:opacity-80 transition-all ease-in-out duration-200"
+            className="text-sp-main hover:opacity-80 transition-all ease-in-out duration-200 absolute top-0 left-16 whitespace-nowrap"
           >
             clear filters
-          </button>
+          </motion.button>
         ) : (
           ""
         )}
       </div>
-
       <div>
         {isFilterMenuOpen && !isLoading && !error ? (
           <motion.div

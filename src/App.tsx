@@ -16,6 +16,7 @@ import Anime from "./pages/Anime.page"
 import Login from "./pages/Login.page"
 import Register from "./pages/Register.page"
 import Profile from "./pages/Profile.page"
+import Dashboard from "./pages/Dashboard"
 import Stuff from "./pages/Stuff.page"
 import Settings from "./pages/Settings"
 import Character from "./pages/Character.page"
@@ -74,6 +75,10 @@ function App() {
             <Route
               path="/settings"
               element={<Settings />}
+            />
+            <Route
+              path="/dashboard"
+              element={<Dashboard />}
             />
             <Route
               path="/profile/:username"

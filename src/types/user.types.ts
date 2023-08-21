@@ -18,6 +18,17 @@ export type UserResponse = {
   data: UserType
 }
 
+type FullUserType = {
+  id: string
+  username: string
+  email: string
+  accountType: string
+}
+
+export type FullUserResponse = {
+  data: FullUserType[]
+}
+
 // type FriendsType = {
 //   _id: string
 //   user1: string

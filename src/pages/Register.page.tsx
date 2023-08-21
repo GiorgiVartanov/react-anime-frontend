@@ -9,6 +9,7 @@ import {
 
 import { useAuthStore } from "../store/authStore"
 
+import Page from "../components/UI/Page"
 import Form from "../components/Form/Form"
 import Input from "../components/Form/Input"
 
@@ -264,12 +265,7 @@ const Register = () => {
   }, [wasUserRegistered, navigate])
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="h-full grid place-content-center mt-80 mx-auto max-w-7xl w-full p-2"
-    >
+    <Page className="h-full grid place-content-center mt-80 mx-auto max-w-7xl w-full p-2">
       <Form onSubmit={handleSubmit}>
         <Input
           name="username"
@@ -317,7 +313,7 @@ const Register = () => {
           already have account? log in
         </Link>
       </Form>
-    </motion.div>
+    </Page>
   )
 }
 export default Register

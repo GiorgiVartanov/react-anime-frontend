@@ -7,6 +7,7 @@ import { StuffType, VoiceType } from "../types/stuff.types"
 import { CharacterDetails } from "../types/character.types"
 import { AnimeType } from "../types/anime.types"
 
+import Page from "../components/UI/Page"
 import AnimeCardList from "../components/Anime/AnimeCardList"
 import CharacterCardList from "../components/Character/CharacterCardList"
 import Image from "../components/UI/Image"
@@ -69,11 +70,7 @@ const Stuff = () => {
   // console.log(voices[0]?.anime?.images.jpg)
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
+    <Page>
       <div className="relative shadow-sm pt-5">
         <div
           style={{
@@ -112,7 +109,7 @@ const Stuff = () => {
           showSelect={false}
         />
       </div>
-    </motion.div>
+    </Page>
   )
 }
 export default Stuff

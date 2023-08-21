@@ -1,37 +1,27 @@
-import { NavLink, Outlet, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query"
 import { useState, useEffect } from "react"
-import { Routes, Route } from "react-router-dom"
 import apiAjax from "../service/APIAjax"
-import backendAjax from "../service/backendAjax"
-import { motion } from "framer-motion"
 
 import { FullAnimeType } from "../types/anime.types"
 
 import { useDocumentTitle } from "../hooks/useDocumentTitle"
 
-import AnimeRecommendationCardList from "../components/Anime/AnimeRecommendationCardList"
+import Page from "../components/UI/Page"
 import GenreList from "../components/Search/GenreList"
-import NavigationLink from "../components/Navigation/NavigationLink"
 import AnimePictures from "../components/Anime/AnimePictures"
 import Image from "../components/UI/Image"
 import AnimeTrailer from "../components/Anime/AnimeTrailer"
 import AnimeRecommendations from "../components/Anime/AnimeRecommendations"
 import AnimeCharacters from "../components/Anime/AnimeCharacters"
 import AnimeComments from "../components/Anime/AnimeComments"
-import Button from "../components/UI/Button"
 import AddToFavoritesButton from "../components/Anime/AddToFavoritesButton"
 import Loading from "../components/UI/Loading"
 
 const Anime = () => {
   const [showFullText, setShowFullText] = useState<boolean>(false)
 
-  const [hasPictures, setHasPictures] = useState<boolean>(true) // if anime has no images
-  const [hasRecommendations, setHasRecommendations] = useState<boolean>(true) // if there are no recommendations
-  const [hasTrailer, setHasTrailer] = useState<boolean>(true) // if it has trailer
-  const [hasCharacters, setHasCharacters] = useState<boolean>(true) // if it has characters (some very unpopular or new shows have empty fields on this value)
-
-  const { id, slug } = useParams<{ id: string; slug: string }>()
+  const { id } = useParams<{ id: string }>()
 
   // function to fetch single anime
   const fetchAnime = async (): Promise<FullAnimeType> => {
@@ -48,7 +38,15 @@ const Anime = () => {
   })
 
   // changes page's title
-  useDocumentTitle(slug || "aniPage")
+  const [documentTitle, setDocumentTitle] = useDocumentTitle(
+    data?.title || "aniPage"
+  )
+
+  useEffect(() => {
+    if (!data) return
+
+    setDocumentTitle(data.title)
+  }, [data, setDocumentTitle])
 
   if (isLoading) return <Loading />
 
@@ -263,12 +261,7 @@ const Anime = () => {
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      // transition={{ duration: 0.5 }}
-    >
+    <Page>
       <div className="relative shadow-sm">
         <div
           style={{
@@ -299,7 +292,7 @@ const Anime = () => {
       ) : (
         ""
       )}
-    </motion.div>
+    </Page>
   )
 }
 

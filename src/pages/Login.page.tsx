@@ -9,6 +9,7 @@ import {
 
 import { useAuthStore } from "../store/authStore"
 
+import Page from "../components/UI/Page"
 import Form from "../components/Form/Form"
 import Input from "../components/Form/Input"
 
@@ -38,6 +39,36 @@ const Login = () => {
   // login submit function
   const handleSubmit = (event: React.FormEvent): void => {
     event.preventDefault() // prevents browser from reloading page after login form is submitted
+
+    if (
+      credentialsError.email.length > 0 ||
+      credentialsError.password.length > 0
+    )
+      return
+
+    const error = "this field should not be empty"
+
+    if (credentials.email === "") {
+      const emailError = credentialsError.email
+
+      if (!emailError.includes(error)) emailError.push(error)
+
+      setCredentialsError((prevState) => ({
+        email: emailError,
+        password: prevState.password,
+      }))
+    }
+
+    if (credentials.password === "") {
+      const passwordError = credentialsError.password
+
+      if (!passwordError.includes(error)) passwordError.push(error)
+
+      setCredentialsError((prevState) => ({
+        email: prevState.email,
+        password: passwordError,
+      }))
+    }
 
     loginUser(credentials) // logs user with the passed credentials
   }
@@ -83,12 +114,7 @@ const Login = () => {
   }, [isLoggedIn, navigate])
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="h-full grid place-content-center mt-80 mx-auto max-w-7xl w-full p-2"
-    >
+    <Page className="h-full grid place-content-center mt-80 mx-auto max-w-7xl w-full p-2">
       <Form onSubmit={handleSubmit}>
         <Input
           name="email"
@@ -116,7 +142,7 @@ const Login = () => {
           don't have account yet? register
         </Link>
       </Form>
-    </motion.div>
+    </Page>
   )
 }
 export default Login

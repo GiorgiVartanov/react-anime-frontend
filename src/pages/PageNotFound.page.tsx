@@ -1,17 +1,14 @@
 import { motion } from "framer-motion"
 
+import Page from "../components/UI/Page"
+
 const PageNotFound = () => {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="h-full flex-1 flex justify-center items-center"
-    >
+    <Page className="h-full flex-1 flex justify-center items-center">
       <h2 className="text-5xl text-red-300 block my-auto relative text-center">
         <span>404</span> Page Not Found
       </h2>
-    </motion.div>
+    </Page>
   )
 }
 export default PageNotFound

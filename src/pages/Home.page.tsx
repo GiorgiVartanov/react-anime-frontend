@@ -1,6 +1,4 @@
 import { useQuery } from "@tanstack/react-query"
-import { Link } from "react-router-dom"
-import apiAjax from "../service/APIAjax"
 import backendAjax from "../service/backendAjax"
 import { useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
@@ -10,11 +8,11 @@ import { AnimeResponse } from "../types/anime.types"
 import { animeGenreResponse, animeGenre } from "../types/anime.types"
 
 import { useSearchStore } from "../store/searchStore"
+import { useDocumentTitle } from "../hooks/useDocumentTitle"
 
+import Page from "../components/UI/Page"
 import AnimeCardList from "../components/Anime/AnimeCardList"
 import AnimeCardCarousel from "../components/Anime/AnimeCardCarousel"
-// import SkeletonAnimeCardList from "../components/Anime/Skeleton/SkeletonAnimeCardList"
-// import SkeletonAnimeCardCarousel from "../components/Anime/Skeleton/SkeletonAnimeCardCarousel"
 import AnimeSection from "../components/Anime/AnimeSection"
 
 const Home = () => {
@@ -52,6 +50,8 @@ const Home = () => {
     queryFn: fetchGenres,
     staleTime: 1000000,
   })
+
+  useDocumentTitle("AXP")
 
   useEffect(() => {
     if (!data) return
@@ -97,12 +97,7 @@ const Home = () => {
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="w-full p-2 h-full gap-6 flex flex-col max-w-7xl mx-auto"
-    >
+    <Page className="w-full p-2 h-full gap-6 flex flex-col max-w-7xl mx-auto">
       <AnimeSection
         title="Popular This Season"
         buttonText="see all airing anime"
@@ -128,7 +123,7 @@ const Home = () => {
       ) : (
         ""
       )}
-    </motion.div>
+    </Page>
   )
 }
 export default Home

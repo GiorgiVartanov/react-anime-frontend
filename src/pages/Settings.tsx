@@ -9,6 +9,7 @@ import {
   PasswordChangeErrorType,
 } from "../types/auth.types"
 
+import Page from "../components/UI/Page"
 import Form from "../components/Form/Form"
 import Input from "../components/Form/Input"
 import Button from "../components/UI/Button"
@@ -16,13 +17,17 @@ import Button from "../components/UI/Button"
 const Settings = () => {
   const navigate = useNavigate()
 
-  const [isLoggedIn, changePassword, changePasswordError] = useAuthStore(
-    (state) => [
-      state.isLoggedIn,
-      state.changePassword,
-      state.changePasswordError,
-    ]
-  )
+  const [
+    isLoggedIn,
+    changePassword,
+    changePasswordError,
+    wasPasswordSuccessfullyChanged,
+  ] = useAuthStore((state) => [
+    state.isLoggedIn,
+    state.changePassword,
+    state.changePasswordError,
+    state.wasPasswordSuccessfullyChanged,
+  ])
 
   const [credentials, setCredentials] = useState<PasswordChangeType>({
     password: "",
@@ -84,17 +89,22 @@ const Settings = () => {
     }))
   }
 
+  const renderMessage = () => {
+    if (wasPasswordSuccessfullyChanged === true) {
+      return <div>Password was changed successfully</div>
+    } else if (wasPasswordSuccessfullyChanged === false) {
+      return <div>Something went wrong</div>
+    } else {
+      return <></>
+    }
+  }
+
   useEffect(() => {
     setCredentialsError(changePasswordError)
   }, [changePasswordError])
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="mx-auto max-w-7xl w-full p-2 h-full"
-    >
+    <Page className="h-full grid place-content-center mt-80 mx-auto max-w-7xl w-full p-2">
       <Form onSubmit={handleSubmit}>
         <Input
           name="password"
@@ -115,8 +125,9 @@ const Settings = () => {
           error={credentialsError.newPassword}
         />
         <Button onClick={handleSubmit}>change password</Button>
+        {renderMessage()}
       </Form>
-    </motion.div>
+    </Page>
   )
 }
 export default Settings

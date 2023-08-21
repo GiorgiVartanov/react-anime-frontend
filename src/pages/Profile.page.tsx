@@ -10,6 +10,7 @@ import { useDocumentTitle } from "../hooks/useDocumentTitle"
 import { UserResponse, FriendsResponseType } from "../types/user.types"
 import { AnimeType } from "../types/anime.types"
 
+import Page from "../components/UI/Page"
 import UserIcon from "../components/Person/UserIcon"
 import AnimeCardList from "../components/Anime/AnimeCardList"
 import FriendList from "../components/Person/FriendList"
@@ -88,16 +89,15 @@ const Profile = () => {
   const { createdAt, favoriteAnime } = data.data
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="mx-auto max-w-7xl w-full p-2 h-full"
-    >
+    <Page className="mx-auto max-w-7xl w-full p-2 h-full">
       <div className="flex justify-center mt-5 gap-4">
         <div className="flex gap-2 text-center items-center justify-center">
-          <UserIcon username={pageOwnersUsername} />{" "}
-          <Link to="../settings">settings</Link>
+          <UserIcon username={pageOwnersUsername} />
+          {username === pageOwnersUsername ? (
+            <Link to="../settings">settings</Link>
+          ) : (
+            ""
+          )}
         </div>
         {username !== pageOwnersUsername &&
         usersFriendsData?.data !== undefined &&
@@ -113,7 +113,9 @@ const Profile = () => {
         )}
       </div>
       <p className="text-center mt-3 opacity-30 dark:text-sp-white text-sp-black">
-        this user has registered {createdAt}
+        {createdAt === "now"
+          ? "this user just registered"
+          : `this user has registered ${createdAt}`}
       </p>
       <div className="flex flex-col gap-2 mt-5">
         {!ownersFriendsDataIsLoading &&
@@ -144,7 +146,7 @@ const Profile = () => {
           ""
         )}
       </div>
-    </motion.div>
+    </Page>
   )
 }
 export default Profile
