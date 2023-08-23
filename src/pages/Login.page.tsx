@@ -107,11 +107,13 @@ const Login = () => {
   }, [loginError])
 
   // redirects user
-  useEffect(() => {
-    if (!isLoggedIn) return
+  // useEffect(() => {
+  //   if (!isLoggedIn) return
 
-    navigate("/")
-  }, [isLoggedIn, navigate])
+  //   redirect("/")
+  // }, [isLoggedIn, redirect])
+
+  // if (isLoggedIn) navigate("/")
 
   return (
     <Page className="h-full grid place-content-center mt-80 mx-auto max-w-7xl w-full p-2">

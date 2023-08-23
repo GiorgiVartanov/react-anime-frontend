@@ -43,12 +43,9 @@ const Loading = () => {
         className="flex gap-4"
       >
         <motion.span
-          style={{
-            backgroundColor: `${theme === "dark" ? "#e6eaee" : "#121212"}`,
-          }}
           variants={dotVariants}
           transition={dotTransition as Transition}
-          className="w-4 h-4 rounded-full"
+          className="w-4 h-4 rounded-full dark:bg-sp-white bg-sp-black"
         />
         <motion.span
           style={{

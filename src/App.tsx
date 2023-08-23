@@ -9,6 +9,7 @@ import { useSettingsStore } from "./store/settingsStore"
 
 import Header from "./components/UI/Header"
 import Footer from "./components/UI/Footer"
+import ProtectedRoute from "./components/UI/ProtectedRoute"
 
 import Home from "./pages/Home.page"
 import Search from "./pages/Search.Page"
@@ -25,7 +26,11 @@ import PageNotFound from "./pages/PageNotFound.page"
 function App() {
   const location = useLocation()
 
-  const [hasSessionExpired] = useAuthStore((state) => [state.hasSessionExpired])
+  const [hasSessionExpired, isLoggedIn, accountType] = useAuthStore((state) => [
+    state.hasSessionExpired,
+    state.isLoggedIn,
+    state.accountType,
+  ])
   const [theme, toggleDarkMode] = useSettingsStore((state) => [
     state.theme,
     state.toggleDarkMode,
@@ -66,19 +71,35 @@ function App() {
             />
             <Route
               path="/login"
-              element={<Login />}
+              element={
+                <ProtectedRoute level="Guest">
+                  <Login />
+                </ProtectedRoute>
+              }
             />
             <Route
               path="/register"
-              element={<Register />}
+              element={
+                <ProtectedRoute level="Guest">
+                  <Register />
+                </ProtectedRoute>
+              }
             />
             <Route
               path="/settings"
-              element={<Settings />}
+              element={
+                <ProtectedRoute level="User">
+                  <Settings />{" "}
+                </ProtectedRoute>
+              }
             />
             <Route
               path="/dashboard"
-              element={<Dashboard />}
+              element={
+                <ProtectedRoute level="Admin">
+                  <Dashboard />
+                </ProtectedRoute>
+              }
             />
             <Route
               path="/profile/:username"

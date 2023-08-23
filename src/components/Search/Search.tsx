@@ -103,8 +103,9 @@ const Search = () => {
         </motion.button>
         {getAmountOfFilters() > 0 && isFilterMenuOpen ? (
           <motion.button
-            initial={{ opacity: 0, x: "-50%" }}
+            initial={{ opacity: 0, x: "-25%" }}
             animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "-25%" }}
             whileHover={{ opacity: 0.8 }}
             whileTap={{ scale: 0.95 }}
             transition={{ duration: 0.05 }}

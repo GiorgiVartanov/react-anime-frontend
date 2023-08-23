@@ -1,6 +1,6 @@
 import backendAjax from "../../service/backendAjax"
 import { useNavigate } from "react-router-dom"
-import { useQuery } from "@tanstack/react-query"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { useState, useRef, useEffect } from "react"
 import { motion } from "framer-motion"
 
@@ -37,6 +37,8 @@ const menuItem = {
 }
 
 const Navigation = () => {
+  const queryClient = useQueryClient()
+
   const hamburgerMenuRef = useRef<HTMLElement>(null)
 
   const navigate = useNavigate()
@@ -63,8 +65,9 @@ const Navigation = () => {
 
   useOnClickOutside(hamburgerMenuRef, handleClickOutside)
 
-  const handleLogOutButton = () => {
+  const handleLogout = () => {
     logoutUser()
+    queryClient.clear()
     navigate(`./login`)
   }
 
@@ -199,7 +202,7 @@ const Navigation = () => {
               <Button
                 onClick={() => {
                   handleCloseMenu()
-                  handleLogOutButton()
+                  handleLogout()
                 }}
                 className="sm:w-auto w-full dark:text-white sm:py-1 mt-3 sm:mt-0 py-2 sm:text-base text-lg"
               >

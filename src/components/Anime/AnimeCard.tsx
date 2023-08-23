@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
 
-import { ShortAnimeType } from "../../types/anime.types"
+import { AnimeType } from "../../types/anime.types"
 
 const item = {
   hidden: { y: 0, opacity: 0 },
@@ -11,7 +11,7 @@ const item = {
   },
 }
 
-export interface Props extends ShortAnimeType {
+export interface Props extends AnimeType {
   className?: string
 }
 

@@ -8,23 +8,12 @@ import { useAuthStore } from "../store/authStore"
 
 import Page from "../components/UI/Page"
 import Loading from "../components/UI/Loading"
+import UserList from "../components/Person/UserList"
 
 const Dashboard = () => {
-  const navigate = useNavigate()
-
-  const [username, accountType, token] = useAuthStore((state) => [
-    state.username,
-    state.accountType,
-    state.token,
-  ])
-
-  if (accountType !== "Admin") {
-    navigate("/")
-  }
+  const [token] = useAuthStore((state) => [state.token])
 
   const fetchUsers = async (): Promise<FullUserResponse | null> => {
-    if (accountType !== "Admin") return null
-
     const response = await backendAjax.get("/user/all", {
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -42,11 +31,9 @@ const Dashboard = () => {
 
   if (error || !data) return <>something went wrong</>
 
-  // console.log(data)
-
   return (
-    <Page className="w-full p-2 h-full gap-6 flex flex-col max-w-7xl mx-auto">
-      Dashboard
+    <Page className="h-full grid place-content-center m-auto max-w-7xl w-full p-2 ">
+      <UserList data={data.data} />
     </Page>
   )
 }

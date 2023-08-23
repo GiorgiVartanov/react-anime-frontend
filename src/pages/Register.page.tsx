@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { useNavigate, Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
 
 import {
@@ -34,13 +34,11 @@ const Register = () => {
     })
 
   // getting values from store
-  const [isLoggedIn, registerUser, registerError, wasUserRegistered] =
-    useAuthStore((state) => [
-      state.isLoggedIn,
-      state.registerUser,
-      state.registerError,
-      state.wasUserRegistered,
-    ])
+  const [isLoggedIn, registerUser, registerError] = useAuthStore((state) => [
+    state.isLoggedIn,
+    state.registerUser,
+    state.registerError,
+  ])
 
   // register submit function
   const handleSubmit = (event: React.FormEvent): void => {
@@ -250,19 +248,7 @@ const Register = () => {
     setCredentialsError(registerError)
   }, [registerError])
 
-  // redirects user to the root if they are already logged in
-  useEffect(() => {
-    if (!isLoggedIn) return
-
-    navigate("/")
-  }, [isLoggedIn, navigate])
-
-  // redirects user to /login if the registration was successful
-  useEffect(() => {
-    if (!wasUserRegistered) return
-
-    navigate("/login")
-  }, [wasUserRegistered, navigate])
+  if (isLoggedIn) navigate("/")
 
   return (
     <Page className="h-full grid place-content-center mt-80 mx-auto max-w-7xl w-full p-2">

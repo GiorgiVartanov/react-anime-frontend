@@ -20,7 +20,7 @@ export type ImageType = {
   webp: ImageUrls
 }
 
-export type TrailerImages = {
+type TrailerImages = {
   image_url: string
   small_image_url: string
   medium_image_url: string
@@ -28,19 +28,19 @@ export type TrailerImages = {
   maximum_image_url: string
 }
 
-export type Trailer = {
+type Trailer = {
   youtube_id: string
   url: string
   embed_url: string
   images: TrailerImages
 }
 
-export type Title = {
+type Title = {
   type: string
   title: string
 }
 
-export type AiredDates = {
+type AiredDates = {
   from: string
   to: string
   prop: {
@@ -58,12 +58,12 @@ export type AiredDates = {
   string: string
 }
 
-export type Relation = {
+type Relation = {
   relation: string
   entry: Entry[]
 }
 
-export type Entry = {
+type Entry = {
   mal_id: number
   type: string
   name: string
@@ -139,57 +139,63 @@ export type FullAnimeResponse = {
 }
 
 export type AnimeType = {
-  mal_id: number
-  url: string
-  images: {
-    jpg: ImageUrls
-    webp: ImageUrls
-  }
-  trailer: Trailer
-  approved: boolean
-  titles: Title[]
-  title: string
-  title_english: string
-  title_japanese: string
-  title_synonyms: string[]
-  type: string
-  source: string
-  episodes: number
-  status: string
-  airing: boolean
-  aired: AiredDates
-  duration: string
-  rating: string
-  score: number
-  scored_by: number
-  rank: number
-  popularity: number
-  members: number
-  favorites: number
-  synopsis?: string
-  background: string
-  season: string
-  year: number
-  broadcast: {
-    day: string
-    time: string
-    timezone: string
-    string: string
-  }
-  producers: Entry[]
-  licensors: Entry[]
-  studios: Entry[]
-  genres: Entry[]
-  explicit_genres: any[]
-  themes: Entry[]
-  demographics: any[]
-}
-
-export type ShortAnimeType = {
   images: ImageType
   mal_id: number
   title: string
 }
+
+// export type AnimeType = {
+//   mal_id: number
+//   url: string
+//   images: {
+//     jpg: ImageUrls
+//     webp: ImageUrls
+//   }
+//   trailer: Trailer
+//   approved: boolean
+//   titles: Title[]
+//   title: string
+//   title_english: string
+//   title_japanese: string
+//   title_synonyms: string[]
+//   type: string
+//   source: string
+//   episodes: number
+//   status: string
+//   airing: boolean
+//   aired: AiredDates
+//   duration: string
+//   rating: string
+//   score: number
+//   scored_by: number
+//   rank: number
+//   popularity: number
+//   members: number
+//   favorites: number
+//   synopsis?: string
+//   background: string
+//   season: string
+//   year: number
+//   broadcast: {
+//     day: string
+//     time: string
+//     timezone: string
+//     string: string
+//   }
+//   producers: Entry[]
+//   licensors: Entry[]
+//   studios: Entry[]
+//   genres: Entry[]
+//   explicit_genres: any[]
+//   themes: Entry[]
+//   demographics: any[]
+// }
+
+// export type ShortAnimeType = {
+//   images: ImageType
+//   mal_id: number
+//   title: string
+// }
 
 export type AnimeResponse = {
   pagination: Pagination
@@ -230,19 +236,19 @@ export type animeGenreResponse = {
   data: animeGenre[]
 }
 
-export type animePictureType = {
-  jpg: {
-    image_url: string
-    small_image_url: string
-    large_image_url: string
-  }
-  webp: {
-    image_url: string
-    small_image_url: string
-    large_image_url: string
-  }
-}
+// export type animePictureType = {
+//   jpg: {
+//     image_url: string
+//     small_image_url: string
+//     large_image_url: string
+//   }
+//   webp: {
+//     image_url: string
+//     small_image_url: string
+//     large_image_url: string
+//   }
+// }
 
 export type animePicturesResponseType = {
-  data: animePictureType[]
+  data: ImageType[]
 }

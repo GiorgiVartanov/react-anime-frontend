@@ -1,17 +1,9 @@
-import { ShortAnimeType } from "./anime.types"
+import { AnimeType } from "./anime.types"
 
 type Character = {
   mal_id: number
   url: string
-  images: {
-    jpg?: {
-      image_url: string
-    }
-    webp?: {
-      image_url: string
-      small_image_url: string
-    }
-  }
+  images: ImageType
   name: string
 }
 
@@ -31,15 +23,7 @@ export type VoiceActor = {
   person: {
     mal_id: number
     url: string
-    images: {
-      jpg?: {
-        image_url: string
-      }
-      webp?: {
-        image_url: string
-        small_image_url?: string
-      }
-    }
+    images: ImageType
     name: string
   }
   language: string
@@ -52,16 +36,8 @@ export type CharacterDetails = {
   voice_actors?: VoiceActor[]
 }
 
-export type AnimeType = {
-  mal_id: number
-  url: string
-  images: ImageType
-  title: string
-}
-
 export type MangaType = {
   mal_id: number
-  url: string
   images: ImageType
   title: string
 }
@@ -77,7 +53,7 @@ export type FullCharacterType = {
   about: string
   anime: {
     role: string
-    anime: ShortAnimeType
+    anime: AnimeType
   }[]
   manga: MangaType[]
   voices: VoiceActor[]

@@ -18,8 +18,8 @@ export type UserResponse = {
   data: UserType
 }
 
-type FullUserType = {
-  id: string
+export type FullUserType = {
+  _id: string
   username: string
   email: string
   accountType: string

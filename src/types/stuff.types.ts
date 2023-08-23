@@ -14,7 +14,6 @@ type MangaType = {
   position: string
   manga: {
     mal_id: number
-    url: string
     images: ImageType
     title: string
   }
@@ -24,7 +23,6 @@ type AnimeType = {
   position: string
   anime: {
     mal_id: number
-    url: string
     images: ImageType
     title: string
   }
@@ -44,7 +42,6 @@ export type VoiceType = {
   role: string
   anime?: {
     mal_id: number
-    url: string
     images: ImageType
     title: string
   }

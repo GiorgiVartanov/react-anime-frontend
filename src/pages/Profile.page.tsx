@@ -78,7 +78,7 @@ const Profile = () => {
     staleTime: 1000000,
   })
 
-  useDocumentTitle(pageOwnersUsername || "aniPage")
+  useDocumentTitle(pageOwnersUsername || "AXP")
 
   // it will show loading while data is fetching
   if (isLoading || ownersFriendsDataIsLoading || usersFriendsDataIsLoading)

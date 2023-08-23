@@ -1,5 +1,4 @@
 import { create } from "zustand"
-import { Navigate } from "react-router-dom"
 
 import { loginUser, registerUser, changePassword } from "../service/auth"
 
@@ -21,7 +20,6 @@ interface AuthState {
   registerError: RegisterCredentialsErrorType // stores errors for register's credentials
   changePasswordError: PasswordChangeErrorType
   wasPasswordSuccessfullyChanged: boolean | null
-  wasUserRegistered: boolean | null // true is registration was successful, false if wasn't
   tokenExpirationDate: number
 }
 
@@ -55,13 +53,12 @@ export const useAuthStore = create<AuthState & AuthActions>()((set, get) => ({
       const username = data.user.username // getting username of logged in user
       const accountType = data.user.accountType
 
-      // saving them to localstorage
-
       const date = new Date()
       const tokenExpirationDate = Number(
         new Date(date.getTime() + 24 * 60 * 60 * 1000)
       )
 
+      // saving data to localstorage
       localStorage.setItem("token", token)
       localStorage.setItem("username", username)
       localStorage.setItem("accountType", accountType)
@@ -100,9 +97,33 @@ export const useAuthStore = create<AuthState & AuthActions>()((set, get) => ({
       // if registration was successful
 
       const response = await registerUser(credentials)
+      const data = response.data
+
+      // user is automatically logged in after registration
+      const token = data.token // getting newly created token
+      const username = data.user.username // getting username of logged in user
+      const accountType = data.user.accountType
+
+      const date = new Date()
+      const tokenExpirationDate = Number(
+        new Date(date.getTime() + 24 * 60 * 60 * 1000)
+      )
+
+      // saving data to localstorage
+      localStorage.setItem("token", token)
+      localStorage.setItem("username", username)
+      localStorage.setItem("accountType", accountType)
+      localStorage.setItem(
+        "tokenExpirationDate",
+        tokenExpirationDate.toString()
+      )
 
       return set(() => ({
-        wasUserRegistered: true,
+        token: data.token,
+        username: data.user.username,
+        isLoggedIn: true,
+        accountType: accountType,
+        tokenExpirationDate: tokenExpirationDate,
         registerError: {
           username: [],
           email: [],
