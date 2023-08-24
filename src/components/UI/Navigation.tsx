@@ -2,7 +2,7 @@ import backendAjax from "../../service/backendAjax"
 import { useNavigate } from "react-router-dom"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { useState, useRef, useEffect } from "react"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 
 import { FullAnimeType } from "../../types/anime.types"
 
@@ -21,8 +21,8 @@ const dropdownMenu = {
     opacity: 1,
     y: 0,
     transition: {
-      delayChildren: 0.2,
-      staggerChildren: 0.1,
+      delayChildren: 0.1,
+      staggerChildren: 0.05,
       staggerDirection: -1,
     },
   },
@@ -116,6 +116,76 @@ const Navigation = () => {
     )
   }
 
+  const renderNavBar = () => {
+    return (
+      <AnimatePresence>
+        <motion.ul
+          initial="hidden"
+          animate={
+            isHamburgerMenuOpen || screenWidth > 640 ? "visible" : "hidden"
+          }
+          exit="hidden"
+          variants={dropdownMenu}
+          className={`sm:flex h-fit gap-4 ${
+            isHamburgerMenuOpen
+              ? "flex flex-col sm:flex-row gap-2 sm:gap-1 absolute sm:static left-0 top-[50px] dark:bg-sp-gray bg-sp-white w-full sm:w-auto text-center sm:text-left pt-1 -mt-1 sm:mt-0 sm:pt-0 pb-3 sm:pb-0 shadow-xl sm:shadow-none px-4"
+              : "hidden"
+          }`}
+        >
+          <motion.li
+            variants={menuItem}
+            className="flex flex-col justify-center"
+          >
+            <DarkModeToggle
+              className={`${
+                isHamburgerMenuOpen ? "mx-auto mb-1 sm:mb-0 sm:mx-2.5" : ""
+              }`}
+            />
+          </motion.li>
+          <motion.li
+            variants={menuItem}
+            className="flex flex-col justify-center"
+          >
+            <Button
+              onClick={() => {
+                handleCloseMenu()
+                findRandomAnime()
+              }}
+              className="bg-transparent sm:w-auto w-full dark:text-white sm:py-1 py-3 sm:text-base text-lg"
+            >
+              random
+            </Button>
+          </motion.li>
+          {renderNavigationLink("search", "search")}
+          {isLoggedIn ? (
+            <>
+              {renderNavigationLink("profile", `profile/${username}`)}
+              {accountType === "Admin"
+                ? renderNavigationLink("dashboard", "dashboard")
+                : ""}
+              <motion.li
+                variants={menuItem}
+                className="flex flex-col justify-center"
+              >
+                <Button
+                  onClick={() => {
+                    handleCloseMenu()
+                    handleLogout()
+                  }}
+                  className="sm:w-auto w-full dark:text-white sm:py-1 mt-3 sm:mt-0 py-2 sm:text-base text-lg"
+                >
+                  logout
+                </Button>
+              </motion.li>
+            </>
+          ) : (
+            <>{renderNavigationLink("sign up", "register")}</>
+          )}
+        </motion.ul>
+      </AnimatePresence>
+    )
+  }
+
   useEffect(() => {
     const handleResize = () => {
       setScreenWidth(window.innerWidth)
@@ -151,69 +221,7 @@ const Navigation = () => {
           />
         )}
       </Button>
-      <motion.ul
-        initial="hidden"
-        animate={
-          isHamburgerMenuOpen || screenWidth > 640 ? "visible" : "hidden"
-        }
-        exit="hidden"
-        variants={dropdownMenu}
-        className={`sm:flex h-fit gap-4 ${
-          isHamburgerMenuOpen
-            ? "flex flex-col sm:flex-row gap-2 sm:gap-1 absolute sm:static left-0 top-[50px] dark:bg-sp-gray bg-sp-white w-full sm:w-auto text-center sm:text-left pt-1 -mt-1 sm:mt-0 sm:pt-0 pb-3 sm:pb-0 shadow-xl sm:shadow-none px-4"
-            : "hidden"
-        }`}
-      >
-        <motion.li
-          variants={menuItem}
-          className="flex flex-col justify-center"
-        >
-          <DarkModeToggle
-            className={`${
-              isHamburgerMenuOpen ? "mx-auto mb-1 sm:mb-0 sm:mx-2.5" : ""
-            }`}
-          />
-        </motion.li>
-        <motion.li
-          variants={menuItem}
-          className="flex flex-col justify-center"
-        >
-          <Button
-            onClick={() => {
-              handleCloseMenu()
-              findRandomAnime()
-            }}
-            className="bg-transparent sm:w-auto w-full dark:text-white sm:py-1 py-3 sm:text-base text-lg"
-          >
-            random
-          </Button>
-        </motion.li>
-        {renderNavigationLink("search", "search")}
-        {isLoggedIn ? (
-          <>
-            {renderNavigationLink("profile", `profile/${username}`)}
-            {accountType === "Admin"
-              ? renderNavigationLink("dashboard", "dashboard")
-              : ""}
-            <motion.li
-              variants={menuItem}
-              className="flex flex-col justify-center"
-            >
-              <Button
-                onClick={() => {
-                  handleCloseMenu()
-                  handleLogout()
-                }}
-                className="sm:w-auto w-full dark:text-white sm:py-1 mt-3 sm:mt-0 py-2 sm:text-base text-lg"
-              >
-                logout
-              </Button>
-            </motion.li>
-          </>
-        ) : (
-          <>{renderNavigationLink("sign up", "register")}</>
-        )}
-      </motion.ul>
+      <AnimatePresence>{renderNavBar()}</AnimatePresence>
     </nav>
   )
 }

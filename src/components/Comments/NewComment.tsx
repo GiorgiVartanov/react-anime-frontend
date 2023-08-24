@@ -9,6 +9,7 @@ import { useAuthStore } from "../../store/authStore"
 import ajax from "../../service/backendAjax"
 
 import { CommentType } from "../../types/comment.types"
+import Button from "../UI/Button"
 
 // renders input field for a new comment
 const NewComment = () => {
@@ -138,9 +139,12 @@ const NewComment = () => {
         placeholder="write a comment"
         className="p-2 outline-none transition-all ease-in-out delay-50 duration-200 resize-none w-full dark:text-white text-sp-black dark:bg-sp-black overflow-wrap"
       />
-      <button className="dark:bg-sp-black bg-sp-white dark:text-sp-white text-sp-black px-2 py-1 mt-1 shadow-md hover:shadow-lg ease-in-out duration-200">
+      <Button
+        disabled={text.trim().length === 0}
+        className="dark:bg-sp-black bg-sp-white dark:text-sp-white text-sp-black px-2 py-1 mt-1 shadow-sm ease-in-out duration-200"
+      >
         comment
-      </button>
+      </Button>
     </form>
   )
 }

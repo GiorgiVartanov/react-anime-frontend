@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import backendAjax from "../../service/backendAjax"
 import { toast } from "react-toastify"
+import { motion } from "framer-motion"
 
 import { FullUserType, FullUserResponse } from "../../types/user.types"
 
@@ -49,6 +50,12 @@ const UserRow = ({ _id, username, email, accountType }: Props) => {
     onSuccess: () => {
       toast.success(`successfully deleted user with id ${_id}`)
     },
+    onError: (error) => {
+      toast.success(
+        `something went wrong while deleting user with id ${_id}, see browser console for more detailed information`
+      )
+      console.log(error)
+    },
   })
 
   const handleDelete = () => {
@@ -62,7 +69,13 @@ const UserRow = ({ _id, username, email, accountType }: Props) => {
       <td className="p-3">{username}</td>
       <td className="p-3">{accountType}</td>
       <td className="p-3 text-red-500">
-        <button onClick={handleDelete}>delete</button>
+        <motion.button
+          whileHover={{ opacity: 0.8 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={handleDelete}
+        >
+          delete
+        </motion.button>
       </td>
     </tr>
   )

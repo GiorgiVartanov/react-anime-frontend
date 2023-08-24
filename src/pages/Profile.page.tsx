@@ -5,11 +5,13 @@ import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
 
 import { useAuthStore } from "../store/authStore"
+import { useSettingsStore } from "../store/settingsStore"
 import { useDocumentTitle } from "../hooks/useDocumentTitle"
 
 import { UserResponse, FriendsResponseType } from "../types/user.types"
 import { AnimeType } from "../types/anime.types"
 
+import { ReactComponent as Gear } from "../assets/icons/gear-solid.svg"
 import Page from "../components/UI/Page"
 import UserIcon from "../components/Person/UserIcon"
 import AnimeCardList from "../components/Anime/AnimeCardList"
@@ -23,6 +25,7 @@ const Profile = () => {
   const { username: pageOwnersUsername } = useParams()
 
   const [username] = useAuthStore((state) => [state.username])
+  const [theme] = useSettingsStore((state) => [state.theme])
 
   // function to fetch logged in user's friend list
   const fetchUsersFriends = async (): Promise<FriendsResponseType | null> => {
@@ -85,7 +88,7 @@ const Profile = () => {
     return <Loading />
 
   if (!pageOwnersUsername || !data || !data.data || error) return <></>
-
+  theme
   const { createdAt, favoriteAnime } = data.data
 
   return (
@@ -94,7 +97,13 @@ const Profile = () => {
         <div className="flex gap-2 text-center items-center justify-center">
           <UserIcon username={pageOwnersUsername} />
           {username === pageOwnersUsername ? (
-            <Link to="../settings">settings</Link>
+            <Link to="../settings">
+              <Gear
+                width={24}
+                height={24}
+                fill={`${theme === "dark" ? "#e6eaee" : "#121212"}`}
+              />
+            </Link>
           ) : (
             ""
           )}

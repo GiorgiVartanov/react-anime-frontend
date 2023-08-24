@@ -3,15 +3,18 @@ import { useMutation } from "@tanstack/react-query"
 import { useQueryClient } from "@tanstack/react-query"
 import { useState, useEffect } from "react"
 import { toast } from "react-toastify"
+import ajax from "../../service/backendAjax"
+import { motion, AnimatePresence } from "framer-motion"
 
 import { CommentType } from "../../types/comment.types"
 
-import ajax from "../../service/backendAjax"
+import { useAuthStore } from "../../store/authStore"
 
+import { ReactComponent as Upvote } from "../../assets/icons/upvote.svg"
 import UserIcon from "../Person/UserIcon"
 import Button from "../UI/Button"
 import CommentUpvotes from "./CommentUpvotes"
-import { ReactComponent as Upvote } from "../../assets/icons/upvote.svg"
+import CommentAdminActions from "./CommentAdminActions"
 
 export interface Props {
   comment: CommentType
@@ -28,6 +31,8 @@ const Comment = ({ comment, token, isLoggedIn, animeId }: Props) => {
     comment
 
   const [canVote, setCanVote] = useState<boolean>(true)
+
+  const [accountType] = useAuthStore((state) => [state.accountType])
 
   // upvotes a comment
   const upvote = useMutation({
@@ -151,7 +156,7 @@ const Comment = ({ comment, token, isLoggedIn, animeId }: Props) => {
   }
 
   return (
-    <div className="text-md">
+    <motion.div className="text-md">
       <div className="flex flex-row gap-4 mb-1 mt-2 px-1 py-1">
         <Link
           to={`../../profile/${author}`}
@@ -160,6 +165,15 @@ const Comment = ({ comment, token, isLoggedIn, animeId }: Props) => {
           <UserIcon username={author} />
         </Link>
         <p className="text-sm opacity-25 leading-8">{posted}</p>
+        {accountType === "Admin" ? (
+          <CommentAdminActions
+            commentId={id}
+            username={author}
+            animeId={animeId}
+          />
+        ) : (
+          ""
+        )}
       </div>
       <div className="flex flex-row">
         <CommentUpvotes
@@ -174,7 +188,7 @@ const Comment = ({ comment, token, isLoggedIn, animeId }: Props) => {
           <p className="pb-4 pt-1">{text}</p>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 export default Comment

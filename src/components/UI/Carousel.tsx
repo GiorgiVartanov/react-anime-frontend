@@ -29,6 +29,7 @@ const Carousel = ({ children, intervalDuration = 5000, className }: Props) => {
 
   const [isCursorOnComponent, setIsCursorOnComponent] = useState<boolean>(false)
   const [isOnPause, setIsOnPause] = useState<boolean>(false)
+  const [canBeScrolled, setCanBeScrolled] = useState<boolean>(true)
 
   // calls a function to scroll in the given direction
   // pauses scroll for 5 seconds (if different intervalDuration was not passed) when is called
@@ -135,7 +136,7 @@ const Carousel = ({ children, intervalDuration = 5000, className }: Props) => {
 
   // automatically scrolls when user's cursor is not on carousel and they have not clicked move left or move right buttons in the past 5 seconds
   useEffect(() => {
-    if (isOnPause || isCursorOnComponent) return
+    if (isOnPause || isCursorOnComponent || !canBeScrolled) return
 
     const interval = setInterval(() => {
       handleScroll("right")
@@ -144,7 +145,32 @@ const Carousel = ({ children, intervalDuration = 5000, className }: Props) => {
     return () => {
       clearInterval(interval)
     } // cleans up the interval when component unmounts
-  }, [isOnPause, isCursorOnComponent])
+  }, [isOnPause, isCursorOnComponent, canBeScrolled])
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (!carouselRef?.current) return
+
+      const container = carouselRef.current
+
+      // width of all children
+      const allChildrenWidth = container.scrollWidth || 0
+
+      // visible with of the carousel
+      const clientWidth = container.clientWidth
+
+      setCanBeScrolled(allChildrenWidth < clientWidth)
+    }
+
+    handleResize()
+
+    window.addEventListener("resize", handleResize)
+
+    // Clean up the event listener on unmount
+    return () => {
+      window.removeEventListener("resize", handleResize)
+    }
+  }, [carouselRef])
 
   return (
     <div
@@ -167,7 +193,8 @@ const Carousel = ({ children, intervalDuration = 5000, className }: Props) => {
       {carouselRef?.current?.scrollWidth !==
         carouselRef?.current?.clientWidth ||
       carouselRef?.current?.scrollWidth === undefined ||
-      carouselRef?.current?.clientWidth === undefined ? (
+      carouselRef?.current?.clientWidth === undefined ||
+      canBeScrolled ? (
         <>
           <motion.button
             initial={{ opacity: 0 }}

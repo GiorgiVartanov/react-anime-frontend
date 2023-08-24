@@ -1,11 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion"
 
-import {
-  AnimeType,
-  AnimeResponse,
-  ShortAnimeType,
-} from "../../types/anime.types"
-import { FavoriteAnime } from "../../types/user.types"
+import { AnimeType } from "../../types/anime.types"
 import { Props as AnimeCardProps } from "./AnimeCard"
 
 import AnimeCard from "./AnimeCard"
@@ -15,18 +10,14 @@ const container = {
   visible: {
     opacity: 1,
     transition: {
-      delayChildren: 0.2,
-      staggerChildren: 0.1,
+      delayChildren: 0.1,
+      staggerChildren: 0.05,
     },
   },
 }
 
 interface Props {
-  data:
-    | AnimeCardProps[][]
-    | AnimeType[][]
-    | ShortAnimeType[][]
-    | FavoriteAnime[][]
+  data: AnimeType[][]
 }
 
 const AnimeCardList = ({ data = [] }: Props) => {

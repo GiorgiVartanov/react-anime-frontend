@@ -14,6 +14,7 @@ import {
 import Page from "../components/UI/Page"
 import AnimeCardList from "../components/Anime/AnimeCardList"
 import SearchComponent from "../components/Search/Search"
+import ScrollToTopButton from "../components/UI/ScrollToTopButton"
 import SkeletonAnimeCardList from "../components/Anime/Skeleton/SkeletonAnimeCardList"
 import Loading from "../components/UI/Loading"
 
@@ -157,6 +158,7 @@ const Search = () => {
     <Page className="mx-auto max-w-7xl w-full p-2 h-full">
       <SearchComponent />
       {renderCardList()}
+      {data?.pages && data.pages.length > 2 ? <ScrollToTopButton /> : ""}
       {/* {isFetchingNextPage ? <SkeletonAnimeCardList amount={20} /> : ""} */}
     </Page>
   )

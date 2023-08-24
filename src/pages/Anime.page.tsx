@@ -16,6 +16,7 @@ import AnimeRecommendations from "../components/Anime/AnimeRecommendations"
 import AnimeCharacters from "../components/Anime/AnimeCharacters"
 import AnimeComments from "../components/Anime/AnimeComments"
 import AddToFavoritesButton from "../components/Anime/AddToFavoritesButton"
+import AnimeExternalLink from "../components/Anime/AnimeExternalLink"
 import Loading from "../components/UI/Loading"
 
 const Anime = () => {
@@ -36,6 +37,8 @@ const Anime = () => {
     queryFn: fetchAnime,
     staleTime: 1000000,
   })
+
+  console.log(data)
 
   // changes page's title
   const [documentTitle, setDocumentTitle] = useDocumentTitle(
@@ -92,6 +95,23 @@ const Anime = () => {
     external,
     streaming,
   } = data
+
+  const renderExternalLinks = () => {
+    return (
+      <div>
+        <span>External Links:</span>
+        <div>
+          {external.map((link) => (
+            <AnimeExternalLink
+              key={link.url}
+              url={link.url}
+              name={link.name}
+            />
+          ))}
+        </div>
+      </div>
+    )
+  }
 
   // renders description (synopsys) of a show
   const renderDescription = () => {
@@ -213,6 +233,7 @@ const Anime = () => {
             <span className="opacity-60 text-white">{value}</span>
           </div>
         ))}
+        {renderExternalLinks()}
         <GenreList
           genres={genres}
           className="inline mt-3"
