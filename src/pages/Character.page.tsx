@@ -3,7 +3,6 @@ import { useQuery } from "@tanstack/react-query"
 import apiAjax from "../service/APIAjax"
 
 import { FullCharacterType } from "../types/character.types"
-import { AnimeType } from "../types/anime.types"
 
 import Page from "../components/UI/Page"
 import AnimeCardList from "../components/Anime/AnimeCardList"

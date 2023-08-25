@@ -1,18 +1,19 @@
+import { Link } from "react-router-dom"
+
 interface Props {
   name: string
   url: string
+  className?: string
 }
 
-const AnimeExternalLink = ({ name, url }: Props) => {
+const AnimeExternalLink = ({ name, url, className = "" }: Props) => {
   return (
-    <li className="list-none">
-      <a
-        href={url}
-        className="mr-1 bg-sp-black px-1"
-      >
-        {name}
-      </a>
-    </li>
+    <Link
+      to={url}
+      className={`mr-1 bg-sp-black text-sp-white px-1 ${className}`}
+    >
+      {name}
+    </Link>
   )
 }
 export default AnimeExternalLink

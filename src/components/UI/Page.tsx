@@ -8,10 +8,16 @@ interface Props {
 const Page = ({ className, children }: Props) => {
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.1 }}
+      initial={{ opacity: 0, overflowY: "hidden" }}
+      animate={{
+        opacity: 1,
+        overflowY: "auto",
+      }}
+      exit={{
+        opacity: 0,
+        overflowY: "hidden",
+      }}
+      transition={{ type: "tween", opacity: { duration: 0.25 } }}
       className={`${className}`}
     >
       {children}

@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import backendAjax from "../../service/backendAjax"
 import { toast } from "react-toastify"
 import { motion } from "framer-motion"
+import { Link } from "react-router-dom"
 
 import { FullUserType, FullUserResponse } from "../../types/user.types"
 
@@ -64,9 +65,15 @@ const UserRow = ({ _id, username, email, accountType }: Props) => {
 
   return (
     <tr className="">
-      <td className="p-3">{_id}</td>
-      <td className="p-3">{email}</td>
-      <td className="p-3">{username}</td>
+      <td className="p-3">
+        <Link to={`../profile/${username}`}>{_id}</Link>
+      </td>
+      <td className="p-3">
+        <Link to={`../profile/${username}`}>{email}</Link>
+      </td>
+      <td className="p-3">
+        <Link to={`../profile/${username}`}>{username}</Link>
+      </td>
       <td className="p-3">{accountType}</td>
       <td className="p-3 text-red-500">
         <motion.button

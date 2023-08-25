@@ -11,7 +11,6 @@ import Page from "../components/UI/Page"
 import GenreList from "../components/Search/GenreList"
 import AnimePictures from "../components/Anime/AnimePictures"
 import Image from "../components/UI/Image"
-import AnimeTrailer from "../components/Anime/AnimeTrailer"
 import AnimeRecommendations from "../components/Anime/AnimeRecommendations"
 import AnimeCharacters from "../components/Anime/AnimeCharacters"
 import AnimeComments from "../components/Anime/AnimeComments"
@@ -37,8 +36,6 @@ const Anime = () => {
     queryFn: fetchAnime,
     staleTime: 1000000,
   })
-
-  console.log(data)
 
   // changes page's title
   const [documentTitle, setDocumentTitle] = useDocumentTitle(
@@ -96,23 +93,6 @@ const Anime = () => {
     streaming,
   } = data
 
-  const renderExternalLinks = () => {
-    return (
-      <div>
-        <span>External Links:</span>
-        <div>
-          {external.map((link) => (
-            <AnimeExternalLink
-              key={link.url}
-              url={link.url}
-              name={link.name}
-            />
-          ))}
-        </div>
-      </div>
-    )
-  }
-
   // renders description (synopsys) of a show
   const renderDescription = () => {
     // if the lengths of description exceeds 1200 characters it will only render 1200 characters and button
@@ -162,59 +142,61 @@ const Anime = () => {
   // renders information (episodes count, score, rating, etc.)
   const renderInformation = () => {
     const information = [
-      { title: "Japanese", value: title_japanese },
+      { title: "Japanese", value: <span>{title_japanese}</span> },
       // { title: "Title Synonyms", value: title_synonyms },
-      { title: "Episodes Count", value: episodes },
-      { title: "Type", value: type },
-      { title: "Source", value: source },
-      { title: "Aired", value: aired.string },
-      { title: "Episode Duration", value: duration },
-      { title: "Rating", value: rating },
-      { title: "Score", value: score },
+      { title: "Episodes Count", value: <span>{episodes}</span> },
+      { title: "Type", value: <span>{type}</span> },
+      { title: "Source", value: <span>{source}</span> },
+      { title: "Aired", value: <span>{aired.string}</span> },
+      { title: "Episode Duration", value: <span>{duration}</span> },
+      { title: "Rating", value: <span>{rating}</span> },
+      { title: "Score", value: <span>{score}</span> },
       {
         title: "Producers",
-        value: (
-          <div className="inline">
-            {producers.map((producer) => (
-              <span
-                key={producer.mal_id}
-                className="mr-1 bg-sp-black px-1"
-              >
-                {producer.name}
-              </span>
-            ))}
-          </div>
-        ),
+        value:
+          // <ul className="contents">
+          producers.map((producer) => (
+            <AnimeExternalLink
+              key={producer.mal_id}
+              url={`../studio/${producer.mal_id}`}
+              name={producer.name}
+              className="opacity-60"
+            />
+          )),
+        // </ul>
       },
       {
         title: "Licensors",
-        value: (
-          <div className="inline">
-            {licensors.map((licensor) => (
-              <span
-                key={licensor.mal_id}
-                className="mr-1 bg-sp-black px-1"
-              >
-                {licensor.name}
-              </span>
-            ))}
-          </div>
-        ),
+        value: licensors.map((licensor) => (
+          <AnimeExternalLink
+            key={licensor.mal_id}
+            url={`../studio/${licensor.mal_id}`}
+            name={licensor.name}
+            className="opacity-60"
+          />
+        )),
       },
       {
         title: "Studios",
-        value: (
-          <div className="inline-flex">
-            {studios.map((studio) => (
-              <span
-                key={studio.mal_id}
-                className="mr-1 bg-sp-black px-1"
-              >
-                {studio.name}
-              </span>
-            ))}
-          </div>
-        ),
+        value: studios.map((studio) => (
+          <AnimeExternalLink
+            key={studio.mal_id}
+            url={`../studio/${studio.mal_id}`}
+            name={studio.name}
+            className="opacity-60"
+          />
+        )),
+      },
+      {
+        title: "External Links",
+        value: external.map((link) => (
+          <AnimeExternalLink
+            key={link.url}
+            url={link.url}
+            name={link.name}
+            className="opacity-60"
+          />
+        )),
       },
     ]
 
@@ -227,13 +209,12 @@ const Anime = () => {
         {information.map(({ title, value }) => (
           <div
             key={title}
-            className=""
+            className="flex flex-wrap gap-1 tracking-wide [&>*:not(:first-child)]:opacity-60"
           >
-            <span className="font-semibold">{title}: </span>
-            <span className="opacity-60 text-white">{value}</span>
+            <span className="font-semibold inline">{title}: </span>
+            {value}
           </div>
         ))}
-        {renderExternalLinks()}
         <GenreList
           genres={genres}
           className="inline mt-3"
@@ -301,7 +282,7 @@ const Anime = () => {
           <div className="mx-auto max-w-7xl w-full p-2 h-full flex flex-col gap-8">
             <AnimePictures animeId={id} />
             <AnimeRecommendations id={id} />
-            <AnimeTrailer videoId={trailer.youtube_id} />
+            {/* <AnimeTrailer videoId={trailer.youtube_id} /> */}
             <AnimeCharacters id={id} />
           </div>
           <div className="bg-sp-white dark:bg-sp-gray">

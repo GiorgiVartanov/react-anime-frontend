@@ -18,29 +18,27 @@ const Input = ({
   value,
   onChange,
   autoComplete = "on",
-  className,
+  className = "",
   error,
 }: Props) => {
   return (
     <>
       <motion.input
-        whileHover={{ boxShadow: "0 0 4px #e91e63" }}
-        whileFocus={{ boxShadow: "0 0 4px #e91e63" }}
+        // whileHover={{ boxShadow: "0 0 4px black" }}
+        // whileFocus={{ boxShadow: "0 0 4px black" }}
         name={name}
         placeholder={placeholder}
         type={type}
         value={value}
         onChange={onChange}
         autoComplete={autoComplete}
-        className={`outline-offset-0 shadow-sm transition-all ease-in-out duration-200 w-full ${
-          error && error.length > 0 ? "border-l-2 border-l-red-400" : ""
+        className={`outline-offset-0 shadow-sm transition-all ease-in-out duration-200  w-full block p-1 outline-none text-slate-900 hover:shadow-md focus:shadow-xl ${
+          error && error.length > 0 ? "border-l-2 border-l-red-500" : ""
         } ${
-          value.length > 0 && error && error.length === 0
+          value.length !== 0 && error && error.length === 0
             ? "border-l-2  border-l-green-400"
             : ""
-        } ${
-          className || ""
-        } w-full block p-1 outline-none text-slate-900 focus:placeholder:text-transparent`}
+        } ${className}`}
       />
       {/* renders list of errors */}
       {error && error.length > 0 ? (

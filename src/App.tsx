@@ -19,6 +19,7 @@ import Register from "./pages/Register.page"
 import Profile from "./pages/Profile.page"
 import Dashboard from "./pages/Dashboard"
 import Stuff from "./pages/Stuff.page"
+import Studio from "./pages/Studio.page"
 import Settings from "./pages/Settings"
 import Character from "./pages/Character.page"
 import PageNotFound from "./pages/PageNotFound.page"
@@ -53,7 +54,7 @@ function App() {
   }, [])
 
   return (
-    <div className="bg-white dark:bg-sp-black dark:text-sp-white text-sp-black min-h-screen flex flex-col">
+    <div className="bg-white dark:bg-sp-black dark:text-sp-white text-sp-black min-h-screen flex flex-col overflow-x-hidden">
       <Header pages={[]} />
       <div className="h-full flex-1 flex flex-col">
         <AnimatePresence mode="wait">
@@ -108,6 +109,10 @@ function App() {
             <Route
               path="/stuff/:id"
               element={<Stuff />}
+            />
+            <Route
+              path="/studio/:id"
+              element={<Studio />}
             />
             <Route
               path="/character/:id"

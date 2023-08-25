@@ -6,7 +6,6 @@ import apiAjax from "../../service/APIAjax"
 import { AnimeRecommendation } from "../../types/anime.types"
 
 import SkeletonAnimeCardList from "../../components/Anime/Skeleton/SkeletonAnimeCardList"
-import AnimeRecommendationCardList from "../../components/Anime/AnimeRecommendationCardList"
 import AnimeCardList from "./AnimeCardList"
 
 const baseURL = import.meta.env.VITE_API_URL
