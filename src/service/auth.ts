@@ -3,7 +3,7 @@ import backendAjax from "./backendAjax"
 import {
   LoginCredentialsType,
   RegisterCredentialsType,
-  PasswordChangeType,
+  CredentialsChangeType,
 } from "../types/auth.types"
 
 export const loginUser = (credentials: LoginCredentialsType) =>
@@ -13,7 +13,7 @@ export const registerUser = (credentials: RegisterCredentialsType) =>
   backendAjax.post("/auth/register", credentials) // registers user with the passed data
 
 export const changePassword = (
-  credentials: PasswordChangeType,
+  credentials: CredentialsChangeType,
   token: string
 ) =>
   backendAjax.post("/auth/reset", credentials, {

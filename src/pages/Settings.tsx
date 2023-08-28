@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom"
 import { useAuthStore } from "../store/authStore"
 
 import {
-  PasswordChangeType,
-  PasswordChangeErrorType,
+  CredentialsChangeType,
+  CredentialsChangeErrorType,
 } from "../types/auth.types"
 
 import Page from "../components/UI/Page"
@@ -19,25 +19,29 @@ const Settings = () => {
 
   const [
     isLoggedIn,
-    changePassword,
-    changePasswordError,
+    changeCredentials,
+    changeCredentialsError,
     wasPasswordSuccessfullyChanged,
   ] = useAuthStore((state) => [
     state.isLoggedIn,
-    state.changePassword,
-    state.changePasswordError,
+    state.changeCredentials,
+    state.changeCredentialsError,
     state.wasPasswordSuccessfullyChanged,
   ])
 
-  const [credentials, setCredentials] = useState<PasswordChangeType>({
+  const [credentials, setCredentials] = useState<CredentialsChangeType>({
     password: "",
     newPassword: "",
+    newEmail: "",
+    newUsername: "",
   })
 
   const [credentialsError, setCredentialsError] =
-    useState<PasswordChangeErrorType>({
+    useState<CredentialsChangeErrorType>({
       password: [],
       newPassword: [],
+      newEmail: [],
+      newUsername: [],
     })
 
   if (!isLoggedIn) navigate("/login")
@@ -45,7 +49,22 @@ const Settings = () => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
 
-    changePassword(credentials)
+    if (
+      credentialsError.password.length > 0 ||
+      credentialsError.newPassword.length > 0 ||
+      credentialsError.newEmail.length > 0 ||
+      credentialsError.newUsername.length > 0
+    )
+      return
+
+    if (credentials.password.length === 0) return
+
+    if (
+      credentials.newPassword.length === 0 ||
+      credentials.newEmail.length === 0 ||
+      credentials.newUsername.length === 0
+    )
+      changeCredentials(credentials)
   }
 
   const handleOnPasswordChange = (
@@ -54,10 +73,14 @@ const Settings = () => {
     setCredentialsError(() => ({
       password: [],
       newPassword: [],
+      newEmail: [],
+      newUsername: [],
     }))
     setCredentials((prevState) => ({
       password: event.target.value,
       newPassword: prevState.newPassword,
+      newEmail: prevState.newEmail,
+      newUsername: prevState.newUsername,
     }))
   }
 
@@ -82,10 +105,62 @@ const Settings = () => {
     setCredentialsError((prevState) => ({
       password: prevState.password,
       newPassword: error,
+      newEmail: prevState.newEmail,
+      newUsername: prevState.newUsername,
     }))
     setCredentials((prevState) => ({
       password: prevState.password,
       newPassword: newPassword,
+      newEmail: prevState.newEmail,
+      newUsername: prevState.newUsername,
+    }))
+  }
+
+  const handleOnNewEmailChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const error: string[] = []
+
+    const newEmail = event.target.value
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+
+    if (!emailRegex.test(newEmail)) error.push("email needs to be valid")
+
+    setCredentialsError((prevState) => ({
+      password: prevState.password,
+      newPassword: prevState.newPassword,
+      newEmail: error,
+      newUsername: prevState.newUsername,
+    }))
+    setCredentials((prevState) => ({
+      password: prevState.password,
+      newPassword: prevState.newPassword,
+      newEmail: newEmail,
+      newUsername: prevState.newUsername,
+    }))
+  }
+
+  const handleOnNewUsernameChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const error: string[] = []
+
+    const newUsername = event.target.value
+
+    if (newUsername.length < 4) error.push("username is too short")
+    if (newUsername.length > 20) error.push("username is too long")
+
+    setCredentialsError((prevState) => ({
+      password: prevState.password,
+      newPassword: prevState.newEmail,
+      newEmail: prevState.newEmail,
+      newUsername: error,
+    }))
+    setCredentials((prevState) => ({
+      password: prevState.password,
+      newPassword: prevState.newPassword,
+      newEmail: prevState.newEmail,
+      newUsername: newUsername,
     }))
   }
 
@@ -100,31 +175,78 @@ const Settings = () => {
   }
 
   useEffect(() => {
-    setCredentialsError(changePasswordError)
-  }, [changePasswordError])
+    setCredentialsError(changeCredentialsError)
+  }, [changeCredentialsError])
 
   return (
     <Page className="h-full grid place-content-center mt-80 mx-auto max-w-7xl w-full p-2">
       <Form onSubmit={handleSubmit}>
-        <Input
-          name="password"
-          type="password"
-          placeholder="password"
-          value={credentials.password}
-          onChange={handleOnPasswordChange}
-          autoComplete="new-password"
-          error={credentialsError.password}
-        />
         <Input
           name="new password"
           type="password"
           placeholder="new password"
           value={credentials.newPassword}
           onChange={handleOnNewPasswordChange}
-          autoComplete="new-password"
+          autoComplete="off"
           error={credentialsError.newPassword}
+          className={
+            credentials.newPassword.length > 0
+              ? "opacity-100"
+              : "opacity-70 focus:opacity-100 active:opacity-100"
+          }
         />
-        <Button onClick={handleSubmit}>change password</Button>
+        <Input
+          name="new email"
+          type="email"
+          placeholder="new email"
+          value={credentials.newEmail}
+          onChange={handleOnNewEmailChange}
+          error={credentialsError.newEmail}
+          className={
+            credentials.newEmail.length > 0
+              ? "opacity-100"
+              : "opacity-70 focus:opacity-100 active:opacity-100"
+          }
+        />
+        <Input
+          name="new username"
+          type="text"
+          placeholder="new username"
+          value={credentials.newUsername}
+          onChange={handleOnNewUsernameChange}
+          autoComplete="off" // its not working
+          error={credentialsError.newUsername}
+          className={
+            credentials.newUsername.length > 0
+              ? "opacity-100"
+              : "opacity-70 focus:opacity-100 active:opacity-100"
+          }
+        />
+        <Input
+          name="current password"
+          type="password"
+          placeholder="current password"
+          value={credentials.password}
+          onChange={handleOnPasswordChange}
+          autoComplete="password"
+          error={credentialsError.password}
+        />
+        <Button
+          onClick={handleSubmit}
+          className="p-1"
+          disabled={
+            credentialsError.password.length > 0 ||
+            credentialsError.newPassword.length > 0 ||
+            credentialsError.newEmail.length > 0 ||
+            credentialsError.newUsername.length > 0 ||
+            credentials.newPassword.length === 0 ||
+            credentials.newEmail.length === 0 ||
+            credentials.newUsername.length === 0 ||
+            credentials.password.length === 0
+          }
+        >
+          change password
+        </Button>
         {renderMessage()}
       </Form>
     </Page>

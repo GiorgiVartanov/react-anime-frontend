@@ -7,18 +7,19 @@ import {
   RegisterCredentialsType,
   LoginCredentialsErrorType,
   RegisterCredentialsErrorType,
-  PasswordChangeType,
-  PasswordChangeErrorType,
+  CredentialsChangeType,
+  CredentialsChangeErrorType,
 } from "../types/auth.types"
 
 interface AuthState {
   token: string | null // JSON web token
   username: string | null
+  _id: string | null
   isLoggedIn: boolean // true if user is logged in, false is isn't
   accountType: string | null
   loginError: LoginCredentialsErrorType // stores errors for login's credentials
   registerError: RegisterCredentialsErrorType // stores errors for register's credentials
-  changePasswordError: PasswordChangeErrorType
+  changeCredentialsError: CredentialsChangeErrorType
   wasPasswordSuccessfullyChanged: boolean | null
   tokenExpirationDate: number
 }
@@ -26,7 +27,7 @@ interface AuthState {
 interface AuthActions {
   loginUser: (credentials: LoginCredentialsType) => void // function that logins user with the passed credentials
   registerUser: (credentials: RegisterCredentialsType) => void // function that registers user with the passed credentials
-  changePassword: (credentials: PasswordChangeType) => void // function to change user's password
+  changeCredentials: (credentials: CredentialsChangeType) => void // function to change user's password
   logoutUser: () => void // logs out user
   hasSessionExpired: () => void
 }
@@ -34,11 +35,17 @@ interface AuthActions {
 export const useAuthStore = create<AuthState & AuthActions>()((set, get) => ({
   token: localStorage.getItem("token") || null,
   username: localStorage.getItem("username") || null,
+  _id: localStorage.getItem("_id") || null,
   isLoggedIn: localStorage.getItem("token") ? true : false,
   accountType: localStorage.getItem("accountType") || null,
   loginError: { email: [], password: [] },
   registerError: { username: [], email: [], password: [], confirmPassword: [] },
-  changePasswordError: { password: [], newPassword: [] },
+  changeCredentialsError: {
+    password: [],
+    newPassword: [],
+    newUsername: [],
+    newEmail: [],
+  },
   wasUserRegistered: false,
   wasPasswordSuccessfullyChanged: null,
   tokenExpirationDate: Number(localStorage.getItem("tokenExpirationDate")) || 0,
@@ -51,6 +58,7 @@ export const useAuthStore = create<AuthState & AuthActions>()((set, get) => ({
 
       const token = data.token // getting newly created token
       const username = data.user.username // getting username of logged in user
+      const _id = data.user._id
       const accountType = data.user.accountType
 
       const date = new Date()
@@ -61,6 +69,7 @@ export const useAuthStore = create<AuthState & AuthActions>()((set, get) => ({
       // saving data to localstorage
       localStorage.setItem("token", token)
       localStorage.setItem("username", username)
+      localStorage.setItem("_id", _id)
       localStorage.setItem("accountType", accountType)
       localStorage.setItem(
         "tokenExpirationDate",
@@ -69,8 +78,9 @@ export const useAuthStore = create<AuthState & AuthActions>()((set, get) => ({
 
       // changing zustand's states
       return set(() => ({
-        token: data.token,
-        username: data.user.username,
+        token: token,
+        username: username,
+        _id: _id,
         isLoggedIn: true,
         accountType: accountType,
         tokenExpirationDate: tokenExpirationDate,
@@ -102,6 +112,7 @@ export const useAuthStore = create<AuthState & AuthActions>()((set, get) => ({
       // user is automatically logged in after registration
       const token = data.token // getting newly created token
       const username = data.user.username // getting username of logged in user
+      const _id = data.user._id
       const accountType = data.user.accountType
 
       const date = new Date()
@@ -112,6 +123,7 @@ export const useAuthStore = create<AuthState & AuthActions>()((set, get) => ({
       // saving data to localstorage
       localStorage.setItem("token", token)
       localStorage.setItem("username", username)
+      localStorage.setItem("_id", _id)
       localStorage.setItem("accountType", accountType)
       localStorage.setItem(
         "tokenExpirationDate",
@@ -119,8 +131,9 @@ export const useAuthStore = create<AuthState & AuthActions>()((set, get) => ({
       )
 
       return set(() => ({
-        token: data.token,
-        username: data.user.username,
+        token: token,
+        username: username,
+        _id: _id,
         isLoggedIn: true,
         accountType: accountType,
         tokenExpirationDate: tokenExpirationDate,
@@ -167,7 +180,7 @@ export const useAuthStore = create<AuthState & AuthActions>()((set, get) => ({
       }
     }
   },
-  changePassword: async (credentials: PasswordChangeType) => {
+  changeCredentials: async (credentials: CredentialsChangeType) => {
     try {
       const token = get().token
 
@@ -175,7 +188,16 @@ export const useAuthStore = create<AuthState & AuthActions>()((set, get) => ({
 
       const response = await changePassword(credentials, token)
 
+      const data = response.data
+
+      const username = data.user.username
+      const _id = data.user._id
+
+      localStorage.setItem("username", username)
+
       return set(() => ({
+        username: username,
+        _id: _id,
         wasPasswordSuccessfullyChanged: true,
         changePasswordError: {
           password: [],
@@ -200,12 +222,14 @@ export const useAuthStore = create<AuthState & AuthActions>()((set, get) => ({
     // resets values and removes token from localstorage
 
     localStorage.removeItem("token")
+    localStorage.removeItem("_id")
     localStorage.removeItem("username")
     localStorage.removeItem("accountType")
 
     return set(() => ({
       token: null,
       username: null,
+      _id: null,
       accountType: null,
       isLoggedIn: false,
       wasPasswordSuccessfullyChanged: null,

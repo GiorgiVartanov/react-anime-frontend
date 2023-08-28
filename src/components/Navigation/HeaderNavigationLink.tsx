@@ -20,11 +20,10 @@ const HeaderNavigationLink = ({ to, className, children, ...rest }: Props) => {
       initial={{ opacity: 1 }}
       whileHover={{ opacity: 0.65 }}
       whileTap={{ scale: 0.9 }}
-      className={`${className}`}
     >
       <NavLink
         to={to}
-        className={`sm:text-base text-lg `}
+        className={`sm:text-base text-lg h-full block py-3 sm:py-1`}
         {...rest}
       >
         <div className="relative">

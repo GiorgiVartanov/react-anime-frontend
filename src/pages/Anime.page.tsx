@@ -153,17 +153,14 @@ const Anime = () => {
       { title: "Score", value: <span>{score}</span> },
       {
         title: "Producers",
-        value:
-          // <ul className="contents">
-          producers.map((producer) => (
-            <AnimeExternalLink
-              key={producer.mal_id}
-              url={`../studio/${producer.mal_id}`}
-              name={producer.name}
-              className="opacity-60"
-            />
-          )),
-        // </ul>
+        value: producers.map((producer) => (
+          <AnimeExternalLink
+            key={producer.mal_id}
+            url={`../studio/${producer.mal_id}`}
+            name={producer.name}
+            className="opacity-60"
+          />
+        )),
       },
       {
         title: "Licensors",
@@ -201,8 +198,6 @@ const Anime = () => {
     ]
 
     if (Number(information[1].value) <= 1) information.splice(1, 1) // it will only show episodes amount if there are more than 1 episodes
-
-    // information.map(({ title, value }) => console.log(value))
 
     return (
       <div className="backdrop-blur-2xl px-3 py-2 lg:py-12 lg:mx-0 max-w-lg mx-auto w-full lg:w-auto flex flex-col gap-1 shadow-sm bg-[#cdced1471] dark:bg-[#20242852]">
@@ -244,7 +239,7 @@ const Anime = () => {
           <div className="md:w-[200px] mx-auto md:min-w-[200px] md:mx-0">
             {renderImage()}
             <AddToFavoritesButton
-              mal_id={id || ""}
+              mal_id={Number(id) || 0}
               title={title || ""}
               images={images}
               className="w-full mt-3"

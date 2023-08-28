@@ -13,7 +13,7 @@ import { ImageType } from "../../types/anime.types"
 import Button from "../UI/Button"
 
 interface Props {
-  mal_id: string
+  mal_id: number
   title: string
   images: ImageType
   className?: string
@@ -114,7 +114,7 @@ const AddToFavoritesButton = ({ mal_id, title, images, className }: Props) => {
   return (
     <Button
       onClick={handleAddToFavorites}
-      className={`font-semibold ${
+      className={`font-semibold p-1 ${
         data?.data?.favoriteAnime?.map((item) => item.mal_id).includes(mal_id)
           ? "bg-opacity-50"
           : ""

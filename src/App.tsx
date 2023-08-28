@@ -10,6 +10,7 @@ import { useSettingsStore } from "./store/settingsStore"
 import Header from "./components/UI/Header"
 import Footer from "./components/UI/Footer"
 import ProtectedRoute from "./components/UI/ProtectedRoute"
+import Loading from "./components/UI/Loading"
 
 import Home from "./pages/Home.page"
 import Search from "./pages/Search.Page"
@@ -22,6 +23,7 @@ import Stuff from "./pages/Stuff.page"
 import Studio from "./pages/Studio.page"
 import Settings from "./pages/Settings"
 import Character from "./pages/Character.page"
+import Error from "./pages/Error.page"
 import PageNotFound from "./pages/PageNotFound.page"
 
 function App() {
@@ -121,6 +123,10 @@ function App() {
             <Route
               path="/anime/:id"
               element={<Anime />}
+            />
+            <Route
+              path="/error"
+              element={<Error />}
             />
             <Route
               path="/*"

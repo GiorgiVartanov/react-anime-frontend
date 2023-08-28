@@ -11,6 +11,8 @@ import Loading from "../components/UI/Loading"
 import UserList from "../components/Person/UserList"
 
 const Dashboard = () => {
+  const navigate = useNavigate()
+
   const [token] = useAuthStore((state) => [state.token])
 
   const fetchUsers = async (): Promise<FullUserResponse | null> => {
@@ -29,7 +31,10 @@ const Dashboard = () => {
 
   if (isLoading) return <Loading />
 
-  if (error || !data) return <>something went wrong</>
+  if (error || !data) {
+    navigate("../error")
+    return
+  }
 
   return (
     <Page className="h-full grid place-content-center m-auto max-w-7xl w-full p-2 ">

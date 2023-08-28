@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import backendAjax from "../service/backendAjax"
 import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
@@ -22,6 +22,8 @@ import Loading from "../components/UI/Loading"
 import Button from "../components/UI/Button"
 
 const Profile = () => {
+  const navigate = useNavigate()
+
   const { username: pageOwnersUsername } = useParams()
 
   const [username] = useAuthStore((state) => [state.username])
@@ -87,8 +89,23 @@ const Profile = () => {
   if (isLoading || ownersFriendsDataIsLoading || usersFriendsDataIsLoading)
     return <Loading />
 
-  if (!pageOwnersUsername || !data || !data.data || error) return <></>
-  theme
+  if (
+    !pageOwnersUsername ||
+    !data ||
+    !ownersFriendsData ||
+    !usersFriendsData ||
+    !data?.data ||
+    !ownersFriendsData?.data ||
+    !usersFriendsData?.data ||
+    error ||
+    ownersFriendsDataError ||
+    ownersFriendsDataError
+  ) {
+    navigate("../error")
+
+    return <>Something went wrong</>
+  }
+
   const { createdAt, favoriteAnime } = data.data
 
   return (

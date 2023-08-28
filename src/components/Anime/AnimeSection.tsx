@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query"
 import apiAjax from "../../service/APIAjax"
 
 import AnimeCardCarousel from "./AnimeCardCarousel"
+import SkeletonCarousel from "../UI/Skeleton/SkeletonCarousel"
 
 interface Props {
   title: string
@@ -27,14 +28,14 @@ const AnimeSection = ({
   }
 
   const { isLoading, error, data } = useQuery({
-    queryKey: [queryKey],
     queryFn: fetchData,
+    queryKey: [queryKey],
     staleTime: 1000000,
   })
 
   const renderAnimeData = () => {
     // is the data is still pending it will render skeleton component
-    if (isLoading) return <></>
+    if (isLoading) return <SkeletonCarousel height={320} />
 
     // it will show error message if there is an error
     if (error || !data) {
@@ -44,8 +45,6 @@ const AnimeSection = ({
 
     return <AnimeCardCarousel data={data.data} />
   }
-
-  if (isLoading) return <></>
 
   return (
     <section>

@@ -8,8 +8,8 @@ const container = {
   visible: {
     opacity: 1,
     transition: {
-      delayChildren: 0.2,
-      staggerChildren: 0.1,
+      delayChildren: 0.05,
+      staggerChildren: 0.05,
     },
   },
 }
@@ -219,7 +219,7 @@ const Carousel = ({ children, intervalDuration = 5000, className }: Props) => {
             className="px-5 py-3 rounded-full opacity-60 hover:opacity-80 transition-all ease-in-out duration-200 dark:bg-sp-gray dark:text-white font-bold bg-sp-white text-sp-black absolute top-1/2 right-2 shadow-sm hover:shadow:md"
           >
             {">"}
-          </motion.button>{" "}
+          </motion.button>
         </>
       ) : (
         ""

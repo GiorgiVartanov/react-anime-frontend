@@ -16,7 +16,7 @@ const Button = ({ onClick, className, disabled = false, children }: Props) => {
       whileTap={{ scale: disabled ? 1 : 0.9 }}
       onClick={onClick}
       disabled={disabled}
-      className={`block bg-sp-main px-1 py-1 ${className}`}
+      className={`block bg-sp-main ${className}`}
     >
       {children}
     </motion.button>

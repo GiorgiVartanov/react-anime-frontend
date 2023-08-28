@@ -16,7 +16,7 @@ import DarkModeToggle from "./DarkModeToggle"
 import HeaderNavigationLink from "../Navigation/HeaderNavigationLink"
 
 const dropdownMenu = {
-  hidden: { opacity: 0, y: "-10%" },
+  hidden: { opacity: 0, y: "-5%" },
   visible: {
     opacity: 1,
     y: 0,
@@ -108,7 +108,6 @@ const Navigation = () => {
         <HeaderNavigationLink
           to={to}
           onClick={handleCloseMenu}
-          className="block py-3 sm:py-1"
         >
           {name}
         </HeaderNavigationLink>
@@ -172,7 +171,7 @@ const Navigation = () => {
                     handleCloseMenu()
                     handleLogout()
                   }}
-                  className="sm:w-auto w-full dark:text-white sm:py-1 mt-3 sm:mt-0 py-2 sm:text-base text-lg"
+                  className="sm:w-auto w-full dark:text-white sm:py-1 mt-3 sm:mt-0 py-2 sm:text-base text-lg px-1"
                 >
                   logout
                 </Button>

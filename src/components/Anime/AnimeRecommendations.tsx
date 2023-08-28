@@ -37,13 +37,40 @@ const AnimeRecommendations = ({ id }: Props) => {
     setShowingMore((prevState) => !prevState)
   }
 
-  // if the data is pending renders skeleton component
-  if (isLoading) return <SkeletonAnimeCardList amount={12} />
+  const renderAnimeRecommendations = () => {
+    if (isLoading) return <SkeletonAnimeCardList amount={12} />
 
-  // renders error message if it occurs
-  if (error || !data) return <div>An error has occurred</div>
+    if (error || !data) return <div>An error has occurred</div>
 
-  if (data.data.length <= 0) return <></>
+    if (data.data.length <= 0) return <></>
+
+    return (
+      <>
+        <AnimeCardList
+          data={[
+            data.data.slice(0, showingMore ? 24 : 12).map((item) => ({
+              ...item.entry,
+            })),
+          ]}
+        />
+        {data.data.length > 12 ? (
+          <div className="flex">
+            <button
+              onClick={handleShowMore}
+              className="mt-1 ml-auto opacity-50 hover:opacity-75 active:opacity-75 transition-all ease-in-out duration-100"
+            >
+              {showingMore ? "show less" : "show more"}
+            </button>
+          </div>
+        ) : (
+          ""
+        )}
+      </>
+    )
+  }
+
+  // if this show does not have recommendations
+  if (data && data?.data?.length === 0) return <></>
 
   return (
     <section>
@@ -51,25 +78,7 @@ const AnimeRecommendations = ({ id }: Props) => {
         More anime like this one
       </h2>
       <div className="h-0.5 w-full bg-sp-main mb-1"></div>
-      <AnimeCardList
-        data={[
-          data.data.slice(0, showingMore ? 24 : 12).map((item) => ({
-            ...item.entry,
-          })),
-        ]}
-      />
-      {data.data.length > 12 ? (
-        <div className="flex">
-          <button
-            onClick={handleShowMore}
-            className="mt-1 ml-auto opacity-50 hover:opacity-75 active:opacity-75 transition-all ease-in-out duration-100"
-          >
-            {showingMore ? "show less" : "show more"}
-          </button>
-        </div>
-      ) : (
-        ""
-      )}
+      {renderAnimeRecommendations()}
     </section>
   )
 }

@@ -17,7 +17,7 @@ type ImageUrls = {
 
 export type ImageType = {
   jpg?: ImageUrls
-  webp: ImageUrls
+  webp?: ImageUrls
 }
 
 type TrailerImages = {
