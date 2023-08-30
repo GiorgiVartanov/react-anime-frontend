@@ -1,5 +1,7 @@
 import { create } from "zustand"
 
+import { AnimeType } from "../types/anime.types"
+
 interface settingsState {
   theme: "dark" | "light"
   showAnimeTitlesInJP: boolean

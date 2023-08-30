@@ -33,39 +33,33 @@ const CharacterCard = ({
   VALanguage,
   VAID,
 }: Props) => {
-  const [isImageLoaded, setIsImageLoaded] = useState<boolean>(false)
-
-  const handleOnLoad = () => {
-    setIsImageLoaded(true)
-  }
-
   return (
     <motion.div
       variants={item}
       whileHover={{ opacity: 0.8 }}
-      className={`flex justify-between text-sm gap-5 max-w-12 bg-sp-white dark:bg-sp-gray text-sp-black dark:text-white relative h-[80px] shadow-sm ${
+      className={`grid grid-cols-2 justify-between text-sm gap-1 max-w-12 bg-sp-white dark:bg-sp-gray text-sp-black dark:text-white relative h-[80px] shadow-sm ${
         VAName || VALanguage || VAImageURL ? "" : ""
       }`}
     >
       <Link to={`/character/${characterId}`}>
         <motion.div
-          whileHover={{ opacity: 0.8, scale: 1.05 }}
+          whileHover={{ opacity: 0.8 }}
           whileTap={{ scale: 0.95 }}
-          className={`flex gap-2 absolute p-1 pl-3 pr-5 ${
+          className={`flex gap-2 w-full justify-start overflow-x-hidden ${
             VAName || VALanguage || VAImageURL ? "" : "pr-1 w-full"
           }`}
         >
           <img
             src={characterImageURL}
             alt={characterName}
-            className="rounded-full object-cover shadow-sm h-[50px] w-[50px] m-auto mx-2 max-w-full max-h-full transition-all ease-in-out duration-200 group-hover:scale-110"
+            className="object-cover shadow-sm h-[80px] w-[56px] max-w-full max-h-full transition-all ease-in-out duration-200"
             loading="lazy"
           />
           <div className="flex flex-col justify-between py-4">
-            <p className="overflow-none whitespace-nowrap overflow-hidden font-semibold group-hover:font-bold">
+            <p className="overflow-none whitespace-nowrap font-semibold truncate max-w-[11ch]">
               {characterName}
             </p>
-            <p className="opacity-40 font-semibold group-hover:font-bold">
+            <p className="opacity-40 font-semibold overflow-hidden truncate max-w-[11ch]">
               {characterRole}
             </p>
           </div>
@@ -74,24 +68,24 @@ const CharacterCard = ({
       {VAName || VALanguage || VAImageURL ? (
         <Link to={`/stuff/${VAID}`}>
           <motion.div
-            whileHover={{ opacity: 0.8, scale: 1.05 }}
+            initial={{ opacity: 0.6 }}
+            whileHover={{ opacity: 0.9 }}
             whileTap={{ scale: 0.95 }}
-            className={`flex gap-2 absolute right-2 p-1 pl-5 active:opacity-80 transition-all ease-in-out duration-200`}
+            className={`flex justify-end gap-2 active:opacity-80 transition-all ease-in-out duration-200`}
           >
             <div className="flex flex-col justify-between py-4 text-right">
-              <p className="overflow-none whitespace-nowrap overflow-hidden font-semibold group-hover:font-bold">
+              <p className="overflow-none whitespace-nowrap font-semibold truncate max-w-[11ch]">
                 {VAName}
               </p>
-              <p className="opacity-40 font-semibold group-hover:font-bold">
+              <p className="opacity-40 font-semibold truncate max-w-[11ch]">
                 {VALanguage}
               </p>
             </div>
             <img
               src={VAImageURL}
               alt={VAName}
-              className="rounded-full object-cover shadow-sm h-[50px] w-[50px] m-auto mx-2 max-w-full max-h-full transition-all ease-in-out duration-200 group-hover:scale-110"
+              className="object-cover shadow-sm h-[80px] w-[56px] transition-all ease-in-out duration-200"
               loading="lazy"
-              onLoad={handleOnLoad}
             />
           </motion.div>
         </Link>

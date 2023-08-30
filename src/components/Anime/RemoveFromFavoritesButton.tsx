@@ -3,7 +3,7 @@ import backendAjax from "../../service/backendAjax"
 import apiAjax from "../../service/APIAjax"
 import { toast } from "react-toastify"
 import { Link } from "react-router-dom"
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 
 import { UserResponse, FavoriteAnimeResponse } from "../../types/user.types"
 import { ImageType } from "../../types/anime.types"
@@ -15,11 +15,10 @@ import Button from "../UI/Button"
 interface Props {
   mal_id: number
   title: string
-  images: ImageType
   className?: string
 }
 
-const AddToFavoritesButton = ({ mal_id, title, images, className }: Props) => {
+const RemoveFromFavoritesButton = ({ mal_id, title, className }: Props) => {
   const queryClient = useQueryClient()
 
   const [isLoggedIn, username, token] = useAuthStore((state) => [
@@ -28,21 +27,17 @@ const AddToFavoritesButton = ({ mal_id, title, images, className }: Props) => {
     state.token,
   ])
 
-  const addToFavorite = () => {
-    return backendAjax.post(
-      `favorite/add/${mal_id}`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
+  const removeFromFavorites = () => {
+    return backendAjax.delete(`favorite/remove/${mal_id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
   }
 
   const mutation = useMutation({
-    mutationFn: addToFavorite,
-    mutationKey: ["favorite-anime", username],
+    mutationFn: removeFromFavorites,
+    mutationKey: ["user", username],
     onMutate: async () => {
       const favoriteAnime = queryClient.getQueryData<FavoriteAnimeResponse>([
         "favorite-anime",
@@ -51,18 +46,18 @@ const AddToFavoritesButton = ({ mal_id, title, images, className }: Props) => {
 
       if (!favoriteAnime) return
 
-      const oldFavoriteAnime = favoriteAnime
-
-      const newFavoriteAnime = [...oldFavoriteAnime, { mal_id, title, images }]
+      const newFavorites = favoriteAnime.filter(
+        (favorite) => Number(favorite.mal_id) !== mal_id
+      )
 
       await queryClient.cancelQueries(["favorite-anime", username])
 
       queryClient.setQueryData(["favorite-anime", username], {
-        data: newFavoriteAnime,
+        data: newFavorites,
       })
     },
     onSuccess: () => {
-      toast.success(`Successfully added ${title} to favorites`)
+      toast.success(`Successfully removed ${title} from favorites`)
     },
     onError: () => {
       toast.error(`Something went wrong`)
@@ -72,9 +67,8 @@ const AddToFavoritesButton = ({ mal_id, title, images, className }: Props) => {
     },
   })
 
-  const handleAddToFavorites = () => {
+  const handleRemoveFromFavorites = () => {
     if (!isLoggedIn) {
-      toast.error(ToastErrorMessage)
       return
     }
 
@@ -83,19 +77,12 @@ const AddToFavoritesButton = ({ mal_id, title, images, className }: Props) => {
 
   return (
     <Button
-      onClick={handleAddToFavorites}
+      onClick={handleRemoveFromFavorites}
       className={`w-full mt-3 font-semibold p-1 ${className}`}
+      // disabled={isLoading || error != null || !data?.data?.favoriteAnime}
     >
-      mark as favorite
+      remove from favorites
     </Button>
   )
 }
-export default AddToFavoritesButton
-
-function ToastErrorMessage() {
-  return (
-    <Link to={`../register`}>
-      you need to Sign Up, to add anime to favorites
-    </Link>
-  )
-}
+export default RemoveFromFavoritesButton

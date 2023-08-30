@@ -29,6 +29,10 @@ export type FullUserResponse = {
   data: FullUserType[]
 }
 
+export type FavoriteAnimeResponse = {
+  data: AnimeType[]
+}
+
 // type FriendsType = {
 //   _id: string
 //   user1: string

@@ -3,6 +3,10 @@ import { motion } from "framer-motion"
 
 import { AnimeType } from "../../types/anime.types"
 
+import { useSettingsStore } from "../../store/settingsStore"
+
+import { ReactComponent as StarSolid } from "../../assets/icons/star-solid.svg"
+
 const item = {
   hidden: { y: 0, opacity: 0 },
   visible: {
@@ -12,20 +16,38 @@ const item = {
 }
 
 export interface Props extends AnimeType {
+  isFavorite: boolean
   className?: string
 }
 
-const AnimeCard = ({ mal_id, images, title, className }: Props) => {
+const AnimeCard = ({ mal_id, images, isFavorite, title, className }: Props) => {
+  const [theme] = useSettingsStore((state) => [state.theme])
+
   return (
     <motion.li
       variants={item}
-      className={`list-none ${className}`}
+      className={`list-none  ${className}`}
     >
       <Link
         to={`../../anime/${mal_id}/`}
-        className={`block group `}
+        className={`block group relative`}
       >
-        <div className="aspect-w-2 aspect-h-3">
+        {isFavorite ? (
+          <motion.div
+            initial={{ opacity: 0, y: "-5%", x: "-5%" }}
+            animate={{ opacity: 1, y: 0, x: 0 }}
+            className="absolute z-20 dark:bg-sp-black bg-sp-white p-0.5 shadow-md rounded-br-xl"
+          >
+            <StarSolid
+              height={24}
+              width={24}
+              fill={`${theme === "dark" ? "#e6eaee" : "#121212"}`}
+            />
+          </motion.div>
+        ) : (
+          ""
+        )}
+        <div className="aspect-w-2 aspect-h-3 relative">
           <motion.img
             // initial={{ opacity: 0 }}
             // whileInView={{ opacity: 1 }}

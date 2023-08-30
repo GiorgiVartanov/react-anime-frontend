@@ -2,10 +2,13 @@ import { useParams } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query"
 import { useState, useEffect } from "react"
 import apiAjax from "../service/APIAjax"
+import backendAjax from "../service/backendAjax"
 
 import { FullAnimeType } from "../types/anime.types"
+import { UserResponse } from "../types/user.types"
 
 import { useDocumentTitle } from "../hooks/useDocumentTitle"
+import { useAuthStore } from "../store/authStore"
 
 import Page from "../components/UI/Page"
 import GenreList from "../components/Search/GenreList"
@@ -14,7 +17,9 @@ import Image from "../components/UI/Image"
 import AnimeRecommendations from "../components/Anime/AnimeRecommendations"
 import AnimeCharacters from "../components/Anime/AnimeCharacters"
 import AnimeComments from "../components/Anime/AnimeComments"
+import AnimeFavoriteButton from "../components/Anime/AnimeFavoriteButton"
 import AddToFavoritesButton from "../components/Anime/AddToFavoritesButton"
+import RemoveFromFavoritesButton from "../components/Anime/RemoveFromFavoritesButton"
 import AnimeExternalLink from "../components/Anime/AnimeExternalLink"
 import Loading from "../components/UI/Loading"
 
@@ -22,6 +27,12 @@ const Anime = () => {
   const [showFullText, setShowFullText] = useState<boolean>(false)
 
   const { id } = useParams<{ id: string }>()
+
+  const [username, isLoggedIn, tokek] = useAuthStore((state) => [
+    state.username,
+    state.isLoggedIn,
+    state.token,
+  ])
 
   // function to fetch single anime
   const fetchAnime = async (): Promise<FullAnimeType> => {
@@ -238,11 +249,10 @@ const Anime = () => {
         <div className="flex md:flex-row mx-auto lg:mx-0 flex-col relative z-20 gap-4 justify-between py-12">
           <div className="md:w-[200px] mx-auto md:min-w-[200px] md:mx-0">
             {renderImage()}
-            <AddToFavoritesButton
-              mal_id={Number(id) || 0}
-              title={title || ""}
+            <AnimeFavoriteButton
+              mal_id={mal_id}
               images={images}
-              className="w-full mt-3"
+              title={title}
             />
           </div>
           <div className="max-w-md">

@@ -18,8 +18,9 @@ const RemoveFriendButton = ({
 }: Props) => {
   const queryClient = useQueryClient()
 
-  const [username, token] = useAuthStore((state) => [
+  const [username, isLoggedIn, token] = useAuthStore((state) => [
     state.username,
+    state.isLoggedIn,
     state.token,
   ])
 
@@ -77,6 +78,8 @@ const RemoveFriendButton = ({
   })
 
   const handleRemoveFromFriendList = () => {
+    if (!isLoggedIn) return
+
     mutation.mutate()
   }
 

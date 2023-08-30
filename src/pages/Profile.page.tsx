@@ -3,12 +3,17 @@ import { useParams, useNavigate } from "react-router-dom"
 import backendAjax from "../service/backendAjax"
 import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
+import { useEffect } from "react"
 
 import { useAuthStore } from "../store/authStore"
 import { useSettingsStore } from "../store/settingsStore"
 import { useDocumentTitle } from "../hooks/useDocumentTitle"
 
-import { UserResponse, FriendsResponseType } from "../types/user.types"
+import {
+  UserResponse,
+  FriendsResponseType,
+  FavoriteAnimeResponse,
+} from "../types/user.types"
 import { AnimeType } from "../types/anime.types"
 
 import { ReactComponent as Gear } from "../assets/icons/gear-solid.svg"
@@ -83,6 +88,25 @@ const Profile = () => {
     staleTime: 1000000,
   })
 
+  const fetchFavoriteAnime =
+    async (): Promise<FavoriteAnimeResponse | null> => {
+      if (!username) return null
+
+      const response = await backendAjax.get(`favorite/${username}`)
+      return response.data
+    }
+
+  // fetches user data
+  const {
+    data: favoriteAnimeData,
+    isLoading: favoriteAnimeIsLoading,
+    error: favoriteAnimeError,
+  } = useQuery({
+    queryKey: ["favorite-anime", username],
+    queryFn: fetchFavoriteAnime,
+    staleTime: 1000000,
+  })
+
   useDocumentTitle(pageOwnersUsername || "AXP")
 
   // it will show loading while data is fetching
@@ -99,14 +123,16 @@ const Profile = () => {
     !usersFriendsData?.data ||
     error ||
     ownersFriendsDataError ||
-    ownersFriendsDataError
+    !favoriteAnimeData ||
+    favoriteAnimeError
   ) {
     navigate("../error")
 
     return <>Something went wrong</>
   }
 
-  const { createdAt, favoriteAnime } = data.data
+  const { createdAt } = data.data
+  const favoriteAnime = favoriteAnimeData.data
 
   return (
     <Page className="mx-auto max-w-7xl w-full p-2 h-full">
