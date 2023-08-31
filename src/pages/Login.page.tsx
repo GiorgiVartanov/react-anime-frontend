@@ -30,8 +30,7 @@ const Login = () => {
     })
 
   // getting data from store
-  const [isLoggedIn, loginUser, loginError] = useAuthStore((state) => [
-    state.isLoggedIn,
+  const [loginUser, loginError] = useAuthStore((state) => [
     state.loginUser,
     state.loginError,
   ])
@@ -105,15 +104,6 @@ const Login = () => {
   useEffect(() => {
     setCredentialsError(loginError)
   }, [loginError])
-
-  // redirects user
-  // useEffect(() => {
-  //   if (!isLoggedIn) return
-
-  //   redirect("/")
-  // }, [isLoggedIn, redirect])
-
-  // if (isLoggedIn) navigate("/")
 
   return (
     <Page className="h-full grid place-content-center mt-80 mx-auto max-w-7xl w-full p-2">

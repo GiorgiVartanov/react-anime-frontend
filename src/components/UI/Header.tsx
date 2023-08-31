@@ -24,7 +24,7 @@ const Header = ({ pages }: Props) => {
           to="/"
           className="flex flex-col justify-center"
         >
-          <h1 className="text-sp-main font-extrabold ">
+          <h1 className="text-sp-main font-extrabold">
             AX
             <span className="dark:text-white text-sp-black font-extrabold">
               P

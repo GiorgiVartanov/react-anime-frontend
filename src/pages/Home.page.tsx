@@ -1,18 +1,14 @@
 import { useQuery } from "@tanstack/react-query"
 import backendAjax from "../service/backendAjax"
 import { useNavigate } from "react-router-dom"
-import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
 
-import { AnimeResponse } from "../types/anime.types"
 import { animeGenreResponse, animeGenre } from "../types/anime.types"
 
 import { useSearchStore } from "../store/searchStore"
 import { useDocumentTitle } from "../hooks/useDocumentTitle"
 
 import Page from "../components/UI/Page"
-import AnimeCardList from "../components/Anime/AnimeCardList"
-import AnimeCardCarousel from "../components/Anime/AnimeCardCarousel"
 import AnimeSection from "../components/Anime/AnimeSection"
 
 const Home = () => {
@@ -22,7 +18,6 @@ const Home = () => {
 
   const [
     setAnimeGenres,
-    genres,
     clearFilters,
     changeStatus,
     changeOrdering,
@@ -30,7 +25,6 @@ const Home = () => {
     selectGenre,
   ] = useSearchStore((state) => [
     state.setAnimeGenres,
-    state.genres,
     state.clearFilters,
     state.changeStatus,
     state.changeOrdering,

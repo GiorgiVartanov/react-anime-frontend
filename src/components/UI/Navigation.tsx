@@ -103,7 +103,7 @@ const Navigation = () => {
     return (
       <motion.li
         variants={menuItem}
-        className="list-none"
+        className="list-none py-3 sm:py-1"
       >
         <HeaderNavigationLink
           to={to}

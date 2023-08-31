@@ -1,21 +1,13 @@
-import { useQuery, useInfiniteQuery } from "@tanstack/react-query"
+import { useInfiniteQuery } from "@tanstack/react-query"
 import axios from "axios"
 import { useEffect } from "react"
-import { motion } from "framer-motion"
 
 import { useSearchStore } from "../store/searchStore"
-
-import {
-  AnimeResponse,
-  InfiniteAnimeResponse,
-  AnimeType,
-} from "../types/anime.types"
 
 import Page from "../components/UI/Page"
 import AnimeCardList from "../components/Anime/AnimeCardList"
 import SearchComponent from "../components/Search/Search"
 import ScrollToTopButton from "../components/UI/ScrollToTopButton"
-import SkeletonAnimeCardList from "../components/Anime/Skeleton/SkeletonAnimeCardList"
 import Loading from "../components/UI/Loading"
 
 const baseURL = import.meta.env.VITE_API_URL

@@ -13,7 +13,7 @@ const Button = ({ onClick, className, disabled = false, children }: Props) => {
       style={{ scale: 1 }}
       initial={{ opacity: disabled ? 0.5 : 1 }}
       whileHover={{ opacity: disabled ? 0.5 : 0.8 }}
-      whileTap={{ scale: disabled ? 1 : 0.9 }}
+      whileTap={{ scale: disabled ? 1 : 0.95 }}
       onClick={onClick}
       disabled={disabled}
       className={`block bg-sp-main ${className}`}

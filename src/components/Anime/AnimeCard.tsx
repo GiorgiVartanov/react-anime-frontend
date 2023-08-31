@@ -35,8 +35,8 @@ const AnimeCard = ({ mal_id, images, isFavorite, title, className }: Props) => {
         {isFavorite ? (
           <motion.div
             initial={{ opacity: 0, y: "-5%", x: "-5%" }}
-            animate={{ opacity: 1, y: 0, x: 0 }}
-            className="absolute z-20 dark:bg-sp-black bg-sp-white p-0.5 shadow-md rounded-br-xl"
+            animate={{ opacity: 0.7, y: 0, x: 0 }}
+            className="absolute z-20 dark:bg-sp-black bg-sp-white p-0.5 shadow-md"
           >
             <StarSolid
               height={24}

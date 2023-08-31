@@ -33,7 +33,7 @@ const Dashboard = () => {
 
   if (error || !data) {
     navigate("../error")
-    return
+    return <></>
   }
 
   return (

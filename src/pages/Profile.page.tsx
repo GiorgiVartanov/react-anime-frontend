@@ -1,9 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { useParams, useNavigate } from "react-router-dom"
 import backendAjax from "../service/backendAjax"
-import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
-import { useEffect } from "react"
 
 import { useAuthStore } from "../store/authStore"
 import { useSettingsStore } from "../store/settingsStore"
@@ -14,7 +12,6 @@ import {
   FriendsResponseType,
   FavoriteAnimeResponse,
 } from "../types/user.types"
-import { AnimeType } from "../types/anime.types"
 
 import { ReactComponent as Gear } from "../assets/icons/gear-solid.svg"
 import Page from "../components/UI/Page"
@@ -24,7 +21,6 @@ import FriendList from "../components/Person/FriendList"
 import AddFriendButton from "../components/Person/AddFriendButton"
 import RemoveFriendButton from "../components/Person/RemoveFriendButton"
 import Loading from "../components/UI/Loading"
-import Button from "../components/UI/Button"
 
 const Profile = () => {
   const navigate = useNavigate()
@@ -92,7 +88,7 @@ const Profile = () => {
     async (): Promise<FavoriteAnimeResponse | null> => {
       if (!username) return null
 
-      const response = await backendAjax.get(`favorite/${username}`)
+      const response = await backendAjax.get(`favorite/${pageOwnersUsername}`)
       return response.data
     }
 
@@ -102,12 +98,12 @@ const Profile = () => {
     isLoading: favoriteAnimeIsLoading,
     error: favoriteAnimeError,
   } = useQuery({
-    queryKey: ["favorite-anime", username],
+    queryKey: ["favorite-anime", pageOwnersUsername],
     queryFn: fetchFavoriteAnime,
     staleTime: 1000000,
   })
 
-  useDocumentTitle(pageOwnersUsername || "AXP")
+  useDocumentTitle(pageOwnersUsername)
 
   // it will show loading while data is fetching
   if (isLoading || ownersFriendsDataIsLoading || usersFriendsDataIsLoading)
@@ -156,9 +152,15 @@ const Profile = () => {
         username &&
         !usersDataError ? (
           usersFriendsData?.data.includes(pageOwnersUsername) ? (
-            <RemoveFriendButton username={pageOwnersUsername} />
+            <RemoveFriendButton
+              username={pageOwnersUsername}
+              className="px-1"
+            />
           ) : (
-            <AddFriendButton username={pageOwnersUsername} />
+            <AddFriendButton
+              username={pageOwnersUsername}
+              className="px-1"
+            />
           )
         ) : (
           ""

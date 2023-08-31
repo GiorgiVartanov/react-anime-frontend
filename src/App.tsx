@@ -1,6 +1,6 @@
 import { Routes, Route, Link, useLocation } from "react-router-dom"
 import { useEffect } from "react"
-import { ToastContainer, toast } from "react-toastify"
+import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { AnimatePresence } from "framer-motion"
 
@@ -10,7 +10,6 @@ import { useSettingsStore } from "./store/settingsStore"
 import Header from "./components/UI/Header"
 import Footer from "./components/UI/Footer"
 import ProtectedRoute from "./components/UI/ProtectedRoute"
-import Loading from "./components/UI/Loading"
 
 import Home from "./pages/Home.page"
 import Search from "./pages/Search.Page"

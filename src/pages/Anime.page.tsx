@@ -2,13 +2,10 @@ import { useParams } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query"
 import { useState, useEffect } from "react"
 import apiAjax from "../service/APIAjax"
-import backendAjax from "../service/backendAjax"
 
 import { FullAnimeType } from "../types/anime.types"
-import { UserResponse } from "../types/user.types"
 
 import { useDocumentTitle } from "../hooks/useDocumentTitle"
-import { useAuthStore } from "../store/authStore"
 
 import Page from "../components/UI/Page"
 import GenreList from "../components/Search/GenreList"
@@ -18,8 +15,7 @@ import AnimeRecommendations from "../components/Anime/AnimeRecommendations"
 import AnimeCharacters from "../components/Anime/AnimeCharacters"
 import AnimeComments from "../components/Anime/AnimeComments"
 import AnimeFavoriteButton from "../components/Anime/AnimeFavoriteButton"
-import AddToFavoritesButton from "../components/Anime/AddToFavoritesButton"
-import RemoveFromFavoritesButton from "../components/Anime/RemoveFromFavoritesButton"
+import AnimeTrailer from "../components/Anime/AnimeTrailer"
 import AnimeExternalLink from "../components/Anime/AnimeExternalLink"
 import Loading from "../components/UI/Loading"
 
@@ -27,12 +23,6 @@ const Anime = () => {
   const [showFullText, setShowFullText] = useState<boolean>(false)
 
   const { id } = useParams<{ id: string }>()
-
-  const [username, isLoggedIn, tokek] = useAuthStore((state) => [
-    state.username,
-    state.isLoggedIn,
-    state.token,
-  ])
 
   // function to fetch single anime
   const fetchAnime = async (): Promise<FullAnimeType> => {
@@ -287,7 +277,7 @@ const Anime = () => {
           <div className="mx-auto max-w-7xl w-full p-2 h-full flex flex-col gap-8">
             <AnimePictures animeId={id} />
             <AnimeRecommendations id={id} />
-            {/* <AnimeTrailer videoId={trailer.youtube_id} /> */}
+            <AnimeTrailer videoId={trailer.youtube_id} />
             <AnimeCharacters id={id} />
           </div>
           <div className="bg-sp-white dark:bg-sp-gray">

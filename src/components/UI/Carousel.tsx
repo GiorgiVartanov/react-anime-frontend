@@ -145,7 +145,7 @@ const Carousel = ({ children, intervalDuration = 5000, className }: Props) => {
     return () => {
       clearInterval(interval)
     } // cleans up the interval when component unmounts
-  }, [isOnPause, isCursorOnComponent, canBeScrolled])
+  }, [])
 
   useEffect(() => {
     const handleResize = () => {

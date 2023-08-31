@@ -1,5 +1,3 @@
-import { motion } from "framer-motion"
-
 import Page from "../components/UI/Page"
 
 const Error = () => {
