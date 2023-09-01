@@ -2,8 +2,6 @@ import { motion } from "framer-motion"
 
 import { useSettingsStore } from "../../store/settingsStore"
 
-import sun from "../../assets/icons/sun-solid.svg"
-import moon from "../../assets/icons/moon-solid.svg"
 import { ReactComponent as Sun } from "../../assets/icons/sun-solid.svg"
 import { ReactComponent as Moon } from "../../assets/icons/moon-solid.svg"
 

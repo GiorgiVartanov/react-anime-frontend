@@ -1,4 +1,3 @@
-import { useParams } from "react-router-dom"
 import { useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
@@ -6,7 +5,6 @@ import axios from "axios"
 import { CharacterDetails } from "../../types/character.types"
 
 import CharacterCardList from "../../components/Character/CharacterCardList"
-import SkeletonCharacterCardList from "../../components/Character/Skeleton/SkeletonCharacterCardList"
 
 const baseURL = import.meta.env.VITE_API_URL
 

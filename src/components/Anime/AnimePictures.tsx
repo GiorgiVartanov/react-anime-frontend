@@ -1,5 +1,4 @@
 import apiAjax from "../../service/APIAjax"
-import { useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 
 import { animePicturesResponseType } from "../../types/anime.types"

@@ -48,7 +48,7 @@ const Home = () => {
   useDocumentTitle("AXP")
 
   useEffect(() => {
-    if (!data) return
+    if (!data || isLoading || error) return
 
     // returns different genre every 7.5 minutes
     const genRandomGenre = (data: animeGenre[]) => {
@@ -61,7 +61,7 @@ const Home = () => {
 
     setAnimeGenres(data)
     setRandomGenre(genRandomGenre(data.data))
-  }, [data, setAnimeGenres, setRandomGenre])
+  }, [data, setAnimeGenres, setRandomGenre, error, isLoading])
 
   const handleNavigateToPopularAiring = () => {
     clearFilters()

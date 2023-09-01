@@ -58,11 +58,6 @@ type AiredDates = {
   string: string
 }
 
-type Relation = {
-  relation: string
-  entry: Entry[]
-}
-
 type Entry = {
   mal_id: number
   type: string

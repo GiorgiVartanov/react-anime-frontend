@@ -12,7 +12,7 @@ interface Props {
 }
 
 const AnimeList = ({ query, queryKey }: Props) => {
-  const fetchAnime = async ({ pageParam = 1 }): Promise<AnimeResponse> => {
+  const fetchAnime = async (): Promise<AnimeResponse> => {
     const response = await apiAjax.get(query)
 
     return response.data

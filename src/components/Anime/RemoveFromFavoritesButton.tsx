@@ -1,12 +1,8 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import backendAjax from "../../service/backendAjax"
-import apiAjax from "../../service/APIAjax"
 import { toast } from "react-toastify"
-import { Link } from "react-router-dom"
-import { useEffect } from "react"
 
-import { UserResponse, FavoriteAnimeResponse } from "../../types/user.types"
-import { ImageType } from "../../types/anime.types"
+import { FavoriteAnimeResponse } from "../../types/user.types"
 
 import { useAuthStore } from "../../store/authStore"
 

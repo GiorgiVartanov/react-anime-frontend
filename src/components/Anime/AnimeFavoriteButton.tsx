@@ -1,7 +1,7 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 import backendAjax from "../../service/backendAjax"
 
-import { UserResponse, FavoriteAnimeResponse } from "../../types/user.types"
+import { FavoriteAnimeResponse } from "../../types/user.types"
 import { ImageType } from "../../types/anime.types"
 
 import { useAuthStore } from "../../store/authStore"
@@ -18,11 +18,7 @@ interface Props {
 }
 
 const AnimeFavoriteButton = ({ mal_id, title, images, className }: Props) => {
-  const [isLoggedIn, username, token] = useAuthStore((state) => [
-    state.isLoggedIn,
-    state.username,
-    state.token,
-  ])
+  const [username] = useAuthStore((state) => [state.username])
 
   // function to fetch user's data
   const fetchFavoriteAnime =

@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import backendAjax from "../../service/backendAjax"
 import { toast } from "react-toastify"
-import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
 
 import { FullUserType, FullUserResponse } from "../../types/user.types"

@@ -1,5 +1,3 @@
-import { ImageType } from "./anime.types"
-
 type studioTitleType = {
   type: string
   title: string

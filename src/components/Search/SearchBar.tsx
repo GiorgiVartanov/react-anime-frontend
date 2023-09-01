@@ -2,13 +2,13 @@ import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 
 interface Props {
-  value: string | null
+  value?: string
   className?: string
   handleTextChange: (newText: string) => void
 }
 
-const SearchBar = ({ value, className, handleTextChange }: Props) => {
-  const [searchValue, setSearchValue] = useState<string>("")
+const SearchBar = ({ value = "", className, handleTextChange }: Props) => {
+  const [searchValue, setSearchValue] = useState<string>(value)
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value)

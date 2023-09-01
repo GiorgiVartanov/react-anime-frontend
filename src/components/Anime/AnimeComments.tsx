@@ -10,8 +10,6 @@ import { useAuthStore } from "../../store/authStore"
 
 import CommentList from "../../components/Comments/CommentList"
 
-const baseURL = import.meta.env.VITE_BACKEND_URL
-
 interface Props {
   id: string
 }

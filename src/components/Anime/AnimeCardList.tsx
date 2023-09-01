@@ -1,9 +1,9 @@
-import { motion, AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
 import backendAjax from "../../service/backendAjax"
 import { useQuery } from "@tanstack/react-query"
 
 import { AnimeType } from "../../types/anime.types"
-import { UserResponse, FavoriteAnimeResponse } from "../../types/user.types"
+import { FavoriteAnimeResponse } from "../../types/user.types"
 
 import { useAuthStore } from "../../store/authStore"
 

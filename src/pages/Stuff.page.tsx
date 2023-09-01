@@ -1,14 +1,11 @@
 import { useParams } from "react-router-dom"
 import apiAjax from "../service/APIAjax"
 import { useQuery } from "@tanstack/react-query"
-import { motion } from "framer-motion"
 
 import { StuffType, VoiceType } from "../types/stuff.types"
 import { CharacterDetails } from "../types/character.types"
-import { AnimeType } from "../types/anime.types"
 
 import Page from "../components/UI/Page"
-import AnimeCardList from "../components/Anime/AnimeCardList"
 import CharacterCardList from "../components/Character/CharacterCardList"
 import Image from "../components/UI/Image"
 
@@ -33,20 +30,8 @@ const Stuff = () => {
 
   if (error || !data) return <div>something went wrong</div>
 
-  const {
-    alternate_names,
-    anime,
-    birthday,
-    family_name,
-    given_name,
-    images,
-    manga,
-    name,
-    voices,
-    about,
-  } = data
+  const { images, name, voices, about } = data
 
-  const animeData = anime.map((item) => item.anime)
   const characterData = voices.map((item) => ({
     role: item.role,
     character: item.character,

@@ -1,6 +1,6 @@
 import { create } from "zustand"
 
-import { animeGenreResponse, animeGenre } from "../types/anime.types"
+import { animeGenreResponse } from "../types/anime.types"
 import {
   SortType,
   ShowTypeType,

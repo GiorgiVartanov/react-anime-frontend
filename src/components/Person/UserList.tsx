@@ -1,11 +1,4 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query"
-import backendAjax from "../../service/backendAjax"
-import { toast } from "react-toastify"
-import { motion } from "framer-motion"
-
-import { useAuthStore } from "../../store/authStore"
-
-import { FullUserType, FullUserResponse } from "../../types/user.types"
+import { FullUserType } from "../../types/user.types"
 
 import UserRow from "./UserRow"
 

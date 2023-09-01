@@ -28,15 +28,8 @@ import PageNotFound from "./pages/PageNotFound.page"
 function App() {
   const location = useLocation()
 
-  const [hasSessionExpired, isLoggedIn, accountType] = useAuthStore((state) => [
-    state.hasSessionExpired,
-    state.isLoggedIn,
-    state.accountType,
-  ])
-  const [theme, toggleDarkMode] = useSettingsStore((state) => [
-    state.theme,
-    state.toggleDarkMode,
-  ])
+  const [hasSessionExpired] = useAuthStore((state) => [state.hasSessionExpired])
+  const [theme] = useSettingsStore((state) => [state.theme])
 
   useEffect(() => {
     hasSessionExpired()
@@ -56,7 +49,7 @@ function App() {
 
   return (
     <div className="bg-white dark:bg-sp-black dark:text-sp-white text-sp-black min-h-screen flex flex-col overflow-x-hidden">
-      <Header pages={[]} />
+      <Header />
       <div className="h-full flex-1 flex flex-col">
         <AnimatePresence mode="wait">
           <Routes

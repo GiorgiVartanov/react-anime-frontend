@@ -17,29 +17,15 @@ const Search = () => {
     text,
     changeText,
     genres,
-    selectedGenres,
     setAnimeGenres,
-    selectGenre,
-    unSelectGenre,
     clearFilters,
-    sort,
-    orderBy,
-    status,
-    rating,
     getAmountOfFilters,
   ] = useSearchStore((state) => [
     state.text,
     state.changeText,
     state.genres,
-    state.selectedGenres,
     state.setAnimeGenres,
-    state.selectGenre,
-    state.unSelectGenre,
     state.clearFilters,
-    state.sort,
-    state.orderBy,
-    state.status,
-    state.rating,
     state.getAmountOfFilters,
   ])
 
@@ -75,7 +61,7 @@ const Search = () => {
   return (
     <div className="mt-5 mb-8">
       <SearchBar
-        value={text}
+        value={text || ""}
         handleTextChange={changeText}
       />
       <div className="my-2 flex gap-6 mx-auto w-fit relative">

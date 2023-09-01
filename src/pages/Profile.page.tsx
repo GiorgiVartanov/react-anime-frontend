@@ -106,7 +106,12 @@ const Profile = () => {
   useDocumentTitle(pageOwnersUsername)
 
   // it will show loading while data is fetching
-  if (isLoading || ownersFriendsDataIsLoading || usersFriendsDataIsLoading)
+  if (
+    isLoading ||
+    ownersFriendsDataIsLoading ||
+    usersFriendsDataIsLoading ||
+    favoriteAnimeIsLoading
+  )
     return <Loading />
 
   if (

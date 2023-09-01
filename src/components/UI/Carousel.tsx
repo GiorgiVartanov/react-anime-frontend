@@ -1,8 +1,6 @@
 import { useEffect, useState, useRef } from "react"
 import { motion } from "framer-motion"
 
-import Button from "./Button"
-
 const container = {
   hidden: { opacity: 0 },
   visible: {

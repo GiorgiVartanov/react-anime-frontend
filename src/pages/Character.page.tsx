@@ -29,7 +29,7 @@ const Character = () => {
 
   if (error || !data) return <div>something went wrong</div>
 
-  const { about, anime, images, name, voices } = data
+  const { about, anime, images, name } = data
 
   // console.log(data)
 

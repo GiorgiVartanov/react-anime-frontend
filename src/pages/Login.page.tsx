@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react"
-import { useNavigate, Link } from "react-router-dom"
-import { motion } from "framer-motion"
+import { Link } from "react-router-dom"
 
 import {
   LoginCredentialsType,
@@ -14,8 +13,6 @@ import Form from "../components/Form/Form"
 import Input from "../components/Form/Input"
 
 const Login = () => {
-  const navigate = useNavigate()
-
   // credentials used for logging in
   const [credentials, setCredentials] = useState<LoginCredentialsType>({
     email: "",
