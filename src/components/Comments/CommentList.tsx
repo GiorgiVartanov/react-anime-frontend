@@ -16,8 +16,7 @@ interface Props {
 const CommentList = ({ comments, showPerPage, animeId }: Props) => {
   const [page, setPage] = useState(1)
 
-  const [username, isLoggedIn, token] = useAuthStore((state) => [
-    state.username,
+  const [isLoggedIn, token] = useAuthStore((state) => [
     state.isLoggedIn,
     state.token,
   ])

@@ -84,7 +84,6 @@ const Navigation = () => {
   // fetches anime form API
   const {
     isLoading,
-    error,
     data: mal_id,
     refetch,
   } = useQuery({

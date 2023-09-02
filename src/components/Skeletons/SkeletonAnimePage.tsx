@@ -105,16 +105,16 @@ const SkeletonAnimePage = () => {
     )
   }
 
-  const renderNavigation = () => {
-    return (
-      <div className="flex gap-2 justify-center md:justify-start mt-8 mb-2">
-        <div className="bg-sp-white animate-pulse h-[31px] w-32"></div>
-        <div className="bg-sp-white animate-pulse h-[31px] w-16"></div>
-        <div className="bg-sp-white animate-pulse h-[31px] w-24"></div>
-        <div className="bg-sp-white animate-pulse h-[31px] w-12"></div>
-      </div>
-    )
-  }
+  // const renderNavigation = () => {
+  //   return (
+  //     <div className="flex gap-2 justify-center md:justify-start mt-8 mb-2">
+  //       <div className="bg-sp-white animate-pulse h-[31px] w-32"></div>
+  //       <div className="bg-sp-white animate-pulse h-[31px] w-16"></div>
+  //       <div className="bg-sp-white animate-pulse h-[31px] w-24"></div>
+  //       <div className="bg-sp-white animate-pulse h-[31px] w-12"></div>
+  //     </div>
+  //   )
+  // }
 
   return (
     <div>

@@ -58,9 +58,9 @@ const RemoveFromFavoritesButton = ({ mal_id, title, className }: Props) => {
     onError: () => {
       toast.error(`Something went wrong`)
     },
-    onSettled: async (res) => {
-      // console.log(res)
-    },
+    // onSettled: async (res) => {
+    //   console.log(res)
+    // },
   })
 
   const handleRemoveFromFavorites = () => {

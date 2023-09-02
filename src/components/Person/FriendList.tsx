@@ -1,9 +1,3 @@
-import { useAuthStore } from "../../store/authStore"
-import { useQuery } from "@tanstack/react-query"
-import backendAjax from "../../service/backendAjax"
-
-import { FriendsResponseType } from "../../types/user.types"
-
 import Friend from "./Friend"
 
 interface Props {

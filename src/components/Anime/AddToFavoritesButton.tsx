@@ -65,9 +65,9 @@ const AddToFavoritesButton = ({ mal_id, title, images, className }: Props) => {
     onError: () => {
       toast.error(`Something went wrong`)
     },
-    onSettled: async (res) => {
-      // console.log(res)
-    },
+    // onSettled: async (res) => {
+    //   console.log(res)
+    // },
   })
 
   const handleAddToFavorites = () => {

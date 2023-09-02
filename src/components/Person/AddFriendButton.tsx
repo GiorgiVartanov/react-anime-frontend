@@ -60,9 +60,8 @@ const AddFriendButton = ({ username: friendName, className = "" }: Props) => {
         })
       }
     },
-    onSettled: async () => {
-      // will do it latter
-    },
+    // onSettled: async () => {
+    // },
   })
 
   const handleAddToFriendList = () => {

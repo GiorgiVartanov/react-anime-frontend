@@ -1,18 +1,16 @@
 import { Link } from "react-router-dom"
 import { useMutation } from "@tanstack/react-query"
 import { useQueryClient } from "@tanstack/react-query"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { toast } from "react-toastify"
 import ajax from "../../service/backendAjax"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
 
 import { CommentType } from "../../types/comment.types"
 
 import { useAuthStore } from "../../store/authStore"
 
-import { ReactComponent as Upvote } from "../../assets/icons/upvote.svg"
 import UserIcon from "../Person/UserIcon"
-import Button from "../UI/Button"
 import CommentUpvotes from "./CommentUpvotes"
 import CommentAdminActions from "./CommentAdminActions"
 
@@ -27,8 +25,7 @@ export interface Props {
 const Comment = ({ comment, token, isLoggedIn, animeId }: Props) => {
   const queryClient = useQueryClient()
 
-  const { id, hasLiked, author, text, liked, disliked, posted, wasUpdated } =
-    comment
+  const { id, hasLiked, author, text, liked, disliked, posted } = comment
 
   const [canVote, setCanVote] = useState<boolean>(true)
 
@@ -128,9 +125,8 @@ const Comment = ({ comment, token, isLoggedIn, animeId }: Props) => {
         data: newComments,
       })
     },
-    onSettled: async (res) => {
-      // will do latter
-    },
+    // onSettled: async (res) => {
+    // },
   })
 
   const handleLike = () => {
