@@ -76,9 +76,8 @@ const Comment = ({ comment, token, isLoggedIn, animeId }: Props) => {
         data: newComments,
       })
     },
-    onSettled: async (res) => {
-      // will do latter
-    },
+    // onSettled: async (res) => {
+    // },
   })
 
   // downvotes a comment

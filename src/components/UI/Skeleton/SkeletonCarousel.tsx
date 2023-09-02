@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react"
-
 import SkeletonCarouselCard from "./SkeletonCarouselCard"
 
 interface Props {
@@ -7,7 +5,7 @@ interface Props {
   height?: number
 }
 
-const SkeletonCarousel = ({ width = 200, height = 300 }) => {
+const SkeletonCarousel = ({ width = 200, height = 300 }: Props) => {
   return (
     <div className="relative overflow-hidden">
       <div className="flex  gap-2">

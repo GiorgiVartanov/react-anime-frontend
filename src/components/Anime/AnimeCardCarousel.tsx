@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react"
 import { useQuery } from "@tanstack/react-query"
 import backendAjax from "../../service/backendAjax"
 
-import { AnimeType, AnimeResponse } from "../../types/anime.types"
-import { UserResponse, FavoriteAnimeResponse } from "../../types/user.types"
+import { AnimeType } from "../../types/anime.types"
+import { FavoriteAnimeResponse } from "../../types/user.types"
 
 import { useAuthStore } from "../../store/authStore"
 
@@ -18,10 +17,7 @@ interface Props {
 
 // carousel that shows anime cards
 const AnimeCardCarousel = ({ data = [], intervalDuration = 5000 }: Props) => {
-  const [username, isLoggedIn] = useAuthStore((state) => [
-    state.username,
-    state.isLoggedIn,
-  ])
+  const [username] = useAuthStore((state) => [state.username])
 
   const fetchFavoriteAnime =
     async (): Promise<FavoriteAnimeResponse | null> => {
@@ -46,7 +42,7 @@ const AnimeCardCarousel = ({ data = [], intervalDuration = 5000 }: Props) => {
     if (!favoriteAnimeData?.data) return <></>
 
     return (
-      <Carousel>
+      <Carousel intervalDuration={intervalDuration}>
         {data.map((anime) => (
           <AnimeCard
             key={anime.mal_id}

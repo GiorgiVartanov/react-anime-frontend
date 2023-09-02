@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { useState } from "react"
+// import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import backendAjax from "../../service/backendAjax"
 import { toast } from "react-toastify"
@@ -17,7 +17,7 @@ interface Props {
 const AnimeComments = ({ id }: Props) => {
   const navigate = useNavigate()
 
-  const [showingMore, setShowingMore] = useState<boolean>(false)
+  // const [showingMore, setShowingMore] = useState<boolean>(false)
 
   const [isLoggedIn, token, logoutUser] = useAuthStore((state) => [
     state.isLoggedIn,
@@ -66,9 +66,9 @@ const AnimeComments = ({ id }: Props) => {
     staleTime: 1000000,
   })
 
-  const handleShowMore = () => {
-    setShowingMore((prevState) => !prevState)
-  }
+  // const handleShowMore = () => {
+  //   setShowingMore((prevState) => !prevState)
+  // }
 
   if (isLoading) return <div>Loading...</div>
 

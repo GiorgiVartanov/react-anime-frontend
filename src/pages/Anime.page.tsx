@@ -46,6 +46,8 @@ const Anime = () => {
   useEffect(() => {
     if (!data) return
 
+    if (documentTitle === data.title) return
+
     setDocumentTitle(data.title)
   }, [data, setDocumentTitle])
 
@@ -55,43 +57,35 @@ const Anime = () => {
 
   const {
     mal_id,
-    url,
     images,
     trailer,
-    approved,
-    titles,
     title,
-    title_english,
     title_japanese,
-    title_synonyms,
     type,
     source,
     episodes,
-    status,
-    airing,
+    // status,
+    // airing,
     aired,
     duration,
     rating,
     score,
-    scored_by,
-    rank,
-    popularity,
+    // rank,
+    // popularity,
     synopsis,
-    background,
-    season,
-    year,
-    broadcast,
+    // background,
+    // season,
+    // year,
+    // broadcast,
     producers,
     licensors,
     studios,
     genres,
-    explicit_genres,
-    themes,
-    demographics,
-    relations,
-    theme,
+    // themes,
+    // relations,
+    // theme,
     external,
-    streaming,
+    // streaming,
   } = data
 
   // renders description (synopsys) of a show

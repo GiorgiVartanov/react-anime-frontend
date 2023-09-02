@@ -1,11 +1,11 @@
 interface Props {
-  height: number | string
-  width: number | string
+  height?: number | string
+  width?: number | string
   className?: string
 }
 
 // skeleton component for anime card
-const SkeletonAnimeCard = ({ className, height, width }: Props) => {
+const SkeletonAnimeCard = ({ className, width = 200, height = 300 }: Props) => {
   return (
     <div
       style={{ width: width, height: height }}

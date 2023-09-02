@@ -17,29 +17,21 @@ const Search = () => {
   const [
     limit,
     // page,
-    categories,
     selectedGenres,
-    season,
-    seasonYear,
     sort,
     orderBy,
     status,
     rating,
     text,
-    goToNextPage,
   ] = useSearchStore((state) => [
     state.limit,
     // state.page,
-    state.categories,
     state.selectedGenres,
-    state.season,
-    state.seasonYear,
     state.sort,
     state.orderBy,
     state.status,
     state.rating,
     state.text,
-    state.goToNextPage,
   ])
 
   // function that fetches anime from API
@@ -76,11 +68,9 @@ const Search = () => {
     error,
     data,
     fetchNextPage,
-    isSuccess,
     hasNextPage,
     // isFetching,
     isFetchingNextPage,
-    status: fetchStatus,
   } = useInfiniteQuery({
     queryKey: [
       "anime",
@@ -94,7 +84,7 @@ const Search = () => {
       text,
     ],
     queryFn: fetchAnime,
-    getNextPageParam: (lastPage, allPages) => {
+    getNextPageParam: (lastPage) => {
       if (lastPage?.pagination?.has_next_page) {
         return lastPage?.pagination?.current_page + 1
       } else {

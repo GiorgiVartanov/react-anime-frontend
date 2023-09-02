@@ -1,4 +1,4 @@
-import { Routes, Route, Link, useLocation } from "react-router-dom"
+import { Routes, Route, useLocation } from "react-router-dom"
 import { useEffect } from "react"
 import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
@@ -145,7 +145,3 @@ function App() {
 }
 
 export default App
-
-function ToastLink() {
-  return <Link to="login">your session has expired, please, log in again</Link>
-}
