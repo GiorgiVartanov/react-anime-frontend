@@ -1,12 +1,6 @@
-import axios from "axios"
-import { useState, useEffect } from "react"
-import { useQuery } from "@tanstack/react-query"
-
 interface Props {
   videoId: string
 }
-
-const YOUTUBE_API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY
 
 // renders youtube video in frame with given videoID
 const AnimeTrailer = ({ videoId }: Props) => {
