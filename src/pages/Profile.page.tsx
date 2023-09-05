@@ -17,7 +17,7 @@ import { ReactComponent as Gear } from "../assets/icons/gear-solid.svg"
 import Page from "../components/UI/Page"
 import UserIcon from "../components/Person/UserIcon"
 import AnimeCardList from "../components/Anime/AnimeCardList"
-import FriendList from "../components/Person/FriendList"
+import UserIconList from "../components/Person/UserIconList"
 import AddFriendButton from "../components/Person/AddFriendButton"
 import RemoveFriendButton from "../components/Person/RemoveFriendButton"
 import Loading from "../components/UI/Loading"
@@ -182,21 +182,35 @@ const Profile = () => {
         ownersFriendsData?.data &&
         ownersFriendsData?.data.length > 0 ? (
           <div>
-            <h2 className="text-sp-black dark:text-white mx-auto max-w-7xl mb-1 text-xl">
-              {pageOwnersUsername}
-              <span className="opacity-50">`s friends</span>
+            <h2 className="text-sp-black dark:text-white mx-auto max-w-7xl mb-1 text-xl flex justify-between">
+              <span>
+                {pageOwnersUsername}
+                <span className="opacity-50">`s followers</span>
+              </span>
+              <span className="opacity-40 text-sm mt-auto">
+                amount: {ownersFriendsData?.data?.length}
+              </span>
             </h2>
             <div className="h-0.5 w-full bg-sp-main mb-1"></div>
-            <FriendList friends={ownersFriendsData?.data || []} />
+            <UserIconList
+              users={ownersFriendsData?.data}
+              emptyMessage={"this user does not have any friends"}
+              className="justify-start"
+            />
           </div>
         ) : (
           ""
         )}
         {favoriteAnime.length > 0 ? (
           <div>
-            <h2 className="text-sp-black dark:text-white mx-auto max-w-7xl mb-1 text-xl">
-              {pageOwnersUsername}
-              <span className="opacity-50">`s favorite anime</span>
+            <h2 className="text-sp-black dark:text-white mx-auto max-w-7xl mb-1 text-xl flex justify-between">
+              <span>
+                {pageOwnersUsername}
+                <span className="opacity-50">`s favorite anime</span>
+              </span>
+              <span className="opacity-40 text-sm mt-auto">
+                amount: {favoriteAnime?.length}
+              </span>
             </h2>
             <div className="h-0.5 w-full bg-sp-main mb-1"></div>
             <AnimeCardList data={[favoriteAnime]} />

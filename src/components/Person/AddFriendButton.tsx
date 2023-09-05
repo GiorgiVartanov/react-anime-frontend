@@ -73,7 +73,7 @@ const AddFriendButton = ({ username: friendName, className = "" }: Props) => {
       onClick={handleAddToFriendList}
       className={className}
     >
-      Add Friend
+      Follow
     </Button>
   )
 }

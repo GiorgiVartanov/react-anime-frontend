@@ -134,16 +134,16 @@ const Carousel = ({ children, intervalDuration = 5000, className }: Props) => {
 
   // automatically scrolls when user's cursor is not on carousel and they have not clicked move left or move right buttons in the past 5 seconds
   useEffect(() => {
-    if (isOnPause || isCursorOnComponent || !canBeScrolled) return
-
     const interval = setInterval(() => {
+      if (isOnPause || isCursorOnComponent || !canBeScrolled) return
+
       handleScroll("right")
     }, intervalDuration)
 
     return () => {
       clearInterval(interval)
     } // cleans up the interval when component unmounts
-  }, [])
+  }, [isCursorOnComponent])
 
   useEffect(() => {
     const handleResize = () => {

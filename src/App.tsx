@@ -13,6 +13,7 @@ import ProtectedRoute from "./components/UI/ProtectedRoute"
 
 import Home from "./pages/Home.page"
 import Search from "./pages/Search.Page"
+import UserSearch from "./pages/UserSearch.page"
 import Anime from "./pages/Anime.page"
 import Login from "./pages/Login.page"
 import Register from "./pages/Register.page"
@@ -61,8 +62,12 @@ function App() {
               element={<Home />}
             />
             <Route
-              path="/search"
+              path="/search/anime"
               element={<Search />}
+            />
+            <Route
+              path="/search/users"
+              element={<UserSearch />}
             />
             <Route
               path="/login"

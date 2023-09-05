@@ -6,6 +6,7 @@ const generateColor = (str: string) => {
   }
 
   const color = "#" + ((hash & 0x00ffffff) | 0x808080).toString(16).slice(-6)
+
   return color
 }
 

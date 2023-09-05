@@ -88,7 +88,7 @@ const RemoveFriendButton = ({
       onClick={handleRemoveFromFriendList}
       className={className}
     >
-      Remove Friend
+      Unfollow
     </Button>
   )
 }

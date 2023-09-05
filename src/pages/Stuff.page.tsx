@@ -8,6 +8,7 @@ import { CharacterDetails } from "../types/character.types"
 import Page from "../components/UI/Page"
 import CharacterCardList from "../components/Character/CharacterCardList"
 import Image from "../components/UI/Image"
+import Loading from "../components/UI/Loading"
 
 const Stuff = () => {
   const { id } = useParams()
@@ -26,7 +27,7 @@ const Stuff = () => {
     staleTime: 1000000,
   })
 
-  if (isLoading) return <div>loading...</div>
+  if (isLoading) return <Loading />
 
   if (error || !data) return <div>something went wrong</div>
 
@@ -88,7 +89,6 @@ const Stuff = () => {
         </div>
       </div>
       <div className="mx-auto max-w-7xl w-full p-2 h-full">
-        {/* <AnimeCardList data={animeData} /> */}
         <CharacterCardList
           data={characterDataWithoutDuplicates as unknown as CharacterDetails[]} // I will fix it latter
           showSelect={false}

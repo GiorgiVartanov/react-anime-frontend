@@ -1,7 +1,7 @@
 import { motion } from "framer-motion"
 
 interface Props {
-  onClick?: (event: React.MouseEvent<HTMLElement>) => void // button
+  onClick?: (event: React.MouseEvent<HTMLElement>) => void
   className?: string
   disabled?: boolean
   children: React.ReactNode

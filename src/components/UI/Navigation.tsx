@@ -14,6 +14,7 @@ import { ReactComponent as CloseMark } from "../../assets/icons/xmark-solid.svg"
 import Button from "./Button"
 import DarkModeToggle from "./DarkModeToggle"
 import HeaderNavigationLink from "../Navigation/HeaderNavigationLink"
+import DropDownMenu from "./DropDownMenu"
 
 const dropdownMenu = {
   hidden: { opacity: 0, y: "-5%" },
@@ -102,7 +103,7 @@ const Navigation = () => {
     return (
       <motion.li
         variants={menuItem}
-        className="list-none py-3 sm:py-1"
+        className="list-none py-3 sm:py-1 my-auto"
       >
         <HeaderNavigationLink
           to={to}
@@ -111,6 +112,17 @@ const Navigation = () => {
           {name}
         </HeaderNavigationLink>
       </motion.li>
+    )
+  }
+
+  const renderSearchButton = () => {
+    return (
+      <motion.div variants={menuItem}>
+        <DropDownMenu buttonName="search">
+          {renderNavigationLink("anime", "search/anime")}
+          {renderNavigationLink("users", "search/users")}
+        </DropDownMenu>
+      </motion.div>
     )
   }
 
@@ -149,12 +161,12 @@ const Navigation = () => {
                 handleCloseMenu()
                 findRandomAnime()
               }}
-              className="bg-transparent sm:w-auto w-full dark:text-white sm:py-1 py-3 sm:text-base text-lg"
+              className="bg-transparent sm:w-auto w-full dark:text-white sm:py-1 py-3 sm:text-base text-lg my-auto"
             >
               random
             </Button>
           </motion.li>
-          {renderNavigationLink("search", "search")}
+          {renderSearchButton()}
           {isLoggedIn ? (
             <>
               {renderNavigationLink("profile", `profile/${username}`)}
@@ -170,7 +182,7 @@ const Navigation = () => {
                     handleCloseMenu()
                     handleLogout()
                   }}
-                  className="sm:w-auto w-full dark:text-white sm:py-1 mt-3 sm:mt-0 py-2 sm:text-base text-lg px-1"
+                  className="sm:w-auto w-full dark:text-white sm:py-1 mt-3 sm:mt-0 py-2 sm:text-base text-lg px-1 my-auto"
                 >
                   logout
                 </Button>

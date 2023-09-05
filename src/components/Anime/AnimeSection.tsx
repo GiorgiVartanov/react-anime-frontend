@@ -37,13 +37,12 @@ const AnimeSection = ({
     // is the data is still pending it will render skeleton component
     if (isLoading) return <SkeletonCarousel height={320} />
 
-    // it will show error message if there is an error
-    if (error || !data) {
-      console.log(error)
-      return <div>something went wrong</div>
-    }
-
     return <AnimeCardCarousel data={data.data} />
+  }
+
+  if (error) {
+    console.log(error)
+    return <></>
   }
 
   return (

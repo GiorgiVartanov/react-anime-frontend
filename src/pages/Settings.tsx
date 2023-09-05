@@ -238,10 +238,10 @@ const Settings = () => {
             credentialsError.newPassword.length > 0 ||
             credentialsError.newEmail.length > 0 ||
             credentialsError.newUsername.length > 0 ||
-            credentials.newPassword.length === 0 ||
-            credentials.newEmail.length === 0 ||
-            credentials.newUsername.length === 0 ||
-            credentials.password.length === 0
+            (credentials.password.length === 0 &&
+              (credentials.newPassword.length === 0 ||
+                credentials.newEmail.length === 0 ||
+                credentials.newUsername.length === 0))
           }
         >
           change password

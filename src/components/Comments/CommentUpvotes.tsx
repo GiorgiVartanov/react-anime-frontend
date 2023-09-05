@@ -1,5 +1,7 @@
-import Button from "../UI/Button"
+import { useState } from "react"
+
 import { ReactComponent as Upvote } from "../../assets/icons/upvote.svg"
+import Button from "../UI/Button"
 
 interface Props {
   handleLike: () => void
@@ -17,11 +19,38 @@ const CommentUpvotes = ({
   hasLiked,
   amount,
 }: Props) => {
+  const [isVoteDisabled, setIsVoteDisabled] = useState<boolean>(false)
+
+  const handleOnUpvote = () => {
+    if (isVoteDisabled) return
+
+    setIsVoteDisabled(true)
+
+    handleLike()
+
+    setTimeout(() => {
+      setIsVoteDisabled(false)
+    }, 200)
+  }
+
+  const handleOnDownvote = () => {
+    if (isVoteDisabled) return
+
+    setIsVoteDisabled(true)
+
+    handleDislike()
+
+    setTimeout(() => {
+      setIsVoteDisabled(false)
+    }, 200)
+  }
+
   return (
     <div className="flex flex-col">
       <Button
-        onClick={handleLike}
+        onClick={handleOnUpvote}
         className={`bg-transparent ${hasLiked === "downvote" ? "" : ""}`}
+        // disabled={isVoteDisabled}
       >
         <Upvote
           fill={`${hasLiked === "upvote" ? "#e91e63" : ""}`}
@@ -32,8 +61,9 @@ const CommentUpvotes = ({
       </Button>
       <p className={`text-center text-sm text-sp-light font-bold`}>{amount}</p>
       <Button
-        onClick={handleDislike}
+        onClick={handleOnDownvote}
         className={`bg-transparent ${hasLiked === "downvote" ? "" : ""}`}
+        // disabled={isVoteDisabled}
       >
         <Upvote
           className="rotate-180"

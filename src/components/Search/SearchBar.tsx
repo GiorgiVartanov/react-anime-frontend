@@ -36,7 +36,7 @@ const SearchBar = ({ value = "", className, handleTextChange }: Props) => {
   }, [searchValue])
 
   return (
-    <div className="flex gap-2">
+    <div className={`flex gap-2 ${className}`}>
       <motion.input
         initial={{ opacity: 0, width: 0, margin: "auto" }}
         animate={{ opacity: 1, width: "100%", margin: 0 }}

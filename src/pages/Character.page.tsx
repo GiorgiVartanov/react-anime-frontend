@@ -7,6 +7,7 @@ import { FullCharacterType } from "../types/character.types"
 import Page from "../components/UI/Page"
 import AnimeCardList from "../components/Anime/AnimeCardList"
 import Image from "../components/UI/Image"
+import Loading from "../components/UI/Loading"
 
 const Character = () => {
   const { id } = useParams()
@@ -25,13 +26,11 @@ const Character = () => {
     staleTime: 1000000,
   })
 
-  if (isLoading) return <div>loading...</div>
+  if (isLoading) return <Loading />
 
   if (error || !data) return <div>something went wrong</div>
 
   const { about, anime, images, name } = data
-
-  // console.log(data)
 
   const animeData = anime.map((item) => item.anime)
 
