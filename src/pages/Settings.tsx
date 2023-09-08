@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+import { motion } from "framer-motion"
 
 import { useAuthStore } from "../store/authStore"
 
@@ -12,17 +13,21 @@ import Page from "../components/UI/Page"
 import Form from "../components/Form/Form"
 import Input from "../components/Form/Input"
 import Button from "../components/UI/Button"
+import UploadImage from "../components/UI/UploadImage"
 
 const Settings = () => {
   const navigate = useNavigate()
 
   const [
     isLoggedIn,
+    username,
+
     changeCredentials,
     changeCredentialsError,
     wasPasswordSuccessfullyChanged,
   ] = useAuthStore((state) => [
     state.isLoggedIn,
+    state.username,
     state.changeCredentials,
     state.changeCredentialsError,
     state.wasPasswordSuccessfullyChanged,
@@ -173,13 +178,12 @@ const Settings = () => {
     }
   }
 
-  useEffect(() => {
-    setCredentialsError(changeCredentialsError)
-  }, [changeCredentialsError])
-
-  return (
-    <Page className="h-full grid place-content-center mt-80 mx-auto max-w-7xl w-full p-2">
-      <Form onSubmit={handleSubmit}>
+  const renderChangeCredentialsForm = () => {
+    return (
+      <Form
+        onSubmit={handleSubmit}
+        className="mt-8 mx-auto"
+      >
         <Input
           name="new password"
           type="password"
@@ -244,10 +248,23 @@ const Settings = () => {
                 credentials.newUsername.length === 0))
           }
         >
-          change password
+          change credentials
         </Button>
         {renderMessage()}
       </Form>
+    )
+  }
+
+  useEffect(() => {
+    setCredentialsError(changeCredentialsError)
+  }, [changeCredentialsError])
+
+  return (
+    <Page className="h-full max-w-7xl w-full p-2 mx-auto">
+      <div className="flex gap-2 text-center items-center justify-center mt-8 flex-col">
+        <UploadImage />
+        {renderChangeCredentialsForm()}
+      </div>
     </Page>
   )
 }

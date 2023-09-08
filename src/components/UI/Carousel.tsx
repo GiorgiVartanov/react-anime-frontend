@@ -143,7 +143,7 @@ const Carousel = ({ children, intervalDuration = 5000, className }: Props) => {
     return () => {
       clearInterval(interval)
     } // cleans up the interval when component unmounts
-  }, [isCursorOnComponent])
+  }, [isCursorOnComponent, isOnPause, canBeScrolled])
 
   useEffect(() => {
     const handleResize = () => {
@@ -157,7 +157,7 @@ const Carousel = ({ children, intervalDuration = 5000, className }: Props) => {
       // visible with of the carousel
       const clientWidth = container.clientWidth
 
-      setCanBeScrolled(allChildrenWidth < clientWidth)
+      setCanBeScrolled(allChildrenWidth > clientWidth)
     }
 
     handleResize()

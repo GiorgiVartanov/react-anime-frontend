@@ -152,7 +152,7 @@ const Comment = ({ comment, token, isLoggedIn, animeId }: Props) => {
 
   return (
     <motion.div className="text-md">
-      <div className="flex flex-row gap-4 mb-1 mt-2 px-1 py-1">
+      <div className="flex flex-row gap-4 mb-1 mt-2 py-1">
         {/* <Link
           to={`../../profile/${author}`}
           className="w-fit hover:opacity-90 transition-all ease-in-out duration-200 shadow-sm flex gap-2"

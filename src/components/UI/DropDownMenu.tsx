@@ -6,10 +6,11 @@ import { useOnClickOutside } from "../../hooks/useOnClickOutside"
 import Button from "./Button"
 
 const dropdownMenu = {
-  hidden: { opacity: 0, y: "-5%" },
+  hidden: { opacity: 0, y: "-10%", scale: 0.95 },
   visible: {
     opacity: 1,
     y: 0,
+    scale: 1,
     transition: {
       delayChildren: 0.1,
       staggerChildren: 0.05,
@@ -50,7 +51,7 @@ const DropDownMenu = ({ buttonName, className, children }: Props) => {
       >
         {buttonName}{" "}
         <motion.span
-          animate={{ rotateZ: isMenuOpen ? "90deg" : "270deg" }}
+          animate={{ rotateZ: isMenuOpen ? "270deg" : "90deg" }}
           className="ml-2 text-2xl"
         >
           {"<"}
