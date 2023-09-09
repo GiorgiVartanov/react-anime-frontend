@@ -3,6 +3,8 @@ import backendAjax from "../../service/backendAjax"
 import { toast } from "react-toastify"
 import { useState } from "react"
 
+import { profilePictureType } from "../../types/user.types"
+
 import { useAuthStore } from "../../store/authStore"
 
 import UserIcon from "../Person/UserIcon"
@@ -22,7 +24,7 @@ const UploadImage = () => {
   const [imageSrc, setImageSrc] = useState<string>("")
   const [isDragging, setIsDragging] = useState<boolean>(false)
 
-  const postNewProfilePicture = async () => {
+  const postNewProfilePicture = async (): Promise<profilePictureType> => {
     const formData = new FormData()
     formData.append("file", file as Blob)
 
@@ -38,10 +40,20 @@ const UploadImage = () => {
     mutationFn: postNewProfilePicture,
     mutationKey: ["change picture"],
     onMutate: () => {
-      // queryClient.getQueryData<{ data: CommentType[] }>([
-      //   "anime-comments",
-      //   id,
-      // ])?.data || []
+      queryClient.invalidateQueries(["profile-picture", username])
+    },
+    onSuccess: () => {
+      toast.success("Profile picture successfully changed")
+    },
+    onError: () => {
+      toast.error("something went wrong, try again latter")
+    },
+    onSettled: (res) => {
+      if (!res) return
+
+      const newData = res.data
+
+      queryClient.setQueryData(["profile-picture", username], newData)
     },
   })
 
@@ -125,7 +137,7 @@ const UploadImage = () => {
               width="128"
               src={imageSrc}
               alt=""
-              className="absolute opacity-60  shadow-sm"
+              className="absolute opacity-60 shadow-sm min-h-[128px] min-w-[128px] object-cover"
             />
           </div>
           <img
@@ -133,7 +145,7 @@ const UploadImage = () => {
             width="128"
             src={imageSrc}
             alt=""
-            className="rounded-full relative shadow-sm"
+            className="rounded-full relative shadow-sm min-h-[128px] min-w-[128px] object-cover"
           />
         </div>
         <p className="opacity-20">

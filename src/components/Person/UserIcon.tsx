@@ -53,7 +53,10 @@ const UserIcon = ({ username, ...rest }: Props) => {
   }
 
   const renderProfilePicture = () => {
-    if (isLoading || !data?.data) return
+    if (isLoading || error || !data?.data)
+      return (
+        <div className="bg-sp-black dark:bg-sp-white font-bold rounded-full text-center leading-8 h-8 w-8 no-underline select-none"></div>
+      )
 
     const image = new Image()
     image.src = `data:image/png;base64,${data.data}`
@@ -73,13 +76,13 @@ const UserIcon = ({ username, ...rest }: Props) => {
       className="flex gap-2 text-center items-center"
     >
       <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         whileHover={{ opacity: 0.7 }}
         className="flex gap-2 text-center items-center"
         {...rest}
       >
-        {error || !data?.data
-          ? renderProfilePictureWithColor()
-          : renderProfilePicture()}
+        {!data?.data ? renderProfilePictureWithColor() : renderProfilePicture()}
         <p className="font-semibold">{username}</p>
       </motion.div>
     </Link>

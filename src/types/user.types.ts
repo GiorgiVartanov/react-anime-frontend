@@ -26,11 +26,9 @@ export type FavoriteAnimeResponse = {
   data: AnimeType[]
 }
 
-// type FriendsType = {
-//   _id: string
-//   user1: string
-//   user2: string
-// }
+export type profilePictureType = {
+  data: "string"
+}
 
 export type FriendsResponseType = {
   data: string[]
