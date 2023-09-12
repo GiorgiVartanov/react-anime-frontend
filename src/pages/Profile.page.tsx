@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { useParams, useNavigate } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import backendAjax from "../service/backendAjax"
 import { Link } from "react-router-dom"
 
@@ -23,8 +23,6 @@ import RemoveFriendButton from "../components/Person/RemoveFriendButton"
 import Loading from "../components/UI/Loading"
 
 const Profile = () => {
-  const navigate = useNavigate()
-
   const { username: pageOwnersUsername } = useParams()
 
   const [username] = useAuthStore((state) => [state.username])

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import { motion } from "framer-motion"
 import { toast } from "react-toastify"
 
 import { useAuthStore } from "../store/authStore"
@@ -21,13 +20,11 @@ const Settings = () => {
 
   const [
     isLoggedIn,
-    username,
     changeCredentials,
     changeCredentialsError,
     changeCredentialsErrorMessage,
   ] = useAuthStore((state) => [
     state.isLoggedIn,
-    state.username,
     state.changeCredentials,
     state.changeCredentialsError,
     state.changeCredentialsErrorMessage,
