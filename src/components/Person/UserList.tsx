@@ -4,11 +4,14 @@ import UserRow from "./UserRow"
 
 interface Props {
   data: FullUserType[]
+  className?: string
 }
 
-const UserList = ({ data }: Props) => {
+const UserList = ({ data, className }: Props) => {
   return (
-    <div className="overflow-x-auto border-gray-200 dark:bg-sp-gray rounded-md border-2 p-2">
+    <div
+      className={`overflow-x-auto border-gray-200 dark:bg-sp-gray rounded-md border-2 p-2 ${className}`}
+    >
       <table className="divide-y divide-gray-200">
         <thead className="">
           <tr>
@@ -16,7 +19,7 @@ const UserList = ({ data }: Props) => {
             <th className="text-left p-2">email</th>
             <th className="text-left p-2">username</th>
             <th className="text-left p-2">status</th>
-            <th className="text-left p-2">actions</th>
+            <th className="text-right p-2">actions</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200">

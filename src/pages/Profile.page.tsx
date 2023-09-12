@@ -127,8 +127,6 @@ const Profile = () => {
     !favoriteAnimeData ||
     favoriteAnimeError
   ) {
-    navigate("../error")
-
     return <>Something went wrong</>
   }
 

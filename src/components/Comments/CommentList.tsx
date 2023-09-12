@@ -37,7 +37,7 @@ const CommentList = ({ comments, showPerPage, animeId }: Props) => {
           key={comment.id}
         />
       ))}
-      {comments?.length > showPerPage ? (
+      {comments?.length > showPerPage * page ? (
         <button
           onClick={handleAddPage}
           className="opacity-20 hover:opacity-30 mt-3 mb-2 py-1 px-6 w-fit mx-auto transition-all ease-in-out duration-100"

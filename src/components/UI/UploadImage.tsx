@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import backendAjax from "../../service/backendAjax"
 import { toast } from "react-toastify"
 import { useState } from "react"
+import { motion } from "framer-motion"
 
 import { profilePictureType } from "../../types/user.types"
 
@@ -119,6 +120,8 @@ const UploadImage = () => {
   }
 
   const handleUploadImage = () => {
+    setIsDragging(false)
+
     mutation.mutate()
   }
 
@@ -156,19 +159,26 @@ const UploadImage = () => {
   }
 
   return (
-    <div className="flex flex-col gap-4 items-center">
+    <div className="flex flex-col gap-4 items-center max-w-[360px] w-full">
       <UserIcon username={username} />
-      <label
+      <motion.label
+        initial={{ opacity: 1, borderColor: "transparent", borderWidth: 1 }}
+        whileHover={{ opacity: 0.95 }}
+        animate={{
+          opacity: isDragging ? 0.8 : 1,
+          borderColor: isDragging ? "#e91e63" : "transparent",
+          transition: {
+            duration: 0.1,
+          },
+        }}
         htmlFor="imageUpload"
         onDrop={handleOnDrop}
         onDragEnter={handleOnDragEnter}
         onDragOver={handleOnDragOver}
         onDragLeave={handleOnDragLeave}
-        className={`dark:bg-sp-gray bg-sp-white p-2 border-2 ${
-          isDragging ? "border-sp-main" : "dark:border-sp-gray border-sp-white"
-        }`}
+        className={`dark:bg-sp-gray bg-sp-white p-2 border-2 w-full cursor-pointer`}
       >
-        <p className="px-1 py-0.5 mb-3 opacity-50">click or drag image here</p>
+        <p className="px-1 py-0.5 mb-3 opacity-50">select new image</p>
         <input
           onChange={handleOnImageInputChange}
           type="file"
@@ -177,14 +187,18 @@ const UploadImage = () => {
           className="hidden"
         />
         {renderImage()}
-      </label>
-      <Button
-        onClick={handleUploadImage}
-        disabled={!file}
-        className="px-1 py-0.5"
-      >
-        change profile picture
-      </Button>
+      </motion.label>
+      {file ? (
+        <Button
+          onClick={handleUploadImage}
+          disabled={!file}
+          className="px-1 py-0.5"
+        >
+          confirm
+        </Button>
+      ) : (
+        ""
+      )}
     </div>
   )
 }

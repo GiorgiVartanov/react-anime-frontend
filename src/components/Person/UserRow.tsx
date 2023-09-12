@@ -2,12 +2,16 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import backendAjax from "../../service/backendAjax"
 import { toast } from "react-toastify"
 import { Link } from "react-router-dom"
+import { motion } from "framer-motion"
 
 import { FullUserType, FullUserResponse } from "../../types/user.types"
 
 import { useAuthStore } from "../../store/authStore"
+import { useSettingsStore } from "../../store/settingsStore"
 
 import Button from "../UI/Button"
+import { ReactComponent as LinkIcon } from "../../assets/icons/up-right-from-square-solid.svg"
+import { ReactComponent as Trash } from "../../assets/icons/trash-can-solid.svg"
 
 interface Props extends FullUserType {
   className?: string
@@ -17,6 +21,7 @@ const UserRow = ({ _id, username, email, accountType }: Props) => {
   const queryClient = useQueryClient()
 
   const [token] = useAuthStore((state) => [state.token])
+  const [theme] = useSettingsStore((state) => [state.theme])
 
   // delete user
   const deleteUser = () => {
@@ -168,24 +173,34 @@ const UserRow = ({ _id, username, email, accountType }: Props) => {
 
   return (
     <tr className="">
-      <td className="p-3">
-        <Link to={`../profile/${username}`}>{_id}</Link>
-      </td>
-      <td className="p-3">
-        <Link to={`../profile/${username}`}>{email}</Link>
-      </td>
-      <td className="p-3">
-        <Link to={`../profile/${username}`}>{username}</Link>
-      </td>
+      <td className="p-3">{_id}</td>
+      <td className="p-3">{email}</td>
+      <td className="p-3">{username}</td>
       <td className="p-3">{accountType}</td>
-      <td className="p-3 text-red-500 flex flex-row gap-2">
+      <td className="p-3 text-red-500 flex flex-row gap-2 border-l-2 border-sp-white">
         <Button
           onClick={handleDelete}
           disabled={accountType === "Admin"}
           className="px-1 bg-transparent text-red-500 font-semibold"
         >
-          Delete
+          <Trash
+            height={24}
+            width={24}
+            fill={"rgb(239,68,68)"}
+          />
         </Button>
+        <motion.div
+          initial={{ opacity: 1 }}
+          whileHover={{ opacity: 0.8 }}
+        >
+          <Link to={`../profile/${username}`}>
+            <LinkIcon
+              height={24}
+              width={24}
+              fill={theme === "dark" ? "white" : "black"}
+            />
+          </Link>
+        </motion.div>
         {accountType === "User" ? (
           <Button
             onClick={handlePromote}

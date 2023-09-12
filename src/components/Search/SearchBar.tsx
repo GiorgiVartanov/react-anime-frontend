@@ -5,9 +5,15 @@ interface Props {
   value?: string
   className?: string
   handleTextChange: (newText: string) => void
+  debounce?: boolean
 }
 
-const SearchBar = ({ value = "", className, handleTextChange }: Props) => {
+const SearchBar = ({
+  value = "",
+  className,
+  handleTextChange,
+  debounce = true,
+}: Props) => {
   const [searchValue, setSearchValue] = useState<string>(value)
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,12 +34,17 @@ const SearchBar = ({ value = "", className, handleTextChange }: Props) => {
 
   // starts search 1 seconds after user ends typing
   useEffect(() => {
+    if (!debounce) {
+      startSearch()
+      return
+    }
+
     const timer = setTimeout(() => {
       startSearch()
     }, 1000)
 
     return () => clearTimeout(timer)
-  }, [searchValue])
+  }, [searchValue, debounce])
 
   return (
     <div className={`flex gap-2 ${className}`}>

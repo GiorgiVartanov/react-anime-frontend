@@ -67,14 +67,14 @@ const Home = () => {
     clearFilters()
     changeStatus("airing")
 
-    navigate("/search")
+    navigate("/search/anime")
   }
 
   const handleNavigateToTop = () => {
     clearFilters()
     changeOrdering("score")
 
-    navigate("/search")
+    navigate("/search/anime")
   }
 
   // const randomGenre = genres[Math.floor(Math.random() * genres.length)]
@@ -87,7 +87,7 @@ const Home = () => {
     changeSorting("asc")
     selectGenre(randomGenre.mal_id)
 
-    navigate("/search")
+    navigate("/search/anime")
   }
 
   return (

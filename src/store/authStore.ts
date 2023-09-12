@@ -20,6 +20,7 @@ interface AuthState {
   loginError: LoginCredentialsErrorType // stores errors for login's credentials
   registerError: RegisterCredentialsErrorType // stores errors for register's credentials
   changeCredentialsError: CredentialsChangeErrorType
+  changeCredentialsErrorMessage: string
   wasPasswordSuccessfullyChanged: boolean | null
   tokenExpirationDate: number
 }
@@ -46,6 +47,7 @@ export const useAuthStore = create<AuthState & AuthActions>()((set, get) => ({
     newUsername: [],
     newEmail: [],
   },
+  changeCredentialsErrorMessage: "",
   wasUserRegistered: false,
   wasPasswordSuccessfullyChanged: null,
   tokenExpirationDate: Number(localStorage.getItem("tokenExpirationDate")) || 0,
@@ -198,23 +200,49 @@ export const useAuthStore = create<AuthState & AuthActions>()((set, get) => ({
       return set(() => ({
         username: username,
         _id: _id,
-        wasPasswordSuccessfullyChanged: true,
-        changePasswordError: {
+        changeCredentialsErrorMessage: "",
+        changeCredentialsError: {
           password: [],
+          newUsername: [],
+          newEmail: [],
           newPassword: [],
         },
       }))
     } catch (error: any) {
-      console.log(error.response.data.message)
-
-      if (error.response.data.message === "Invalid credentials") {
-        return set(() => ({
-          wasPasswordSuccessfullyChanged: false,
-          changePasswordError: {
-            password: ["incorrect password"],
-            newPassword: [],
-          },
-        }))
+      // return set(() => ({
+      //   changeCredentialsErrorMessage: error.response.data.message,
+      // }))
+      switch (error.response.data.message) {
+        case "Invalid credentials":
+          return set(() => ({
+            changeCredentialsErrorMessage: error.response.data.message,
+            changeCredentialsError: {
+              password: ["incorrect password"],
+              newUsername: [],
+              newEmail: [],
+              newPassword: [],
+            },
+          }))
+        case "This Email is already taken":
+          return set(() => ({
+            changeCredentialsErrorMessage: error.response.data.message,
+            changeCredentialsError: {
+              password: [],
+              newUsername: [],
+              newEmail: ["This Email is already taken"],
+              newPassword: [],
+            },
+          }))
+        case "This Username is already taken":
+          return set(() => ({
+            changeCredentialsErrorMessage: error.response.data.message,
+            changeCredentialsError: {
+              password: [],
+              newUsername: ["This Username is already taken"],
+              newEmail: [],
+              newPassword: [],
+            },
+          }))
       }
     }
   },

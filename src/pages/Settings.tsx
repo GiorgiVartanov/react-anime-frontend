@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
+import { toast } from "react-toastify"
 
 import { useAuthStore } from "../store/authStore"
 
@@ -21,16 +22,15 @@ const Settings = () => {
   const [
     isLoggedIn,
     username,
-
     changeCredentials,
     changeCredentialsError,
-    wasPasswordSuccessfullyChanged,
+    changeCredentialsErrorMessage,
   ] = useAuthStore((state) => [
     state.isLoggedIn,
     state.username,
     state.changeCredentials,
     state.changeCredentialsError,
-    state.wasPasswordSuccessfullyChanged,
+    state.changeCredentialsErrorMessage,
   ])
 
   const [credentials, setCredentials] = useState<CredentialsChangeType>({
@@ -168,16 +168,6 @@ const Settings = () => {
     }))
   }
 
-  const renderMessage = () => {
-    if (wasPasswordSuccessfullyChanged === true) {
-      return <div>Password was changed successfully</div>
-    } else if (wasPasswordSuccessfullyChanged === false) {
-      return <div>Something went wrong</div>
-    } else {
-      return <></>
-    }
-  }
-
   const renderChangeCredentialsForm = () => {
     return (
       <Form
@@ -250,14 +240,16 @@ const Settings = () => {
         >
           change credentials
         </Button>
-        {renderMessage()}
       </Form>
     )
   }
 
   useEffect(() => {
+    if (changeCredentialsErrorMessage.length === 0) return
+
+    toast.error(changeCredentialsErrorMessage)
     setCredentialsError(changeCredentialsError)
-  }, [changeCredentialsError])
+  }, [changeCredentialsError, changeCredentialsErrorMessage])
 
   return (
     <Page className="h-full max-w-7xl w-full p-2 mx-auto">

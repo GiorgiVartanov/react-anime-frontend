@@ -90,12 +90,15 @@ const Navigation = () => {
   } = useQuery({
     queryKey: ["random-anime"],
     queryFn: fetchRandomAnime,
-    staleTime: 0,
+    staleTime: 1000,
   })
 
   const findRandomAnime = () => {
+    queryClient.cancelQueries(["random-anime"])
     refetch()
+
     if (!mal_id || isLoading) return
+
     navigate(`./anime/${mal_id}`)
   }
 
@@ -118,7 +121,10 @@ const Navigation = () => {
   const renderSearchButton = () => {
     return (
       <motion.div variants={menuItem}>
-        <DropDownMenu buttonName="search">
+        <DropDownMenu
+          buttonName="search"
+          className="text-lg sm:text-md"
+        >
           {renderNavigationLink("anime", "search/anime")}
           {renderNavigationLink("users", "search/users")}
         </DropDownMenu>
