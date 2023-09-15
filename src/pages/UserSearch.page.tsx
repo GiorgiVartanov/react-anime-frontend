@@ -7,6 +7,7 @@ import SearchBar from "../components/Search/SearchBar"
 import UserIconList from "../components/Person/UserIconList"
 import Loading from "../components/UI/Loading"
 
+// page where user can search for other users
 const UserSearch = () => {
   const [text, setText] = useState<string>("")
 

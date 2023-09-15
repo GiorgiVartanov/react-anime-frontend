@@ -11,19 +11,23 @@ interface Props {
   animeId: string
 }
 
+// fetches and renders pictures for passed animeId
 const AnimePictures = ({ animeId }: Props) => {
+  // function to fetch pictures from API
   const fetchPictures = async (): Promise<animePicturesResponseType> => {
     const response = await apiAjax.get(`anime/${animeId}/pictures`)
 
     return response.data
   }
 
+  // fetches pictures from API
   const { isLoading, error, data } = useQuery({
     queryKey: ["anime-pictures", animeId],
     queryFn: fetchPictures,
     staleTime: 1000000,
   })
 
+  // function to render images
   const renderImages = () => {
     if (isLoading) return <SkeletonCarousel />
 

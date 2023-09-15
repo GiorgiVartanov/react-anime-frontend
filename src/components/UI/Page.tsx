@@ -5,6 +5,7 @@ interface Props {
   children: React.ReactNode
 }
 
+// component wraps every page component, to give them transition animation
 const Page = ({ className, children }: Props) => {
   return (
     <motion.div

@@ -9,6 +9,7 @@ interface Props {
   className?: string
 }
 
+// button to toggle dark mode
 const DarkModeToggle = ({ className }: Props) => {
   const [theme, toggleDarkMode] = useSettingsStore((state) => [
     state.theme,

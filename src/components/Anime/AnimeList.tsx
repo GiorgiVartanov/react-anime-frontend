@@ -11,6 +11,7 @@ interface Props {
   queryKey: any[]
 }
 
+// fetches anime from API by passed query from  and renders it
 const AnimeList = ({ query, queryKey }: Props) => {
   const fetchAnime = async (): Promise<AnimeResponse> => {
     const response = await apiAjax.get(query)

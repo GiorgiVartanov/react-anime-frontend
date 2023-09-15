@@ -1,5 +1,6 @@
 import Page from "../components/UI/Page"
 
+// will be rendered when user is on a non existing route
 const PageNotFound = () => {
   return (
     <Page className="h-full flex-1 flex justify-center items-center">

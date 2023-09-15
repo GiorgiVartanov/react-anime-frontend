@@ -22,8 +22,9 @@ import AddFriendButton from "../components/Person/AddFriendButton"
 import RemoveFriendButton from "../components/Person/RemoveFriendButton"
 import Loading from "../components/UI/Loading"
 
+// user's profile page
 const Profile = () => {
-  const { username: pageOwnersUsername } = useParams()
+  const { username: pageOwnersUsername } = useParams() // ../profile/:username
 
   const [username] = useAuthStore((state) => [state.username])
   const [theme] = useSettingsStore((state) => [state.theme])
@@ -75,13 +76,14 @@ const Profile = () => {
     return data
   }
 
-  // fetches user data
+  // fetches user's data
   const { isLoading, error, data } = useQuery({
     queryKey: ["user", pageOwnersUsername],
     queryFn: fetchUserData,
     staleTime: 1000000,
   })
 
+  // function to fetch page owner's favorite anime
   const fetchFavoriteAnime =
     async (): Promise<FavoriteAnimeResponse | null> => {
       if (!username) return null
@@ -90,7 +92,7 @@ const Profile = () => {
       return response.data
     }
 
-  // fetches user data
+  // fetches user's favorite anime
   const {
     data: favoriteAnimeData,
     isLoading: favoriteAnimeIsLoading,
@@ -101,6 +103,7 @@ const Profile = () => {
     staleTime: 1000000,
   })
 
+  // changes document title to page owner's username
   useDocumentTitle(pageOwnersUsername)
 
   // it will show loading while data is fetching

@@ -10,9 +10,11 @@ import CharacterCardList from "../components/Character/CharacterCardList"
 import Image from "../components/UI/Image"
 import Loading from "../components/UI/Loading"
 
+// page that shows information about voice actors
 const Stuff = () => {
-  const { id } = useParams()
+  const { id } = useParams() // ../stuff/:id
 
+  // function to fetch voice actor by id
   const fetchStuff = async (): Promise<StuffType> => {
     const response = await apiAjax.get(`/people/${id}/full`)
 
@@ -21,6 +23,7 @@ const Stuff = () => {
     return data
   }
 
+  // fetches voice actor by id
   const { isLoading, error, data } = useQuery({
     queryKey: ["stuff", id],
     queryFn: fetchStuff,
@@ -52,8 +55,6 @@ const Stuff = () => {
   const characterDataWithoutDuplicates = removeDuplicateMalIds(
     characterData as VoiceType[]
   )
-
-  // console.log(voices[0]?.anime?.images.jpg)
 
   return (
     <Page>

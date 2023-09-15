@@ -32,6 +32,7 @@ const Home = () => {
     state.selectGenre,
   ])
 
+  // function to get genres from backend
   const fetchGenres = async (): Promise<animeGenreResponse> => {
     const response = await backendAjax.get(`anime/genres`)
 
@@ -76,8 +77,6 @@ const Home = () => {
 
     navigate("/search/anime")
   }
-
-  // const randomGenre = genres[Math.floor(Math.random() * genres.length)]
 
   const handleNavigateToRandomGenrePopularAnime = () => {
     if (!randomGenre?.mal_id) return

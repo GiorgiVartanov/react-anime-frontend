@@ -1,6 +1,7 @@
 import HeaderNavigationLink from "../Navigation/HeaderNavigationLink"
 import Navigation from "./Navigation"
 
+// header of a page
 const Header = () => {
   return (
     <header className="dark:bg-sp-gray font-bold dark:text-white text-sp-gray bg-sp-white py-1 shadow-sm relative z-30">

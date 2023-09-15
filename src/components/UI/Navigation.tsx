@@ -37,9 +37,11 @@ const menuItem = {
   },
 }
 
+// navigation menu for header
 const Navigation = () => {
   const queryClient = useQueryClient()
 
+  // reference to the hamburger menu, is used in useOnClickOutside hook to trigger a function when user clicks outside of it
   const hamburgerMenuRef = useRef<HTMLElement>(null)
 
   const navigate = useNavigate()
@@ -72,17 +74,19 @@ const Navigation = () => {
     navigate(`./login`)
   }
 
+  // function used to open hamburger menu when its open and vice versa
   const handleHamburgerMenu = () => {
     setIsHamburgerMenuOpen((prevState) => !prevState)
   }
 
+  // function to fetch random anime id from the backend
   const fetchRandomAnime = async (): Promise<FullAnimeType> => {
     const result = await backendAjax.get(`anime/random`)
 
     return result.data.data
   }
 
-  // fetches anime form API
+  // fetches random anime id
   const {
     isLoading,
     data: mal_id,
@@ -93,6 +97,7 @@ const Navigation = () => {
     staleTime: 1000,
   })
 
+  // fetches random anime id from the backend ()
   const findRandomAnime = () => {
     queryClient.cancelQueries(["random-anime"])
     refetch()
@@ -102,6 +107,7 @@ const Navigation = () => {
     navigate(`./anime/${mal_id}`)
   }
 
+  // renders navigation link for passed arguments
   const renderNavigationLink = (name: string, to: string) => {
     return (
       <motion.li
@@ -118,6 +124,7 @@ const Navigation = () => {
     )
   }
 
+  // renders dropdown menu with 2 links, one for user search second for anime search
   const renderSearchButton = () => {
     return (
       <motion.div variants={menuItem}>
@@ -133,6 +140,7 @@ const Navigation = () => {
   }
 
   const renderNavBar = () => {
+    // rendering navbar in a AnimatePresence, so it will be possible to animate it after its removed from dom
     return (
       <AnimatePresence>
         <motion.ul
@@ -237,7 +245,7 @@ const Navigation = () => {
           />
         )}
       </Button>
-      <AnimatePresence>{renderNavBar()}</AnimatePresence>
+      {renderNavBar()}
     </nav>
   )
 }

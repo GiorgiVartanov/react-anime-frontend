@@ -19,10 +19,8 @@ const Dashboard = () => {
 
   const [searchText, setSearchText] = useState<string>("")
 
+  // function to fetch users
   const fetchUsers = async (): Promise<FullUserResponse | null> => {
-    // const response = await backendAjax.get(`/user/all?q=${searchText}`, {
-    //   headers: { Authorization: `Bearer ${token}` },
-    // })
     const response = await backendAjax.get(`/user/all?q=`, {
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -30,9 +28,9 @@ const Dashboard = () => {
     return response.data
   }
 
+  // fetches users
   const { data, isLoading, error } = useQuery({
     queryFn: fetchUsers,
-    // queryKey: ["users for dashboard", searchText],
     queryKey: ["users for dashboard"],
     staleTime: 1000000,
   })
@@ -41,6 +39,7 @@ const Dashboard = () => {
     setSearchText(newText)
   }
 
+  // function to render dashboard
   const renderDashboard = () => {
     if (isLoading) return <Loading />
 
@@ -49,11 +48,12 @@ const Dashboard = () => {
       return <></>
     }
 
+    // regex to find similar usernames
     const pattern = new RegExp(searchText)
 
     return (
       <UserList
-        data={data.data.filter((item) => pattern.test(item.username))}
+        data={data.data.filter((item) => pattern.test(item.username))} // applies regex, to find similar usernames
         className="rounded-b-md rounded-t-none"
       />
     )

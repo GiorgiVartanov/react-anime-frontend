@@ -12,6 +12,7 @@ import Page from "../components/UI/Page"
 import Form from "../components/Form/Form"
 import Input from "../components/Form/Input"
 
+// page where new account can be created
 const Register = () => {
   const navigate = useNavigate()
 

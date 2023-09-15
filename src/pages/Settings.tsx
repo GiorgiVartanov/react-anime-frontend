@@ -250,9 +250,17 @@ const Settings = () => {
 
   return (
     <Page className="h-full max-w-7xl w-full p-2 mx-auto">
-      <div className="flex gap-2 text-center items-center justify-center mt-8 flex-col">
-        <UploadImage />
-        {renderChangeCredentialsForm()}
+      <div className="flex gap-8 text-center items-center justify-center mt-8 flex-col">
+        <section className="w-full">
+          <h2 className="opacity-30">change profile picture</h2>
+          <div className="h-0.5 w-full bg-sp-main mb-1"></div>
+          <UploadImage className="mx-auto mt-6" />
+        </section>
+        <section className="w-full">
+          <h2 className="opacity-30">change login information</h2>
+          <div className="h-0.5 w-full bg-sp-main mb-1"></div>
+          {renderChangeCredentialsForm()}
+        </section>
       </div>
     </Page>
   )

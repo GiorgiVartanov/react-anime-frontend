@@ -10,8 +10,9 @@ import Image from "../components/UI/Image"
 import AnimeList from "../components/Anime/AnimeList"
 import AnimeExternalLink from "../components/Anime/AnimeExternalLink"
 
+// page that shows information about studio/licensors/producers
 const Studio = () => {
-  const { id } = useParams()
+  const { id } = useParams() // ../studio/:id
 
   const getGenres = async (): Promise<StudioResponse> => {
     const result = await apiAjax.get(`producers/${id}/full`)

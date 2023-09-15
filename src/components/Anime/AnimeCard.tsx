@@ -20,6 +20,7 @@ export interface Props extends AnimeType {
   className?: string
 }
 
+// card that contains anime poster and title, by clicking on it user will be redirected to the corresponding anime page
 const AnimeCard = ({ mal_id, images, isFavorite, title, className }: Props) => {
   const [theme] = useSettingsStore((state) => [state.theme])
 

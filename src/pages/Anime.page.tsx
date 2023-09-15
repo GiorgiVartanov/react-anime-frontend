@@ -22,16 +22,16 @@ import Loading from "../components/UI/Loading"
 const Anime = () => {
   const [showFullText, setShowFullText] = useState<boolean>(false)
 
-  const { id } = useParams<{ id: string }>()
+  const { id } = useParams<{ id: string }>() // gets param ../anime/:id
 
-  // function to fetch single anime
+  // function to fetch anime by id
   const fetchAnime = async (): Promise<FullAnimeType> => {
     const response = await apiAjax.get(`/anime/${id}/full`)
 
     return response.data.data
   }
 
-  // fetches anime form API
+  // fetches anime data form API
   const { isLoading, error, data } = useQuery({
     queryKey: ["anime-full", id],
     queryFn: fetchAnime,
@@ -39,9 +39,7 @@ const Anime = () => {
   })
 
   // changes page's title
-  const [documentTitle, setDocumentTitle] = useDocumentTitle(
-    data?.title || "aniPage"
-  )
+  const [documentTitle, setDocumentTitle] = useDocumentTitle(data?.title)
 
   useEffect(() => {
     if (!data) return
@@ -226,7 +224,7 @@ const Anime = () => {
     )
   }
 
-  // renders image, title, description and information
+  // renders image, title, description, information and button to add this anime to favorites
   const renderAnimeDetails = () => {
     return (
       <div className="flex lg:flex-row flex-col gap-4 justify-between text-sm">

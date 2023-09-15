@@ -12,6 +12,7 @@ import Loading from "../components/UI/Loading"
 const Character = () => {
   const { id } = useParams()
 
+  // function to fetch character by id
   const fetchStuff = async (): Promise<FullCharacterType> => {
     const response = await apiAjax.get(`/characters/${id}/full`)
 
@@ -20,6 +21,7 @@ const Character = () => {
     return data
   }
 
+  // fetches character data from API
   const { isLoading, error, data } = useQuery({
     queryKey: ["stuff", id],
     queryFn: fetchStuff,
@@ -30,6 +32,7 @@ const Character = () => {
 
   if (error || !data) return <div>something went wrong</div>
 
+  // destructures data object
   const { about, anime, images, name } = data
 
   const animeData = anime.map((item) => item.anime)

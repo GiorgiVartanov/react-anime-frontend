@@ -21,7 +21,7 @@ interface Props {
 // renders list of items that are scrollable
 // can be scrolled by pressing on one of 2 buttons to scroll to the left or right
 // scrolls by itself to the right once in a 5 seconds (if different intervalDuration was not passed)
-// on mobile can be scrolled by swipe, after swipe ends it will round position to the multiplier of child
+// on mobile can be scrolled by swipe, after swipe ends it will round position to the multiplier of a child
 const Carousel = ({ children, intervalDuration = 5000, className }: Props) => {
   const carouselRef = useRef<HTMLUListElement>(null) // ref that will store carousel, parent of content that is scrolled
 

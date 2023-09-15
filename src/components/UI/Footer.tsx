@@ -1,5 +1,6 @@
 import { ReactComponent as Github } from "../../assets/icons/github.svg"
 
+// footer of a page
 const Footer = () => {
   return (
     <div className="dark:bg-sp-gray bg-sp-white text-center py-3 px-2 shadow-sm relative z-20 text-white">

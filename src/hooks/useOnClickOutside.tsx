@@ -2,6 +2,7 @@ import { useEffect, RefObject } from "react"
 
 type EventHandler = (e: MouseEvent | TouchEvent) => void
 
+// runs passed function when user clicks outside of passed ref
 export const useOnClickOutside = (
   ref: RefObject<HTMLElement>,
   handler: EventHandler

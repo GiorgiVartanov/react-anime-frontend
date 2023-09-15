@@ -17,6 +17,9 @@ interface Props {
   className?: string
 }
 
+// button to add or remove anime from favorites
+// AddToFavoritesButton will be rendered if anime is not in favorites
+// RemoveFromFavoritesButton will be rendered if anime is in favorites
 const AnimeFavoriteButton = ({ mal_id, title, images, className }: Props) => {
   const [username] = useAuthStore((state) => [state.username])
 
@@ -36,11 +39,15 @@ const AnimeFavoriteButton = ({ mal_id, title, images, className }: Props) => {
     staleTime: 1000000,
   })
 
-  if (isLoading) return <Button className={className}>Loading...</Button>
+  if (isLoading)
+    return (
+      <Button className={`w-full mt-3 font-semibold p-1  ${className}`}>
+        Loading...
+      </Button>
+    )
 
-  if (error || !data?.data) return <div>error</div>
-
-  if (data?.data?.map((item) => Number(item.mal_id)).includes(mal_id))
+  // checks if user is not logged in or if this anime is not in their favorite list
+  if (error || data?.data?.map((item) => Number(item.mal_id)).includes(mal_id))
     return (
       <RemoveFromFavoritesButton
         mal_id={mal_id}

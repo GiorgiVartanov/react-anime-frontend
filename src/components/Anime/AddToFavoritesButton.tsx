@@ -17,6 +17,7 @@ interface Props {
   className?: string
 }
 
+// button that adds passed anime to user's favorite
 const AddToFavoritesButton = ({ mal_id, title, images, className }: Props) => {
   const queryClient = useQueryClient()
 

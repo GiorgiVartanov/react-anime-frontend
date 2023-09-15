@@ -12,7 +12,7 @@ import Loading from "../components/UI/Loading"
 
 const baseURL = import.meta.env.VITE_API_URL
 
-// renders search bar, genre select buttons and sorting type
+// page where user can search for anime
 const Search = () => {
   const [
     limit,
@@ -34,7 +34,7 @@ const Search = () => {
     state.text,
   ])
 
-  // function that fetches anime from API
+  // function that fetches searched anime from API
   const fetchAnime = async ({ pageParam = 1 }) => {
     const url = new URL(`${baseURL}/anime`)
 
@@ -62,7 +62,7 @@ const Search = () => {
     return data
   }
 
-  // gets data from API
+  // fetches data from API
   const {
     isLoading,
     error,
