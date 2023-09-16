@@ -9,6 +9,7 @@ import { CommentType } from "../../types/comment.types"
 import { useAuthStore } from "../../store/authStore"
 
 import CommentList from "../../components/Comments/CommentList"
+import Loading from "../UI/Loading"
 
 interface Props {
   id: string
@@ -25,7 +26,7 @@ const AnimeComments = ({ id }: Props) => {
     state.logoutUser,
   ])
 
-  // function that is used to fetch comments
+  // function to fetch comments
   const fetchAnimeComments = async (): Promise<{ data: CommentType[] }> => {
     let data: Promise<{ data: CommentType[] }>
 
@@ -70,7 +71,7 @@ const AnimeComments = ({ id }: Props) => {
   //   setShowingMore((prevState) => !prevState)
   // }
 
-  if (isLoading) return <div>Loading...</div>
+  if (isLoading) return <Loading />
 
   if (error || !data) return <div>Something went wrong</div>
 

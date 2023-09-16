@@ -8,6 +8,7 @@ import { FavoriteAnimeResponse } from "../../types/user.types"
 import { useAuthStore } from "../../store/authStore"
 
 import AnimeCard from "./AnimeCard"
+import Loading from "../UI/Loading"
 
 const container = {
   hidden: { opacity: 0 },
@@ -24,12 +25,11 @@ interface Props {
   data: AnimeType[][]
 }
 
+// list of AnimeCard components
 const AnimeCardList = ({ data = [] }: Props) => {
-  const [username, isLoggedIn] = useAuthStore((state) => [
-    state.username,
-    state.isLoggedIn,
-  ])
+  const [username] = useAuthStore((state) => [state.username])
 
+  // function to fetch favorite anime (anime that are favorite will have star sign on a top left corner)
   const fetchFavoriteAnime =
     async (): Promise<FavoriteAnimeResponse | null> => {
       if (!username) return null
@@ -49,68 +49,37 @@ const AnimeCardList = ({ data = [] }: Props) => {
     staleTime: 1000000,
   })
 
-  const renderForLoggedInUser = () => {
-    if (!favoriteAnimeData?.data) return <></>
+  if (isLoading) return <Loading />
 
-    return (
-      <div className="grid grid-cols-1 xss:grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 justify-center ">
-        {data?.map((animePage, index) => (
-          <motion.ul
-            key={index}
-            variants={container}
-            initial="hidden"
-            animate="visible"
-            className="contents"
-          >
-            {animePage?.map((anime) => (
-              <AnimeCard
-                key={anime.mal_id}
-                mal_id={Number(anime.mal_id)}
-                isFavorite={
-                  favoriteAnimeData?.data?.filter(
-                    (favoriteAnime) => favoriteAnime.mal_id == anime.mal_id
-                  ).length > 0
-                }
-                images={anime.images}
-                title={anime.title}
-                className=""
-              />
-            ))}
-          </motion.ul>
-        ))}
-      </div>
-    )
-  }
+  if (error || !favoriteAnimeData) return <>Something went wrong</>
 
-  const renderForGuestUser = () => {
-    return (
-      <div className="grid grid-cols-1 xss:grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 justify-center ">
-        {data?.map((animePage, index) => (
-          <motion.ul
-            key={index}
-            variants={container}
-            initial="hidden"
-            animate="visible"
-            className="contents"
-          >
-            {animePage?.map((anime) => (
-              <AnimeCard
-                key={anime.mal_id}
-                mal_id={Number(anime.mal_id)}
-                isFavorite={false}
-                images={anime.images}
-                title={anime.title}
-                className=""
-              />
-            ))}
-          </motion.ul>
-        ))}
-      </div>
-    )
-  }
-
-  if (isLoggedIn && !(isLoading || error || !favoriteAnimeData?.data))
-    return renderForLoggedInUser()
-  else return renderForGuestUser()
+  return (
+    <div className="grid grid-cols-1 xss:grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 justify-center ">
+      {data?.map((animePage, index) => (
+        <motion.ul
+          key={index}
+          variants={container}
+          initial="hidden"
+          animate="visible"
+          className="contents"
+        >
+          {animePage?.map((anime) => (
+            <AnimeCard
+              key={anime.mal_id}
+              mal_id={Number(anime.mal_id)}
+              isFavorite={
+                favoriteAnimeData?.data?.filter(
+                  (favoriteAnime) => favoriteAnime.mal_id == anime.mal_id
+                ).length > 0
+              }
+              images={anime.images}
+              title={anime.title}
+              className=""
+            />
+          ))}
+        </motion.ul>
+      ))}
+    </div>
+  )
 }
 export default AnimeCardList

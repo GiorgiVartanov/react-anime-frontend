@@ -19,6 +19,7 @@ interface Props {
 const AnimeCardCarousel = ({ data = [], intervalDuration = 5000 }: Props) => {
   const [username] = useAuthStore((state) => [state.username])
 
+  // function to fetch favorite anime
   const fetchFavoriteAnime =
     async (): Promise<FavoriteAnimeResponse | null> => {
       if (!username) return null
@@ -38,6 +39,14 @@ const AnimeCardCarousel = ({ data = [], intervalDuration = 5000 }: Props) => {
     staleTime: 1000000,
   })
 
+  const isAnimeFavorite = (anime: AnimeType): boolean => {
+    return (
+      favoriteAnimeData?.data.filter(
+        (favoriteAnime) => Number(favoriteAnime.mal_id) === anime.mal_id
+      ).length > 0
+    )
+  }
+
   const renderForLoggedInUser = () => {
     if (!favoriteAnimeData?.data) return <></>
 
@@ -47,11 +56,7 @@ const AnimeCardCarousel = ({ data = [], intervalDuration = 5000 }: Props) => {
           <AnimeCard
             key={anime.mal_id}
             mal_id={anime.mal_id}
-            isFavorite={
-              favoriteAnimeData?.data.filter(
-                (favoriteAnime) => Number(favoriteAnime.mal_id) === anime.mal_id
-              ).length > 0
-            }
+            isFavorite={isAnimeFavorite(anime)}
             images={anime.images}
             title={anime.title}
             className="flex-1 min-w-[200px] animate-appear"

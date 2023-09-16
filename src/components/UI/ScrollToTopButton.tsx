@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 
 interface Props {
@@ -28,11 +28,26 @@ const ScrollToTopButton = ({ className = "" }: Props) => {
     }
   }
 
+  useEffect(() => {
+    // function that checks if the user is at the top of the page
+    const handleScroll = () => {
+      setIsOnTop(window.scrollY < 200)
+    }
+
+    // adds event listener
+    window.addEventListener("scroll", handleScroll)
+
+    // cleans from event listener
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [])
+
   return (
     <motion.button
       style={{ rotate: 90 }}
       initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 0.75, y: 0, rotateZ: isOnTop ? "0deg" : "180deg" }}
+      animate={{ opacity: 0.75, y: 0, rotateZ: isOnTop ? "180deg" : "0deg" }}
       whileHover={{ opacity: 0.9 }}
       whileTap={{ scale: 0.95 }}
       onClick={handleGoToTop}

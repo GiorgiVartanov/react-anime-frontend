@@ -25,6 +25,7 @@ interface Props {
   children: React.ReactNode
 }
 
+// dropdown menu, renders its children after button is pressed
 const DropDownMenu = ({ buttonName, className, children }: Props) => {
   const ref = useRef<HTMLDivElement>(null)
 

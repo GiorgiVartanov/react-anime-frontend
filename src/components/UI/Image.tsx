@@ -19,6 +19,9 @@ interface Props {
   [x: string]: any
 }
 
+// renders passed image with passed attributes
+// by clicking on the image it will go fullscreen
+// by clicking on it when it is in a fullscreen user will be redirected on a separate page with this image
 const Image = ({
   src,
   alt,

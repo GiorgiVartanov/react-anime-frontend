@@ -2,7 +2,7 @@ interface Props {
   videoId: string
 }
 
-// renders youtube video in frame with given videoID
+// renders youtube video with given videoID in frame
 const AnimeTrailer = ({ videoId }: Props) => {
   return (
     <section>

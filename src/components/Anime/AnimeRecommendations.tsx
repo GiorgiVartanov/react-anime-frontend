@@ -17,7 +17,7 @@ interface Props {
 const AnimeRecommendations = ({ id }: Props) => {
   const [showingMore, setShowingMore] = useState<boolean>(false)
 
-  // fetches anime recommendations from the API
+  // function to fetch anime recommendations from the API
   const fetchAnime = async (): Promise<AnimeRecommendation> => {
     const response = await apiAjax.get(
       `${baseURL}/anime/${id}/recommendations?sfw`
@@ -26,16 +26,19 @@ const AnimeRecommendations = ({ id }: Props) => {
     return response.data
   }
 
+  // fetches anime recommendations
   const { isLoading, error, data } = useQuery({
     queryKey: ["anime-recommendations", id],
     queryFn: fetchAnime,
     staleTime: 1000000,
   })
 
+  // increases amount of shown recommendations
   const handleShowMore = () => {
     setShowingMore((prevState) => !prevState)
   }
 
+  // renders anime recommendations in a AnimeCardList component
   const renderAnimeRecommendations = () => {
     if (isLoading) return <SkeletonAnimeCardList amount={12} />
 

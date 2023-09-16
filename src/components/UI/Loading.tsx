@@ -31,6 +31,7 @@ const dotTransition = {
   ease: "easeInOut",
 }
 
+// loading component, it will be rendered when data from the backend or API is pending
 const Loading = () => {
   const [theme] = useSettingsStore((state) => [state.theme])
 

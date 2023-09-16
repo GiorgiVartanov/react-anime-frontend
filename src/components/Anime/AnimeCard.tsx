@@ -24,6 +24,24 @@ export interface Props extends AnimeType {
 const AnimeCard = ({ mal_id, images, isFavorite, title, className }: Props) => {
   const [theme] = useSettingsStore((state) => [state.theme])
 
+  const renderStarIcon = () => {
+    return isFavorite ? (
+      <motion.div
+        initial={{ opacity: 0, y: "-5%", x: "-5%" }}
+        animate={{ opacity: 0.7, y: 0, x: 0 }}
+        className="absolute z-20 dark:bg-sp-black bg-sp-white p-0.5 shadow-md"
+      >
+        <StarSolid
+          height={24}
+          width={24}
+          fill={`${theme === "dark" ? "#e6eaee" : "#121212"}`}
+        />
+      </motion.div>
+    ) : (
+      ""
+    )
+  }
+
   return (
     <motion.li
       variants={item}
@@ -33,21 +51,7 @@ const AnimeCard = ({ mal_id, images, isFavorite, title, className }: Props) => {
         to={`../../anime/${mal_id}/`}
         className={`block group relative`}
       >
-        {isFavorite ? (
-          <motion.div
-            initial={{ opacity: 0, y: "-5%", x: "-5%" }}
-            animate={{ opacity: 0.7, y: 0, x: 0 }}
-            className="absolute z-20 dark:bg-sp-black bg-sp-white p-0.5 shadow-md"
-          >
-            <StarSolid
-              height={24}
-              width={24}
-              fill={`${theme === "dark" ? "#e6eaee" : "#121212"}`}
-            />
-          </motion.div>
-        ) : (
-          ""
-        )}
+        {renderStarIcon()}
         <div className="aspect-w-2 aspect-h-3 relative">
           <motion.img
             // initial={{ opacity: 0 }}

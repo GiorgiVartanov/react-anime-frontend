@@ -14,6 +14,7 @@ const ProtectedRoute = ({ level, children }: Props) => {
     state.accountType,
   ])
 
+  // if the page is accessible only for guest users (like sign in and sign up pages)
   if (level === "Guest" && isLoggedIn) return <Navigate to="/" />
 
   if (level === "User" && !isLoggedIn) return <Navigate to="/" />
