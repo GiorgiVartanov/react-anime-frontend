@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 
 interface Props {
+  showButton?: boolean
   value?: string
   className?: string
   buttonClassName?: string
@@ -11,6 +12,7 @@ interface Props {
 }
 
 const SearchBar = ({
+  showButton = true,
   value = "",
   className,
   buttonClassName,
@@ -62,16 +64,20 @@ const SearchBar = ({
         onChange={handleOnChange}
         onKeyDown={handleOnKeyDown}
       />
-      <motion.button
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        whileHover={{ opacity: 0.8 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={startSearch}
-        className={`text-2xl p-1.5 m-auto bg-sp-main shadow-sm ${buttonClassName}`}
-      >
-        🔎
-      </motion.button>
+      {showButton ? (
+        <motion.button
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          whileHover={{ opacity: 0.8 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={startSearch}
+          className={`text-2xl p-1.5 m-auto bg-sp-main shadow-sm ${buttonClassName}`}
+        >
+          🔎
+        </motion.button>
+      ) : (
+        ""
+      )}
     </div>
   )
 }

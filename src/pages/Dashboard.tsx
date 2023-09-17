@@ -62,11 +62,11 @@ const Dashboard = () => {
   return (
     <Page className="h-full grid place-content-center mt-12 mx-auto max-w-7xl w-full p-2">
       <SearchBar
+        showButton={false}
         value={searchText || ""}
         handleTextChange={handleTextSearchChange}
         className="mb-2"
-        buttonClassName="rounded-tr-md"
-        inputClassName="rounded-tl-md"
+        inputClassName="rounded-t-md"
         debounce={false}
       />
       {renderDashboard()}

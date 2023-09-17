@@ -14,9 +14,9 @@ const UserList = ({ data, className }: Props) => {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className={`overflow-x-auto border-gray-200 dark:bg-sp-gray rounded-md border-2 p-2 ${className}`}
+      className={`overflow-x-auto border-gray-200 dark:bg-sp-gray rounded-md shadow-md border-2 p-2 ${className}`}
     >
-      <table className="divide-y divide-gray-200">
+      <table className="divide-y divide-gray-200 ">
         <thead className="">
           <tr>
             <th className="text-left p-2">ID</th>
