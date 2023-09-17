@@ -21,6 +21,7 @@
 - [Features](#features)
 - [Tools](#tools)
 - [Deploy](#deploy)
+- [Run Locally](#run_locally)
 - [Notices](#notices)
 
 ## Features
@@ -68,6 +69,38 @@
 - <a href="https://www.netlify.com">Netlify</a> <span style="opacity: 0.5;"> Frontend </span>
 - <a href="https://render.com">Render</a> <span style="opacity: 0.5;"> Backend </span>
 
+## Run_Locally
+
+### Frontend
+
+```
+ git clone https://github.com/GiorgiVartanov/react-anime-frontend
+ cd react-anime-frontend
+ npm i
+ npm run dev
+```
+
+### Backend
+
+```
+git clone https://github.com/GiorgiVartanov/react-anime-backend
+cd react-anime-backend
+npm i
+
+// add .env file with
+
+// NODE_ENV = development
+// PORT = 5000
+// MONGO_URI = mongodb+srv://admin:admin@vite-anime.08auhsc.mongodb.net/app?retryWrites=true&w=majority
+// JWT_SECRET = verysecretkey
+// FRONTEND_URL = http://localhost:5173
+// API_URL = https://api.jikan.moe/v4
+
+npm run dev
+```
+
 ## Notices
 
 \* The initial request to the backend may take around 1-2 minutes due to the use of the free tier of <a href="https://render.com">Render</a> for hosting.
+
+\* If the backend won't response in 1-2 minutes you can [Run it Locally](#run_locally)

@@ -41,22 +41,22 @@ const Dashboard = () => {
 
   // function to render dashboard
   const renderDashboard = () => {
-    if (isLoading) return <Loading />
-
-    if (error || !data) {
-      navigate("../error")
-      return <></>
-    }
-
     // regex to find similar usernames
     const pattern = new RegExp(searchText)
 
     return (
       <UserList
         data={data.data.filter((item) => pattern.test(item.username))} // applies regex, to find similar usernames
-        className="rounded-b-md rounded-t-none"
+        className="rounded-sm rounded-b-md rounded-t-none"
       />
     )
+  }
+
+  if (isLoading) return <Loading />
+
+  if (error || !data) {
+    navigate("../error")
+    return <></>
   }
 
   return (
@@ -64,7 +64,9 @@ const Dashboard = () => {
       <SearchBar
         value={searchText || ""}
         handleTextChange={handleTextSearchChange}
-        className="mb-2 rounded-t-md"
+        className="mb-2"
+        buttonClassName="rounded-tr-md"
+        inputClassName="rounded-tl-md"
         debounce={false}
       />
       {renderDashboard()}

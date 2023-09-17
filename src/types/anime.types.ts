@@ -58,11 +58,11 @@ type AiredDates = {
   string: string
 }
 
-type Entry = {
+export type Entry = {
   mal_id: number
   type: string
   name: string
-  url: string
+  url?: string
 }
 
 export type FullAnimeType = {
@@ -139,59 +139,6 @@ export type AnimeType = {
   title: string
 }
 
-// export type AnimeType = {
-//   mal_id: number
-//   url: string
-//   images: {
-//     jpg: ImageUrls
-//     webp: ImageUrls
-//   }
-//   trailer: Trailer
-//   approved: boolean
-//   titles: Title[]
-//   title: string
-//   title_english: string
-//   title_japanese: string
-//   title_synonyms: string[]
-//   type: string
-//   source: string
-//   episodes: number
-//   status: string
-//   airing: boolean
-//   aired: AiredDates
-//   duration: string
-//   rating: string
-//   score: number
-//   scored_by: number
-//   rank: number
-//   popularity: number
-//   members: number
-//   favorites: number
-//   synopsis?: string
-//   background: string
-//   season: string
-//   year: number
-//   broadcast: {
-//     day: string
-//     time: string
-//     timezone: string
-//     string: string
-//   }
-//   producers: Entry[]
-//   licensors: Entry[]
-//   studios: Entry[]
-//   genres: Entry[]
-//   explicit_genres: any[]
-//   themes: Entry[]
-//   demographics: any[]
-// }
-
-// export type ShortAnimeType = {
-//   images: ImageType
-//   mal_id: number
-//   title: string
-// }
-
 export type AnimeResponse = {
   pagination: Pagination
   data: AnimeType[]
@@ -206,10 +153,7 @@ export type AnimeRecommendationEntry = {
   entry: {
     mal_id: number
     url: string
-    images: {
-      jpg: ImageUrls
-      webp: ImageUrls
-    }
+    images: ImageType
     title: string
   }
   url: string

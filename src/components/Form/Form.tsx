@@ -4,11 +4,12 @@ type Props = {
   className?: string
 }
 
-const Form = ({ onSubmit, children, className }: Props) => {
+const Form = ({ onSubmit, children, className, ...rest }: Props) => {
   return (
     <form
       onSubmit={onSubmit}
       className={`flex flex-col gap-1 max-w-[360px] min-w-full ms:min-w-[360px] ${className}`}
+      {...rest}
     >
       {children}
     </form>

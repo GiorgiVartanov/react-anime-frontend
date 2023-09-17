@@ -1,50 +1,25 @@
-type ImageUrls = {
-  image_url: string
-  small_image_url?: string
-  large_image_url?: string
-}
-
-type ImageType = {
-  image_url: string
-  jpg?: ImageUrls
-  webp?: ImageUrls
-}
+import { ImageType, Entry } from "./anime.types"
 
 type MangaType = {
   position: string
-  manga: {
-    mal_id: number
-    images: ImageType
-    title: string
-  }
+  manga: ImageType
 }
 
 type AnimeType = {
   position: string
-  anime: {
-    mal_id: number
-    images: ImageType
-    title: string
-  }
+  anime: Entry
 }
 
 type CharacterType = {
   mal_id: number
   url: string
-  images: {
-    jpg: ImageType
-    webp: ImageType
-  }
+  images: ImageType
   name: string
 }
 
 export type VoiceType = {
   role: string
-  anime?: {
-    mal_id: number
-    images: ImageType
-    title: string
-  }
+  anime?: ImageType
   character: CharacterType
 }
 
@@ -52,9 +27,7 @@ export type StuffType = {
   mal_id: number
   url: string
   website_url: string
-  images: {
-    jpg: ImageType
-  }
+  images: ImageType
   name: string
   given_name: string
   family_name: string

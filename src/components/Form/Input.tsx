@@ -20,6 +20,7 @@ const Input = ({
   autoComplete = "on",
   className = "",
   error,
+  ...rest
 }: Props) => {
   return (
     <>
@@ -39,6 +40,7 @@ const Input = ({
             ? "border-l-2  border-l-green-400"
             : ""
         } ${className}`}
+        {...rest}
       />
       {/* renders list of errors */}
       {error && error.length > 0 ? (

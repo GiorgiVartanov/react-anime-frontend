@@ -7,7 +7,13 @@ interface Props {
   children: React.ReactNode
 }
 
-const Button = ({ onClick, className, disabled = false, children }: Props) => {
+const Button = ({
+  onClick,
+  className,
+  disabled = false,
+  children,
+  ...rest
+}: Props) => {
   return (
     <motion.button
       style={{ scale: 1 }}
@@ -17,6 +23,7 @@ const Button = ({ onClick, className, disabled = false, children }: Props) => {
       onClick={onClick}
       disabled={disabled}
       className={`block bg-sp-main ${className}`}
+      {...rest}
     >
       {children}
     </motion.button>

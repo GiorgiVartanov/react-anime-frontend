@@ -1,3 +1,5 @@
+import { motion } from "framer-motion"
+
 import { FullUserType } from "../../types/user.types"
 
 import UserRow from "./UserRow"
@@ -9,7 +11,9 @@ interface Props {
 
 const UserList = ({ data, className }: Props) => {
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       className={`overflow-x-auto border-gray-200 dark:bg-sp-gray rounded-md border-2 p-2 ${className}`}
     >
       <table className="divide-y divide-gray-200">
@@ -22,7 +26,7 @@ const UserList = ({ data, className }: Props) => {
             <th className="text-right p-2">actions</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-gray-200">
+        <tbody className="divide-y divide-gray-200 overflow-x-auto">
           {data?.map((user) => (
             <UserRow
               key={user._id}
@@ -34,7 +38,7 @@ const UserList = ({ data, className }: Props) => {
           ))}
         </tbody>
       </table>
-    </div>
+    </motion.div>
   )
 }
 export default UserList

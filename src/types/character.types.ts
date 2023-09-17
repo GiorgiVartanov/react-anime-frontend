@@ -1,22 +1,10 @@
-import { AnimeType } from "./anime.types"
+import { AnimeType, ImageType, Entry } from "./anime.types"
 
 type Character = {
   mal_id: number
   url: string
   images: ImageType
   name: string
-}
-
-type ImageUrls = {
-  image_url: string
-  small_image_url?: string
-  large_image_url?: string
-}
-
-type ImageType = {
-  image_url: string
-  jpg?: ImageUrls
-  webp?: ImageUrls
 }
 
 export type VoiceActor = {
@@ -55,6 +43,6 @@ export type FullCharacterType = {
     role: string
     anime: AnimeType
   }[]
-  manga: MangaType[]
+  manga: Entry[]
   voices: VoiceActor[]
 }

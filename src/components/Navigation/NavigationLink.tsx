@@ -3,8 +3,9 @@ import { NavLink } from "react-router-dom"
 interface Props {
   to: string
   className?: string
+  activeClassNames?: string
+  inActiveClassNames?: string
   children: React.ReactNode
-  [x: string]: any
 }
 
 // react-router's navlink but it also has props activeClassNames (classes that will be applied to it if it is active), inActiveClassNames (classes that will be applied to it if it is inactive)

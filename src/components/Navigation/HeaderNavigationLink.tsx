@@ -7,7 +7,6 @@ interface Props {
   to: string
   className?: string
   children: React.ReactNode
-  [x: string]: any
 }
 
 // NavigationLink that will be rendered in header, it has animation

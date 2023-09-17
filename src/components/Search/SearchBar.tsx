@@ -4,6 +4,8 @@ import { motion } from "framer-motion"
 interface Props {
   value?: string
   className?: string
+  buttonClassName?: string
+  inputClassName?: string
   handleTextChange: (newText: string) => void
   debounce?: boolean
 }
@@ -11,6 +13,8 @@ interface Props {
 const SearchBar = ({
   value = "",
   className,
+  buttonClassName,
+  inputClassName,
   handleTextChange,
   debounce = true,
 }: Props) => {
@@ -49,22 +53,25 @@ const SearchBar = ({
   return (
     <div className={`flex gap-2 ${className}`}>
       <motion.input
-        initial={{ opacity: 0, width: 0, margin: "auto" }}
-        animate={{ opacity: 1, width: "100%", margin: 0 }}
-        transition={{ duration: 0.05 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         type="search"
         value={searchValue}
         placeholder="search"
-        className={`w-full py-2 px-2 text-center drop-shadow-md dark:drop-shadow-sm focus:drop-shadow-lg transition-all ease-in-out duration-200 outline-none text-sp-black ${className}`}
+        className={`w-full py-2 px-2 text-center drop-shadow-md dark:drop-shadow-sm focus:drop-shadow-lg outline-none text-sp-black ${inputClassName}`}
         onChange={handleOnChange}
         onKeyDown={handleOnKeyDown}
       />
-      {/* <button
+      <motion.button
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        whileHover={{ opacity: 0.8 }}
+        whileTap={{ scale: 0.95 }}
         onClick={startSearch}
-        className="text-2xl p-1.5 m-auto bg-red-500 shadow-sm"
+        className={`text-2xl p-1.5 m-auto bg-sp-main shadow-sm ${buttonClassName}`}
       >
         🔎
-      </button> */}
+      </motion.button>
     </div>
   )
 }

@@ -45,7 +45,7 @@ const AnimeCard = ({ mal_id, images, isFavorite, title, className }: Props) => {
   return (
     <motion.li
       variants={item}
-      className={`list-none  ${className}`}
+      className={`list-none ${className}`}
     >
       <Link
         to={`../../anime/${mal_id}/`}

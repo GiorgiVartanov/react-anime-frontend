@@ -6,7 +6,7 @@ import { useOnClickOutside } from "../../hooks/useOnClickOutside"
 import Button from "./Button"
 
 const dropdownMenu = {
-  hidden: { opacity: 0, y: "-10%", scale: 0.95 },
+  hidden: { opacity: 0, y: "-30%", scale: 0.95 },
   visible: {
     opacity: 1,
     y: 0,

@@ -1,3 +1,5 @@
+import { ImageType } from "./anime.types"
+
 type studioTitleType = {
   type: string
   title: string
@@ -11,11 +13,7 @@ type externalType = {
 type StudioType = {
   mal_id: number
   titles: studioTitleType[]
-  images: {
-    jpg: {
-      image_url: string
-    }
-  }
+  images: ImageType
   established: string
   about: string
   external: externalType[]

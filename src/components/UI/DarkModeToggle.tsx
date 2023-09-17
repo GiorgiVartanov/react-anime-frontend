@@ -10,7 +10,7 @@ interface Props {
 }
 
 // button to toggle dark mode
-const DarkModeToggle = ({ className }: Props) => {
+const DarkModeToggle = ({ className, ...rest }: Props) => {
   const [theme, toggleDarkMode] = useSettingsStore((state) => [
     state.theme,
     state.toggleDarkMode,
@@ -23,6 +23,7 @@ const DarkModeToggle = ({ className }: Props) => {
       whileTap={{ scale: 0.9 }}
       onClick={toggleDarkMode}
       className={`w-16 p-1 rounded-full dark:bg-sp-white bg-sp-black ${className}`}
+      {...rest}
     >
       <motion.div animate={{ x: `${theme === "dark" ? "0" : "1.8rem"}` }}>
         {theme === "dark" ? (
