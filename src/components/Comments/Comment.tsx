@@ -21,7 +21,7 @@ export interface Props {
   animeId: string
 }
 
-// renders single comment
+// renders passed comment
 const Comment = ({ comment, token, isLoggedIn, animeId }: Props) => {
   const queryClient = useQueryClient()
 
@@ -76,8 +76,34 @@ const Comment = ({ comment, token, isLoggedIn, animeId }: Props) => {
         data: newComments,
       })
     },
-    // onSettled: async (res) => {
-    // },
+    onError: async (error) => {
+      toast.error(`something went wrong, try again latter`)
+      console.log(error)
+
+      const comments =
+        queryClient.getQueryData<{ data: CommentType[] }>([
+          "anime-comments",
+          animeId,
+        ])?.data || []
+
+      const newComments = comments.map((comment) => {
+        if (comment.id === id) {
+          if (comment.hasLiked === "upvote") {
+            comment.liked = liked - 1
+            comment.hasLiked = null
+          } else if (comment.hasLiked === "downvote") {
+            comment.liked = liked - 1
+            comment.hasLiked = "downvote"
+          }
+        }
+
+        return comment
+      })
+
+      queryClient.setQueryData(["anime-comments", animeId], {
+        data: newComments,
+      })
+    },
   })
 
   // downvotes a comment
@@ -124,8 +150,34 @@ const Comment = ({ comment, token, isLoggedIn, animeId }: Props) => {
         data: newComments,
       })
     },
-    // onSettled: async (res) => {
-    // },
+    onError: async (error) => {
+      toast.error(`something went wrong, try again latter`)
+      console.log(error)
+
+      const comments =
+        queryClient.getQueryData<{ data: CommentType[] }>([
+          "anime-comments",
+          animeId,
+        ])?.data || []
+
+      const newComments = comments.map((comment) => {
+        if (comment.id === id) {
+          if (comment.hasLiked === "downvote") {
+            comment.liked = liked + 1
+            comment.hasLiked = null
+          } else if (comment.hasLiked === "upvote") {
+            comment.liked = liked + 1
+            comment.hasLiked = "upvote"
+          }
+        }
+
+        return comment
+      })
+
+      queryClient.setQueryData(["anime-comments", animeId], {
+        data: newComments,
+      })
+    },
   })
 
   const handleLike = () => {
@@ -153,12 +205,6 @@ const Comment = ({ comment, token, isLoggedIn, animeId }: Props) => {
   return (
     <motion.div className="text-md">
       <div className="flex flex-row gap-4 mb-1 mt-2 py-1">
-        {/* <Link
-          to={`../../profile/${author}`}
-          className="w-fit hover:opacity-90 transition-all ease-in-out duration-200 shadow-sm flex gap-2"
-        >
-          <UserIcon username={author} />
-        </Link> */}
         <UserIcon username={author} />
         <p className="text-sm opacity-25 leading-8">{posted}</p>
         {accountType === "Admin" ? (
@@ -177,7 +223,6 @@ const Comment = ({ comment, token, isLoggedIn, animeId }: Props) => {
           handleDislike={handleDislike}
           hasLiked={hasLiked}
           amount={liked - disliked}
-          canVote={canVote}
           liked={false}
         />
         <div className="bg-white dark:bg-sp-black px-2 py-1 text-sp-black dark:text-slate-300 shadow-sm rounded-tb-lg w-full">

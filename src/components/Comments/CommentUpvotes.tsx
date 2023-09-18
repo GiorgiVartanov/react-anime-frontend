@@ -8,7 +8,6 @@ interface Props {
   handleDislike: () => void
   hasLiked: "upvote" | "downvote" | null
   amount: number
-  canVote: boolean
   liked: boolean
 }
 
@@ -50,7 +49,6 @@ const CommentUpvotes = ({
       <Button
         onClick={handleOnUpvote}
         className={`bg-transparent ${hasLiked === "downvote" ? "" : ""}`}
-        // disabled={isVoteDisabled}
       >
         <Upvote
           fill={`${hasLiked === "upvote" ? "#e91e63" : ""}`}
@@ -63,7 +61,6 @@ const CommentUpvotes = ({
       <Button
         onClick={handleOnDownvote}
         className={`bg-transparent ${hasLiked === "downvote" ? "" : ""}`}
-        // disabled={isVoteDisabled}
       >
         <Upvote
           className="rotate-180"

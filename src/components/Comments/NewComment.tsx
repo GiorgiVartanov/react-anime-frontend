@@ -46,7 +46,7 @@ const NewComment = () => {
         ])?.data || []
 
       const optimisticallyAddedComment = {
-        id: Number(new Date()), // it will be changed on actual id in onSettled
+        id: "tempId", // it will be changed on actual id in onSettled
         author: username,
         text: text,
         liked: 0,
@@ -63,7 +63,24 @@ const NewComment = () => {
 
       setText("")
     },
-    onSettled: async (newComment) => {
+    onError: async () => {
+      // optimistically added comment will be removed
+
+      const previousComments =
+        queryClient.getQueryData<{ data: CommentType[] }>([
+          "anime-comments",
+          id,
+        ])?.data || []
+
+      await queryClient.cancelQueries(["anime-comments", id])
+
+      queryClient.setQueryData(["anime-comments", id], {
+        data: previousComments.filter((comment) => comment.id !== "tempId"),
+      })
+    },
+    onSuccess: async (newComment) => {
+      // optimistically added comment will be changed on a fetched one
+
       const previousComments =
         queryClient.getQueryData<{ data: CommentType[] }>([
           "anime-comments",

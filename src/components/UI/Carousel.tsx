@@ -202,7 +202,7 @@ const Carousel = ({ children, intervalDuration = 5000, className }: Props) => {
             onClick={() => {
               handleScroll("left")
             }}
-            className="px-5 py-3 rounded-full opacity-60 hover:opacity-80 transition-all ease-in-out duration-200 font-bold dark:text-white dark:bg-sp-gray bg-sp-white text-sp-black absolute top-1/2 left-2 shadow-sm hover:shadow:md"
+            className="px-5 py-3 rounded-full opacity-60 hover:opacity-80 transition-all ease-in-out duration-200 font-bold dark:text-white dark:bg-sp-gray bg-sp-white text-sp-black absolute top-1/2 left-2 shadow-sm hover:shadow:md select-none"
           >
             {"<"}
           </motion.button>
@@ -214,7 +214,7 @@ const Carousel = ({ children, intervalDuration = 5000, className }: Props) => {
             onClick={() => {
               handleScroll("right")
             }}
-            className="px-5 py-3 rounded-full opacity-60 hover:opacity-80 transition-all ease-in-out duration-200 dark:bg-sp-gray dark:text-white font-bold bg-sp-white text-sp-black absolute top-1/2 right-2 shadow-sm hover:shadow:md"
+            className="px-5 py-3 rounded-full opacity-60 hover:opacity-80 transition-all ease-in-out duration-200 dark:bg-sp-gray dark:text-white font-bold bg-sp-white text-sp-black absolute top-1/2 right-2 shadow-sm hover:shadow:md select-none"
           >
             {">"}
           </motion.button>

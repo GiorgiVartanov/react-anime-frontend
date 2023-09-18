@@ -76,8 +76,7 @@ const UserIcon = ({ username, ...rest }: Props) => {
       className="flex gap-2 text-center items-center"
     >
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        initial={{ opacity: 1 }}
         whileHover={{ opacity: 0.7 }}
         className="flex gap-2 text-center items-center"
         {...rest}

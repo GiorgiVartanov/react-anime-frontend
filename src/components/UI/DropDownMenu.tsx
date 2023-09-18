@@ -53,7 +53,7 @@ const DropDownMenu = ({ buttonName, className, children }: Props) => {
         {buttonName}{" "}
         <motion.span
           animate={{ rotateZ: isMenuOpen ? "270deg" : "90deg" }}
-          className="ml-2 text-2xl"
+          className="ml-2 text-2xl select-none"
         >
           {"<"}
         </motion.span>

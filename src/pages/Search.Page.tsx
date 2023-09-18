@@ -97,7 +97,12 @@ const Search = () => {
   // function that renders anime cards
   const renderCardList = () => {
     // is the data is still pending it will render skeleton component
-    if (isLoading) return <Loading />
+    if (isLoading)
+      return (
+        <div className="mt-96">
+          <Loading />
+        </div>
+      )
 
     // it will show error message if there is an error
     if (error || !data) return <div>something went wrong</div>

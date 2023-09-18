@@ -72,8 +72,32 @@ const RemoveFriendButton = ({
         })
       }
     },
-    onSettled: async () => {
-      // will do it latter
+    onError: async () => {
+      // if error occurs it will add deleted user back to friend list
+
+      const previousFriendList = queryClient.getQueryData<FriendsResponseType>([
+        "friends",
+        username,
+      ])
+
+      const previousFriendsFriendList =
+        queryClient.getQueryData<FriendsResponseType>(["friends", friendName])
+
+      if (previousFriendList) {
+        await queryClient.cancelQueries(["friends", username])
+
+        queryClient.setQueryData(["friends", username], {
+          data: [friendName, ...previousFriendList.data],
+        })
+      }
+
+      if (previousFriendsFriendList) {
+        await queryClient.cancelQueries(["friends", friendName])
+
+        queryClient.setQueryData(["friends", friendName], {
+          data: [username, ...previousFriendsFriendList.data],
+        })
+      }
     },
   })
 

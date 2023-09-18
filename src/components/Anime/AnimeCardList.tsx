@@ -49,7 +49,7 @@ const AnimeCardList = ({ data = [] }: Props) => {
     staleTime: 1000000,
   })
 
-  if (isLoading) return <Loading />
+  // if (isLoading) return <></>
 
   if (error) {
     console.log(error)
@@ -57,7 +57,7 @@ const AnimeCardList = ({ data = [] }: Props) => {
   }
 
   return (
-    <div className="grid grid-cols-1 xss:grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 justify-center ">
+    <div className="grid grid-cols-1 xss:grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 justify-center">
       {data?.map((animePage, index) => (
         <motion.ul
           key={index}

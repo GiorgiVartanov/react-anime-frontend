@@ -41,15 +41,6 @@ const CommentAdminActions = ({ username, commentId, animeId }: Props) => {
   const deleteCommentMutation = useMutation({
     mutationFn: deleteComment,
     mutationKey: ["comment", commentId],
-    onSuccess: () => {
-      toast.success(`successfully deleted comment with id ${commentId}`)
-    },
-    onError: (error) => {
-      toast.error(
-        `something went wrong while deleting comment with id ${commentId}, see browser console for more detailed information`
-      )
-      console.log(error)
-    },
     onMutate: async () => {
       const previousComments =
         queryClient.getQueryData<{ data: CommentType[] }>([
@@ -66,6 +57,15 @@ const CommentAdminActions = ({ username, commentId, animeId }: Props) => {
       queryClient.setQueryData(["anime-comments", animeId], {
         data: updatedComments,
       })
+    },
+    onError: (error) => {
+      toast.error(
+        `something went wrong while deleting comment with id ${commentId}, see browser console for more detailed information`
+      )
+      console.log(error)
+    },
+    onSuccess: () => {
+      toast.success(`successfully deleted comment with id ${commentId}`)
     },
   })
 

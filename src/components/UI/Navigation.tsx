@@ -130,7 +130,7 @@ const Navigation = () => {
       <motion.div variants={menuItem}>
         <DropDownMenu
           buttonName="search"
-          className="text-lg sm:text-md"
+          className="text-lg sm:text-md py-3 sm:py-0"
         >
           {renderNavigationLink("anime", "search/anime")}
           {renderNavigationLink("users", "search/users")}

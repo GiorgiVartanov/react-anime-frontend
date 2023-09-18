@@ -41,17 +41,20 @@ const Image = ({
     setIsImageOpen(false)
   }
 
-  useEffect(() => {
-    if (isImageOpen) document.body.classList.add("no-scroll")
-    // page won't be scrollable if image is in open state
-    else document.body.classList.remove("no-scroll") // if user exits it page will become scrollable again
-  }, [isImageOpen])
+  // useEffect(() => {
+  //   if (isImageOpen) document.body.classList.add("no-scroll")
+  //   // page won't be scrollable if image is in open state
+  //   else document.body.classList.remove("no-scroll") // if user exits it page will become scrollable again
+  // }, [isImageOpen])
 
   return (
     <>
       {isImageOpen
         ? createPortal(
-            <div
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.25 }}
               onClick={handleCloseFullscreen}
               className="fixed top-0 left-0 z-20 w-full h-full dark:bg-sp-gray bg-sp-white bg-opacity-70 dark:bg-opacity-80"
             >
@@ -60,23 +63,29 @@ const Image = ({
                   href={src}
                   target="_blank"
                 >
-                  <img
+                  <motion.img
+                    style={{
+                      top: "50%",
+                      left: "50%",
+                      translateX: "-50%",
+                      translateY: "-50%",
+                    }}
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
                     src={src}
                     alt={alt}
                     loading="eager"
-                    className={`cursor-pointer shadow-xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`}
+                    className={`cursor-pointer shadow-xl absolute`}
                     onClick={handleOpenFullscreen}
                   />
                 </a>
               </div>
-            </div>,
+            </motion.div>,
             document.body
           )
         : ""}
       <motion.img
         variants={item}
-        // initial={{ opacity: 1 }}
-        animate={{ opacity: 1 }}
         whileHover={{ opacity: 0.8 }}
         src={src}
         alt={alt}

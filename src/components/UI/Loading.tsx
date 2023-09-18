@@ -31,12 +31,18 @@ const dotTransition = {
   ease: "easeInOut",
 }
 
+interface Props {
+  className?: string
+}
+
 // loading component, it will be rendered when data from the backend or API is pending
-const Loading = () => {
+const Loading = ({ className = "" }: Props) => {
   const [theme] = useSettingsStore((state) => [state.theme])
 
   return (
-    <div className="absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 w-full flex items-center justify-center">
+    <div
+      className={`absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 w-full flex items-center justify-center ${className}`}
+    >
       <motion.div
         variants={containerVariants}
         initial="initial"
