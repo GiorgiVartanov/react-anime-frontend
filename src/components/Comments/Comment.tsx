@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom"
 import { useMutation } from "@tanstack/react-query"
 import { useQueryClient } from "@tanstack/react-query"
-import { useState } from "react"
 import { toast } from "react-toastify"
 import ajax from "../../service/backendAjax"
 import { motion } from "framer-motion"
@@ -27,15 +26,11 @@ const Comment = ({ comment, token, isLoggedIn, animeId }: Props) => {
 
   const { id, hasLiked, author, text, liked, disliked, posted } = comment
 
-  const [canVote, setCanVote] = useState<boolean>(true)
-
   const [accountType] = useAuthStore((state) => [state.accountType])
 
   // upvotes a comment
   const upvote = useMutation({
     mutationFn: () => {
-      setCanVote(false)
-
       return ajax.post(
         `/comments/vote`,
         { id: id, voteType: "upvote" },
@@ -109,8 +104,6 @@ const Comment = ({ comment, token, isLoggedIn, animeId }: Props) => {
   // downvotes a comment
   const downvote = useMutation({
     mutationFn: () => {
-      setCanVote(false)
-
       return ajax.post(
         `/comments/vote`,
         { id: id, voteType: "downvote" },

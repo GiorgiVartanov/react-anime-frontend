@@ -43,12 +43,16 @@ const Studio = () => {
     <Page>
       <div className="dark:bg-sp-gray bg-sp-white">
         <div className="mx-auto flex md:flex-row flex-col gap-3  w-full h-full max-w-7xl p-2">
-          <Image
-            src={images?.jpg?.image_url}
-            alt={titles[0].title}
-            loading="eager"
-            className="shadow-md min-w-[240px] md:min-w-[280px] sm:max-h-[320px]"
-          />
+          {images?.jpg?.image_url ? (
+            <Image
+              src={images?.jpg?.image_url}
+              alt={titles[0].title}
+              loading="eager"
+              className="shadow-md min-w-[240px] md:min-w-[280px] sm:max-h-[320px]"
+            />
+          ) : (
+            ""
+          )}
           <div className="flex flex-col gap-2 text-center md:text-left">
             <h2 className="text-2xl font-bold">{titles[0].title}</h2>
             <p>{about}</p>

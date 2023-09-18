@@ -62,8 +62,8 @@ const Stuff = () => {
         <div
           style={{
             backgroundImage: `linear-gradient(to bottom, #202428c7, #202428c7), url(${
-              voices[0]?.anime?.images.jpg?.large_image_url ||
-              voices[0]?.anime?.images.jpg?.image_url
+              voices[0]?.anime?.images?.jpg?.large_image_url ||
+              voices[0]?.anime?.images?.jpg?.image_url
             })`,
           }}
           className="bg-top bg-no-repeat bg-cover absolute top-0 left-0 w-full h-full"

@@ -41,6 +41,7 @@ const AnimeCardCarousel = ({ data = [], intervalDuration = 5000 }: Props) => {
 
   const isAnimeFavorite = (anime: AnimeType): boolean => {
     return (
+      favoriteAnimeData?.data !== undefined &&
       favoriteAnimeData?.data.filter(
         (favoriteAnime) => Number(favoriteAnime.mal_id) === anime.mal_id
       ).length > 0

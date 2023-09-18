@@ -8,7 +8,7 @@ import { FavoriteAnimeResponse } from "../../types/user.types"
 import { useAuthStore } from "../../store/authStore"
 
 import AnimeCard from "./AnimeCard"
-import Loading from "../UI/Loading"
+// import Loading from "../UI/Loading"
 
 const container = {
   hidden: { opacity: 0 },
@@ -41,7 +41,7 @@ const AnimeCardList = ({ data = [] }: Props) => {
   // fetches favorite anime
   const {
     data: favoriteAnimeData,
-    isLoading,
+    // isLoading,
     error,
   } = useQuery({
     queryKey: ["favorite-anime", username],
@@ -71,6 +71,7 @@ const AnimeCardList = ({ data = [] }: Props) => {
               key={anime.mal_id}
               mal_id={Number(anime.mal_id)}
               isFavorite={
+                favoriteAnimeData?.data !== undefined &&
                 favoriteAnimeData?.data?.filter(
                   (favoriteAnime) => favoriteAnime.mal_id == anime.mal_id
                 ).length > 0

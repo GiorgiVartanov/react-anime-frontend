@@ -8,7 +8,7 @@ import AnimeCardList from "./AnimeCardList"
 
 interface Props {
   query: string
-  queryKey: (string | number)[]
+  queryKey: (string | number | undefined)[]
 }
 
 // fetches anime from API by passed query from  and renders it

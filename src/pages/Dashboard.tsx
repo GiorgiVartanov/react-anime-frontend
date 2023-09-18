@@ -44,6 +44,8 @@ const Dashboard = () => {
     // regex to find similar usernames
     const pattern = new RegExp(searchText)
 
+    if (!data?.data) return
+
     return (
       <UserList
         data={data.data.filter((item) => pattern.test(item.username))} // applies regex, to find similar usernames

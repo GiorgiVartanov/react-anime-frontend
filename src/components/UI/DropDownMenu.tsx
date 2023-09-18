@@ -6,8 +6,9 @@ import { useOnClickOutside } from "../../hooks/useOnClickOutside"
 import Button from "./Button"
 
 const dropdownMenu = {
-  hidden: { opacity: 0, y: "-30%", scale: 0.95 },
+  hidden: { display: "none", opacity: 0, y: "-30%", scale: 0.95 },
   visible: {
+    display: "block",
     opacity: 1,
     y: 0,
     scale: 1,
@@ -58,21 +59,17 @@ const DropDownMenu = ({ buttonName, className, children }: Props) => {
           {"<"}
         </motion.span>
       </Button>
-      {isMenuOpen ? (
-        <AnimatePresence>
-          <motion.ul
-            variants={dropdownMenu}
-            initial="hidden"
-            animate={isMenuOpen ? "visible" : "hidden"}
-            exit="hidden"
-            className="dark:bg-sp-gray shadow-none sm:shadow-lg bg-sp-white sm:absolute static -left-2 w-full sm:w-24 px-2 py-2 font-normal flex flex-col md:gap-1 gap-2 text-center"
-          >
-            {children}
-          </motion.ul>
-        </AnimatePresence>
-      ) : (
-        ""
-      )}
+      <AnimatePresence>
+        <motion.ul
+          variants={dropdownMenu}
+          initial="hidden"
+          animate={isMenuOpen ? "visible" : "hidden"}
+          exit="hidden"
+          className="absolute dark:bg-sp-gray shadow-none sm:shadow-lg bg-sp-white sm:absolute -left-2 w-full sm:w-24 p-2 text-center"
+        >
+          {children}
+        </motion.ul>
+      </AnimatePresence>
     </div>
   )
 }

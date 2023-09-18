@@ -1,13 +1,12 @@
-import { ImageType, Entry } from "./anime.types"
+import { ImageType, AnimeType } from "./anime.types"
 
 type MangaType = {
   position: string
   manga: ImageType
 }
 
-type AnimeType = {
+type VoiceActorAnimeType = AnimeType & {
   position: string
-  anime: Entry
 }
 
 type CharacterType = {
@@ -19,7 +18,7 @@ type CharacterType = {
 
 export type VoiceType = {
   role: string
-  anime?: ImageType
+  anime?: AnimeType
   character: CharacterType
 }
 
@@ -35,7 +34,7 @@ export type StuffType = {
   birthday: string
   favorites: number
   about: string
-  anime: AnimeType[]
+  anime: VoiceActorAnimeType[]
   manga: MangaType[]
   voices: VoiceType[]
 }
