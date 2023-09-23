@@ -6,17 +6,11 @@ import { useOnClickOutside } from "../../hooks/useOnClickOutside"
 import Button from "./Button"
 
 const dropdownMenu = {
-  hidden: { display: "none", opacity: 0, y: "-30%", scale: 0.95 },
+  hidden: { display: "none", opacity: 0, y: "-30%" },
   visible: {
     display: "block",
     opacity: 1,
     y: 0,
-    scale: 1,
-    transition: {
-      delayChildren: 0.1,
-      staggerChildren: 0.05,
-      staggerDirection: -1,
-    },
   },
 }
 
@@ -45,7 +39,7 @@ const DropDownMenu = ({ buttonName, className, children }: Props) => {
   return (
     <div
       ref={ref}
-      className={`relative h-fit`}
+      className={`relative`}
     >
       <Button
         onClick={handleOnClick}
@@ -65,7 +59,7 @@ const DropDownMenu = ({ buttonName, className, children }: Props) => {
           initial="hidden"
           animate={isMenuOpen ? "visible" : "hidden"}
           exit="hidden"
-          className="absolute dark:bg-sp-gray shadow-none sm:shadow-lg bg-sp-white sm:absolute -left-2 w-full sm:w-24 p-2 text-center"
+          className="static dark:bg-sp-gray shadow-none sm:shadow-lg bg-sp-white sm:absolute -left-2 w-full sm:w-24 p-2 text-center"
         >
           {children}
         </motion.ul>

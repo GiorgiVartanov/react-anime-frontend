@@ -10,6 +10,7 @@ import { useDocumentTitle } from "../hooks/useDocumentTitle"
 
 import Page from "../components/UI/Page"
 import AnimeSection from "../components/Anime/AnimeSection"
+import Hero from "../components/UI/Hero"
 
 const Home = () => {
   const navigate = useNavigate()
@@ -91,6 +92,7 @@ const Home = () => {
 
   return (
     <Page className="w-full p-2 h-full gap-6 flex flex-col max-w-7xl mx-auto">
+      <Hero />
       <AnimeSection
         title="Popular This Season"
         buttonText="see all airing anime"

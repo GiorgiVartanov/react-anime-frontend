@@ -142,7 +142,7 @@ const Search = () => {
   }, [])
 
   return (
-    <Page className="mx-auto max-w-7xl w-full p-2 h-full">
+    <Page className="mx-auto max-w-7xl w-full p-2 h-full relative">
       <SearchComponent />
       {renderCardList()}
       {data?.pages && data.pages.length > 2 ? <ScrollToTopButton /> : ""}
