@@ -69,7 +69,7 @@ const SearchBar = ({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           whileHover={{ opacity: 0.8 }}
-          whileTap={{ scale: 0.95 }}
+          // whileTap={{ scale: 0.95 }}
           onClick={startSearch}
           className={`text-2xl p-1.5 m-auto bg-sp-main shadow-sm ${buttonClassName}`}
         >

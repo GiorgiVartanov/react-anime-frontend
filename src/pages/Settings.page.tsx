@@ -4,10 +4,7 @@ import { toast } from "react-toastify"
 
 import { useAuthStore } from "../store/authStore"
 
-import {
-  CredentialsChangeType,
-  CredentialsChangeErrorType,
-} from "../types/auth.types"
+import { CredentialsChangeType, CredentialsChangeErrorType } from "../types/auth.types"
 
 import Page from "../components/UI/Page"
 import Form from "../components/Form/Form"
@@ -18,17 +15,13 @@ import UploadImage from "../components/UI/UploadImage"
 const Settings = () => {
   const navigate = useNavigate()
 
-  const [
-    isLoggedIn,
-    changeCredentials,
-    changeCredentialsError,
-    changeCredentialsErrorMessage,
-  ] = useAuthStore((state) => [
-    state.isLoggedIn,
-    state.changeCredentials,
-    state.changeCredentialsError,
-    state.changeCredentialsErrorMessage,
-  ])
+  const [isLoggedIn, changeCredentials, changeCredentialsError, changeCredentialsErrorMessage] =
+    useAuthStore((state) => [
+      state.isLoggedIn,
+      state.changeCredentials,
+      state.changeCredentialsError,
+      state.changeCredentialsErrorMessage,
+    ])
 
   const [credentials, setCredentials] = useState<CredentialsChangeType>({
     password: "",
@@ -37,13 +30,12 @@ const Settings = () => {
     newUsername: "",
   })
 
-  const [credentialsError, setCredentialsError] =
-    useState<CredentialsChangeErrorType>({
-      password: [],
-      newPassword: [],
-      newEmail: [],
-      newUsername: [],
-    })
+  const [credentialsError, setCredentialsError] = useState<CredentialsChangeErrorType>({
+    password: [],
+    newPassword: [],
+    newEmail: [],
+    newUsername: [],
+  })
 
   if (!isLoggedIn) navigate("/login")
 
@@ -68,9 +60,7 @@ const Settings = () => {
       changeCredentials(credentials)
   }
 
-  const handleOnPasswordChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleOnPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCredentialsError(() => ({
       password: [],
       newPassword: [],
@@ -85,21 +75,17 @@ const Settings = () => {
     }))
   }
 
-  const handleOnNewPasswordChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleOnNewPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const error: string[] = []
 
     const newPassword = event.target.value
 
-    if (newPassword.length < 8)
-      error.push("password must be longer than 8 characters")
+    if (newPassword.length < 8) error.push("password must be longer than 8 characters")
     if (/(.)\1{3,}/.test(newPassword))
       error.push("single character was user more than 3 times in a row")
     if (/^[a-zA-Z0-9\s]*$/.test(newPassword))
       error.push("password should contain special characters")
-    if (/^[^0-9]*$/.test(newPassword))
-      error.push("password must include number")
+    if (/^[^0-9]*$/.test(newPassword)) error.push("password must include number")
     if (/^[^A-Z]*$/.test(newPassword))
       error.push("password should have at least one uppercase latter")
 
@@ -117,9 +103,7 @@ const Settings = () => {
     }))
   }
 
-  const handleOnNewEmailChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleOnNewEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const error: string[] = []
 
     const newEmail = event.target.value
@@ -141,9 +125,7 @@ const Settings = () => {
     }))
   }
 
-  const handleOnNewUsernameChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleOnNewUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const error: string[] = []
 
     const newUsername = event.target.value
@@ -223,7 +205,7 @@ const Settings = () => {
         />
         <Button
           onClick={handleSubmit}
-          className="p-1"
+          className="p-2 mt-2"
           disabled={
             credentialsError.password.length > 0 ||
             credentialsError.newPassword.length > 0 ||
@@ -252,12 +234,12 @@ const Settings = () => {
     <Page className="h-full max-w-7xl w-full p-2 mx-auto">
       <div className="flex gap-8 text-center items-center justify-center mt-8 flex-col">
         <section className="w-full">
-          <h2 className="opacity-30">change profile picture</h2>
+          <h2 className="opacity-30 pb-1">change profile picture</h2>
           <div className="h-0.5 w-full bg-sp-main mb-1"></div>
           <UploadImage className="mx-auto mt-6" />
         </section>
         <section className="w-full">
-          <h2 className="opacity-30">change login information</h2>
+          <h2 className="opacity-30 pb-1">change login information</h2>
           <div className="h-0.5 w-full bg-sp-main mb-1"></div>
           {renderChangeCredentialsForm()}
         </section>

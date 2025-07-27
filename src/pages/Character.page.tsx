@@ -52,7 +52,7 @@ const Character = () => {
         <div className="absolute z-10 bg-[#e3e6eb42] top-0 dark:bg-transparent backdrop-blur-2xl w-full h-full"></div>
         <div className="mx-auto max-w-7xl w-full p-2 h-full">
           <div className="mx-auto relative z-10 flex flex-col md:flex-row max-w-7xl w-full p-2 h-full">
-            <div>
+            <div className="mt-auto">
               {images?.jpg?.image_url ? (
                 <Image
                   src={images?.jpg?.image_url}
@@ -63,11 +63,11 @@ const Character = () => {
               ) : (
                 ""
               )}
-              <p className="text-lg my-1 md:text-left text-center"> {name}</p>
+              <p className="text-lg mt-1 md:text-left text-center"> {name}</p>
             </div>
 
-            <div className="my-2 p-2 ">
-              <p>{about}</p>
+            <div className="ml-2 mb-1 flex flex-col">
+              <p className="mt-auto">{about}</p>
             </div>
           </div>
         </div>

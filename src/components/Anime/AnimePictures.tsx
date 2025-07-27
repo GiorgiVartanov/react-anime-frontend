@@ -46,7 +46,7 @@ const AnimePictures = ({ animeId }: Props) => {
             <Image
               key={image.jpg.image_url}
               src={image.jpg.large_image_url || image.jpg.image_url}
-              alt={`anime-${index}`}
+              alt={""}
               loading="lazy"
               height="300"
               // width="200"
@@ -60,9 +60,7 @@ const AnimePictures = ({ animeId }: Props) => {
 
   return (
     <section>
-      <h2 className="text-sp-black dark:text-white mx-auto max-w-7xl mb-1 text-xl">
-        Images
-      </h2>
+      <h2 className="text-sp-black dark:text-white mx-auto max-w-7xl mb-1 text-xl">Images</h2>
       <div className="h-0.5 w-full bg-sp-main mb-1"></div>
       {renderImages()}
     </section>

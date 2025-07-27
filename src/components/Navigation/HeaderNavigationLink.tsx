@@ -11,13 +11,7 @@ interface Props {
 }
 
 // NavigationLink that will be rendered in header, it has animation
-const HeaderNavigationLink = ({
-  to,
-  className,
-  onClick,
-  children,
-  ...rest
-}: Props) => {
+const HeaderNavigationLink = ({ to, className, onClick, children, ...rest }: Props) => {
   const location = useLocation() // function to get user's location (path)
   const isActive = to === (location.pathname.substring(1) || "/") // checks if the user is on the current page
 
@@ -25,7 +19,7 @@ const HeaderNavigationLink = ({
     <motion.div
       initial={{ opacity: 1 }}
       whileHover={{ opacity: 0.75 }}
-      whileTap={{ scale: 0.95 }}
+      // whileTap={{ scale: 0.95 }}
     >
       <NavLink
         to={to}

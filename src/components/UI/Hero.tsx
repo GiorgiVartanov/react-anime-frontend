@@ -47,11 +47,10 @@ const Hero = () => {
             <motion.p
               initial={{ opacity: 0.7, scale: 1 }}
               whileHover={{ opacity: 1 }}
-              whileTap={{ scale: 0.95 }}
+              // whileTap={{ scale: 0.95 }}
               className="text-right -mr-2"
             >
-              - {author}{" "}
-              <span className="opacity-75 font-semibold">({title})</span>
+              - {author} <span className="opacity-75 font-semibold">({title})</span>
             </motion.p>
           </Link>
         </div>

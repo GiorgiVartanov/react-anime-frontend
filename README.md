@@ -93,7 +93,7 @@ npm i
 // PORT = 5000
 // MONGO_URI = mongodb+srv://admin:admin@vite-anime.08auhsc.mongodb.net/app?retryWrites=true&w=majority
 // JWT_SECRET = verysecretkey
-// FRONTEND_URL = http://localhost:5173
+// FRONTEND_URL = http://localhost:3000
 // API_URL = https://api.jikan.moe/v4
 
 npm run dev

@@ -36,7 +36,7 @@ const CharacterCard = ({
     <motion.div
       variants={item}
       whileHover={{ opacity: 0.8 }}
-      className={`grid grid-cols-2 justify-between text-sm gap-1 max-w-12 bg-sp-white dark:bg-sp-gray text-sp-black dark:text-white relative h-[80px] shadow-sm ${
+      className={`grid grid-cols-2 justify-between text-sm gap-1 bg-sp-white dark:bg-sp-gray text-sp-black dark:text-white relative h-[80px] shadow-sm ${
         VAName || VALanguage || VAImageURL ? "" : ""
       }`}
     >
@@ -50,7 +50,7 @@ const CharacterCard = ({
         >
           <img
             src={characterImageURL}
-            alt={characterName}
+            alt={""}
             className="object-cover shadow-sm h-[80px] w-[56px] max-w-full max-h-full transition-all ease-in-out duration-200"
             loading="lazy"
           />
@@ -67,23 +67,21 @@ const CharacterCard = ({
       {VAName || VALanguage || VAImageURL ? (
         <Link to={`/stuff/${VAID}`}>
           <motion.div
-            initial={{ opacity: 0.6 }}
-            whileHover={{ opacity: 0.9 }}
-            whileTap={{ scale: 0.95 }}
-            className={`flex justify-end gap-2 active:opacity-80 transition-all ease-in-out duration-200`}
+            // initial={{ opacity: 0.6 }}
+            // whileHover={{ opacity: 0.9 }}
+            // whileTap={{ scale: 0.95 }}
+            className={`flex justify-end gap-2 active:opacity-80 transition-all`}
           >
             <div className="flex flex-col justify-between py-4 text-right">
               <p className="overflow-none whitespace-nowrap font-semibold truncate max-w-[11ch]">
                 {VAName}
               </p>
-              <p className="opacity-40 font-semibold truncate max-w-[11ch]">
-                {VALanguage}
-              </p>
+              <p className="opacity-40 font-semibold truncate max-w-[11ch]">{VALanguage}</p>
             </div>
             <img
               src={VAImageURL}
-              alt={VAName}
-              className="object-cover shadow-sm h-[80px] w-[56px] transition-all ease-in-out duration-200"
+              alt={""}
+              className="object-cover shadow-sm h-[80px] w-[56px] transition-all"
               loading="lazy"
             />
           </motion.div>

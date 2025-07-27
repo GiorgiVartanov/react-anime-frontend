@@ -1,10 +1,7 @@
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 
-import {
-  LoginCredentialsType,
-  LoginCredentialsErrorType,
-} from "../types/auth.types"
+import { LoginCredentialsType, LoginCredentialsErrorType } from "../types/auth.types"
 
 import { useAuthStore } from "../store/authStore"
 
@@ -20,27 +17,19 @@ const Login = () => {
   })
 
   // stores credential's errors
-  const [credentialsError, setCredentialsError] =
-    useState<LoginCredentialsErrorType>({
-      email: [],
-      password: [],
-    })
+  const [credentialsError, setCredentialsError] = useState<LoginCredentialsErrorType>({
+    email: [],
+    password: [],
+  })
 
   // getting data from store
-  const [loginUser, loginError] = useAuthStore((state) => [
-    state.loginUser,
-    state.loginError,
-  ])
+  const [loginUser, loginError] = useAuthStore((state) => [state.loginUser, state.loginError])
 
   // login submit function
   const handleSubmit = (event: React.FormEvent): void => {
     event.preventDefault() // prevents browser from reloading page after login form is submitted
 
-    if (
-      credentialsError.email.length > 0 ||
-      credentialsError.password.length > 0
-    )
-      return
+    if (credentialsError.email.length > 0 || credentialsError.password.length > 0) return
 
     const error = "this field should not be empty"
 
@@ -70,9 +59,7 @@ const Login = () => {
   }
 
   // changes username credentials
-  const handleOnUsernameChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleOnUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCredentialsError(() => ({
       email: [],
       password: [],
@@ -84,9 +71,7 @@ const Login = () => {
   }
 
   // changes password credentials
-  const handleOnPasswordChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleOnPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCredentialsError(() => ({
       email: [],
       password: [],
@@ -121,7 +106,7 @@ const Login = () => {
           onChange={handleOnPasswordChange}
           error={credentialsError.password}
         />
-        <button className="bg-sp-main p-1 hover:opacity-90 transform-all ease-in-out duration-200">
+        <button className="bg-sp-main p-2 mt-2 hover:opacity-90 transform-all ease-in-out duration-200">
           login
         </button>
         <Link

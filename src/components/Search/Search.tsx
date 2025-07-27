@@ -13,21 +13,15 @@ import GenreList from "./GenreList"
 import SearchSelectList from "./SearchSelectList"
 
 const Search = () => {
-  const [
-    text,
-    changeText,
-    genres,
-    setAnimeGenres,
-    clearFilters,
-    getAmountOfFilters,
-  ] = useSearchStore((state) => [
-    state.text,
-    state.changeText,
-    state.genres,
-    state.setAnimeGenres,
-    state.clearFilters,
-    state.getAmountOfFilters,
-  ])
+  const [text, changeText, genres, setAnimeGenres, clearFilters, getAmountOfFilters] =
+    useSearchStore((state) => [
+      state.text,
+      state.changeText,
+      state.genres,
+      state.setAnimeGenres,
+      state.clearFilters,
+      state.getAmountOfFilters,
+    ])
 
   const [isFilterMenuOpen, setIsFilterMenuOpen] = useState<boolean>(false)
 
@@ -68,7 +62,7 @@ const Search = () => {
         <motion.button
           initial={{ opacity: 1 }}
           whileHover={{ opacity: 0.8 }}
-          whileTap={{ scale: 0.95 }}
+          // whileTap={{ scale: 0.95 }}
           onClick={handleFilterMenuOpen}
           className="text-sp-light flex gap-1"
         >
@@ -93,7 +87,7 @@ const Search = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "-25%" }}
             whileHover={{ opacity: 0.8 }}
-            whileTap={{ scale: 0.95 }}
+            // whileTap={{ scale: 0.95 }}
             transition={{ duration: 0.05 }}
             onClick={handleClearFilters}
             className="text-sp-main hover:opacity-80 transition-all ease-in-out duration-200 absolute top-0 left-16 whitespace-nowrap"

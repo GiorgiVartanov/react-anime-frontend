@@ -1,5 +1,5 @@
 import backendAjax from "../../service/backendAjax"
-import { useNavigate } from "react-router-dom"
+import { Link, NavLink, useNavigate } from "react-router-dom"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
@@ -21,11 +21,6 @@ const dropdownMenu = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: {
-      delayChildren: 0.1,
-      staggerChildren: 0.05,
-      staggerDirection: -1,
-    },
   },
 }
 
@@ -46,14 +41,12 @@ const Navigation = () => {
 
   const navigate = useNavigate()
 
-  const [username, isLoggedIn, logoutUser, accountType] = useAuthStore(
-    (state) => [
-      state.username,
-      state.isLoggedIn,
-      state.logoutUser,
-      state.accountType,
-    ]
-  )
+  const [username, isLoggedIn, logoutUser, accountType] = useAuthStore((state) => [
+    state.username,
+    state.isLoggedIn,
+    state.logoutUser,
+    state.accountType,
+  ])
 
   const [isHamburgerMenuOpen, setIsHamburgerMenuOpen] = useState<boolean>(false)
   const [screenWidth, setScreenWidth] = useState<number>(window.innerWidth)
@@ -130,7 +123,7 @@ const Navigation = () => {
       <motion.div variants={menuItem}>
         <DropDownMenu
           buttonName="search"
-          className="text-lg sm:text-md py-3 sm:py-0"
+          className="py-3 sm:py-0"
         >
           {renderNavigationLink("anime", "search/anime")}
           {renderNavigationLink("users", "search/users")}
@@ -145,9 +138,7 @@ const Navigation = () => {
       <AnimatePresence>
         <motion.ul
           initial="hidden"
-          animate={
-            isHamburgerMenuOpen || screenWidth > 640 ? "visible" : "hidden"
-          }
+          animate={isHamburgerMenuOpen || screenWidth > 640 ? "visible" : "hidden"}
           exit="hidden"
           variants={dropdownMenu}
           className={`sm:flex h-fit gap-4 ${
@@ -161,9 +152,7 @@ const Navigation = () => {
             className="flex flex-col justify-center"
           >
             <DarkModeToggle
-              className={`${
-                isHamburgerMenuOpen ? "mx-auto mb-1 sm:mb-0 sm:mx-2.5" : ""
-              }`}
+              className={`${isHamburgerMenuOpen ? "mx-auto mb-1 sm:mb-0 sm:mx-2.5" : ""}`}
             />
           </motion.li>
           <motion.li
@@ -180,13 +169,12 @@ const Navigation = () => {
               random
             </Button>
           </motion.li>
-          {renderSearchButton()}
+          {/* {renderSearchButton()}     */}
+          {renderNavigationLink("search", "search/anime")}
           {isLoggedIn ? (
             <>
               {renderNavigationLink("profile", `profile/${username}`)}
-              {accountType === "Admin"
-                ? renderNavigationLink("dashboard", "dashboard")
-                : ""}
+              {accountType === "Admin" ? renderNavigationLink("dashboard", "dashboard") : ""}
               <motion.li
                 variants={menuItem}
                 className="flex flex-col justify-center"
@@ -196,7 +184,7 @@ const Navigation = () => {
                     handleCloseMenu()
                     handleLogout()
                   }}
-                  className="sm:w-auto w-full dark:text-white sm:py-1 mt-3 sm:mt-0 py-2 sm:text-base text-lg px-1 my-auto"
+                  className="sm:w-auto w-full dark:text-white sm:py-1 mt-3 sm:mt-0 py-2 sm:text-base text-lg px-1 my-auto bg-transparent"
                 >
                   logout
                 </Button>
@@ -230,6 +218,7 @@ const Navigation = () => {
       <Button
         onClick={handleHamburgerMenu}
         className={`sm:hidden bg-transparent`}
+        aria-label={isHamburgerMenuOpen ? "close menu" : "open menu"}
       >
         {isHamburgerMenuOpen ? (
           <CloseMark

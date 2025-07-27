@@ -26,11 +26,7 @@ const CharacterCardList = ({ data, showSelect = true }: Props) => {
   const [selectedLanguage, setSelectedLanguage] = useState<string>("Japanese")
 
   const languages = [
-    ...new Set(
-      data[0]?.voice_actors?.map(
-        (voiceActor: VoiceActor) => voiceActor.language
-      )
-    ),
+    ...new Set(data[0]?.voice_actors?.map((voiceActor: VoiceActor) => voiceActor.language)),
   ] // getting only unique languages from the first voice actor, for example, if show was dubbed more than 1 times on spanish it will only show first one
 
   const handleVALanguageSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -77,8 +73,7 @@ const CharacterCardList = ({ data, showSelect = true }: Props) => {
               key={item.character.mal_id}
               characterId={item.character.mal_id}
               characterImageURL={
-                item.character.images.jpg?.image_url ||
-                item.character.images.webp?.image_url
+                item.character.images.jpg?.image_url || item.character.images.webp?.image_url
               }
               characterName={item.character.name}
               characterRole={item.role}

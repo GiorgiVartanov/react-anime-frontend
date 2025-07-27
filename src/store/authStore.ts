@@ -15,10 +15,10 @@ interface AuthState {
   token: string | null // JSON web token
   username: string | null
   _id: string | null
-  isLoggedIn: boolean // true if user is logged in, false is isn't
+  isLoggedIn: boolean // true if user is logged in, false isn't
   accountType: string | null
-  loginError: LoginCredentialsErrorType // stores errors for login's credentials
-  registerError: RegisterCredentialsErrorType // stores errors for register's credentials
+  loginError: LoginCredentialsErrorType // stores errors for login credentials
+  registerError: RegisterCredentialsErrorType // stores errors for registration credentials
   changeCredentialsError: CredentialsChangeErrorType
   changeCredentialsErrorMessage: string
   wasPasswordSuccessfullyChanged: boolean | null
@@ -26,7 +26,7 @@ interface AuthState {
 }
 
 interface AuthActions {
-  loginUser: (credentials: LoginCredentialsType) => void // function that logins user with the passed credentials
+  loginUser: (credentials: LoginCredentialsType) => void // function that logs in user with the passed credentials
   registerUser: (credentials: RegisterCredentialsType) => void // function that registers user with the passed credentials
   changeCredentials: (credentials: CredentialsChangeType) => void // function to change user's password
   logoutUser: () => void // logs out user
@@ -64,19 +64,14 @@ export const useAuthStore = create<AuthState & AuthActions>()((set, get) => ({
       const accountType = data.user.accountType
 
       const date = new Date()
-      const tokenExpirationDate = Number(
-        new Date(date.getTime() + 24 * 60 * 60 * 1000)
-      )
+      const tokenExpirationDate = Number(new Date(date.getTime() + 24 * 60 * 60 * 1000))
 
       // saving data to localstorage
       localStorage.setItem("token", token)
       localStorage.setItem("username", username)
       localStorage.setItem("_id", _id)
       localStorage.setItem("accountType", accountType)
-      localStorage.setItem(
-        "tokenExpirationDate",
-        tokenExpirationDate.toString()
-      )
+      localStorage.setItem("tokenExpirationDate", tokenExpirationDate.toString())
 
       // changing zustand's states
       return set(() => ({
@@ -118,19 +113,14 @@ export const useAuthStore = create<AuthState & AuthActions>()((set, get) => ({
       const accountType = data.user.accountType
 
       const date = new Date()
-      const tokenExpirationDate = Number(
-        new Date(date.getTime() + 24 * 60 * 60 * 1000)
-      )
+      const tokenExpirationDate = Number(new Date(date.getTime() + 24 * 60 * 60 * 1000))
 
       // saving data to localstorage
       localStorage.setItem("token", token)
       localStorage.setItem("username", username)
       localStorage.setItem("_id", _id)
       localStorage.setItem("accountType", accountType)
-      localStorage.setItem(
-        "tokenExpirationDate",
-        tokenExpirationDate.toString()
-      )
+      localStorage.setItem("tokenExpirationDate", tokenExpirationDate.toString())
 
       return set(() => ({
         token: token,
@@ -155,9 +145,7 @@ export const useAuthStore = create<AuthState & AuthActions>()((set, get) => ({
 
       // change it later
 
-      if (
-        error.response.data.message === "User with this username already exists"
-      ) {
+      if (error.response.data.message === "User with this username already exists") {
         return set(() => ({
           registerError: {
             username: ["User with this username already exists"],
@@ -168,9 +156,7 @@ export const useAuthStore = create<AuthState & AuthActions>()((set, get) => ({
         }))
       }
 
-      if (
-        error.response.data.message === "User with this email already exists"
-      ) {
+      if (error.response.data.message === "User with this email already exists") {
         return set(() => ({
           registerError: {
             username: [],

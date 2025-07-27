@@ -52,9 +52,7 @@ const Stuff = () => {
     })
   }
 
-  const characterDataWithoutDuplicates = removeDuplicateMalIds(
-    characterData as VoiceType[]
-  )
+  const characterDataWithoutDuplicates = removeDuplicateMalIds(characterData as VoiceType[])
 
   return (
     <Page>
@@ -70,7 +68,7 @@ const Stuff = () => {
         ></div>
         <div className="absolute z-10 bg-[#e3e6eb42] top-0 dark:bg-transparent backdrop-blur-2xl w-full h-full"></div>
         <div className="mx-auto relative z-10 flex flex-col md:flex-row max-w-7xl w-full p-2 h-full">
-          <div>
+          <div className="">
             {images?.jpg?.image_url ? (
               <Image
                 src={images?.jpg?.image_url}
@@ -84,7 +82,7 @@ const Stuff = () => {
             <p className="text-lg my-1 md:text-left text-center"> {name}</p>
           </div>
 
-          <div className="my-2 p-2 md:w-1/2">
+          <div className="ml-3 mb-2 mt-auto">
             <p>{about}</p>
           </div>
         </div>

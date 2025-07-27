@@ -32,8 +32,7 @@ const Carousel = ({ children, intervalDuration = 5000, className }: Props) => {
   // calls a function to scroll in the given direction
   // pauses scroll for 5 seconds (if different intervalDuration was not passed) when is called
   const handleScroll = (direction: "left" | "right") => {
-    const childrenWidth =
-      (carouselRef?.current?.scrollWidth || 0) / children.length
+    const childrenWidth = (carouselRef?.current?.scrollWidth || 0) / children.length
 
     scrollToPosition(direction === "left" ? -childrenWidth : childrenWidth)
 
@@ -45,10 +44,7 @@ const Carousel = ({ children, intervalDuration = 5000, className }: Props) => {
   }
 
   const scrollToPosition = (distance: number) => {
-    if (
-      carouselRef.current?.scrollLeft === undefined ||
-      carouselRef.current?.scrollLeft === null
-    )
+    if (carouselRef.current?.scrollLeft === undefined || carouselRef.current?.scrollLeft === null)
       return
 
     const container = carouselRef.current
@@ -87,10 +83,7 @@ const Carousel = ({ children, intervalDuration = 5000, className }: Props) => {
   }
 
   const handleTouchMove = (event: React.TouchEvent<HTMLUListElement>) => {
-    if (
-      carouselRef?.current?.scrollLeft === undefined ||
-      carouselRef?.current?.scrollLeft === null
-    )
+    if (carouselRef?.current?.scrollLeft === undefined || carouselRef?.current?.scrollLeft === null)
       return
 
     const container = carouselRef.current
@@ -102,19 +95,14 @@ const Carousel = ({ children, intervalDuration = 5000, className }: Props) => {
   }
 
   const handleTouchEnd = () => {
-    if (
-      carouselRef?.current?.scrollLeft === undefined ||
-      carouselRef?.current?.scrollLeft === null
-    )
+    if (carouselRef?.current?.scrollLeft === undefined || carouselRef?.current?.scrollLeft === null)
       return
 
-    const childrenWidth =
-      (carouselRef?.current?.scrollWidth || 0) / children.length
+    const childrenWidth = (carouselRef?.current?.scrollWidth || 0) / children.length
 
     const container = carouselRef.current
     const currentScrollLeft = container.scrollLeft
-    const roundedScrollLeft =
-      Math.round(currentScrollLeft / childrenWidth) * childrenWidth
+    const roundedScrollLeft = Math.round(currentScrollLeft / childrenWidth) * childrenWidth
 
     container.scroll({
       left: roundedScrollLeft,
@@ -188,8 +176,7 @@ const Carousel = ({ children, intervalDuration = 5000, className }: Props) => {
       >
         {children}
       </motion.ul>
-      {carouselRef?.current?.scrollWidth !==
-        carouselRef?.current?.clientWidth ||
+      {carouselRef?.current?.scrollWidth !== carouselRef?.current?.clientWidth ||
       carouselRef?.current?.scrollWidth === undefined ||
       carouselRef?.current?.clientWidth === undefined ||
       canBeScrolled ? (
@@ -198,11 +185,11 @@ const Carousel = ({ children, intervalDuration = 5000, className }: Props) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.6 }}
             whileHover={{ opacity: 0.8 }}
-            whileTap={{ scale: 0.9 }}
+            // whileTap={{ scale: 0.9 }}
             onClick={() => {
               handleScroll("left")
             }}
-            className="px-5 py-3 rounded-full opacity-60 hover:opacity-80 transition-all ease-in-out duration-200 font-bold dark:text-white dark:bg-sp-gray bg-sp-white text-sp-black absolute top-1/2 left-2 shadow-sm hover:shadow:md select-none"
+            className="px-5 py-3 rounded-full opacity-60 hover:opacity-80 transition-all font-bold dark:text-white dark:bg-sp-gray bg-sp-white text-sp-black absolute top-1/2 left-2 shadow-sm hover:shadow:md select-none"
           >
             {"<"}
           </motion.button>
@@ -210,11 +197,11 @@ const Carousel = ({ children, intervalDuration = 5000, className }: Props) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.6 }}
             whileHover={{ opacity: 0.8 }}
-            whileTap={{ scale: 0.9 }}
+            // whileTap={{ scale: 0.9 }}
             onClick={() => {
               handleScroll("right")
             }}
-            className="px-5 py-3 rounded-full opacity-60 hover:opacity-80 transition-all ease-in-out duration-200 dark:bg-sp-gray dark:text-white font-bold bg-sp-white text-sp-black absolute top-1/2 right-2 shadow-sm hover:shadow:md select-none"
+            className="px-5 py-3 rounded-full opacity-60 hover:opacity-80 transition-all dark:bg-sp-gray dark:text-white font-bold bg-sp-white text-sp-black absolute top-1/2 right-2 shadow-sm hover:shadow:md select-none"
           >
             {">"}
           </motion.button>

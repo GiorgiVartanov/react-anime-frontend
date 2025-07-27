@@ -12,7 +12,7 @@ import Footer from "./components/UI/Footer"
 import ProtectedRoute from "./components/UI/ProtectedRoute"
 
 import Home from "./pages/Home.page"
-import Search from "./pages/Search.Page"
+import Search from "./pages/Search.page"
 import UserSearch from "./pages/UserSearch.page"
 import Anime from "./pages/Anime.page"
 import Login from "./pages/Login.page"
@@ -21,7 +21,7 @@ import Profile from "./pages/Profile.page"
 import Dashboard from "./pages/Dashboard"
 import Stuff from "./pages/Stuff.page"
 import Studio from "./pages/Studio.page"
-import Settings from "./pages/Settings"
+import Settings from "./pages/Settings.page"
 import Character from "./pages/Character.page"
 import Error from "./pages/Error.page"
 import PageNotFound from "./pages/PageNotFound.page"
@@ -39,8 +39,7 @@ function App() {
   useEffect(() => {
     if (
       localStorage.theme === "dark" ||
-      (!("theme" in localStorage) &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
+      (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)
     ) {
       document.documentElement.classList.add("dark")
     } else {

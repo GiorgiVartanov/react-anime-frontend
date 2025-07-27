@@ -49,7 +49,7 @@ const ScrollToTopButton = ({ className = "" }: Props) => {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 0.75, y: 0, rotateZ: isOnTop ? "180deg" : "0deg" }}
       whileHover={{ opacity: 0.9 }}
-      whileTap={{ scale: 0.95 }}
+      // whileTap={{ scale: 0.95 }}
       onClick={handleGoToTop}
       className={`fixed rounded-full right-4 bottom-10 py-3 px-5 bg-sp-main text-xl font-semibold z-30 ${className}`}
     >

@@ -33,16 +33,12 @@ const Genre = ({
   return (
     <motion.button
       initial={{ opacity: 1 }}
-      whileTap={{ scale: 0.95 }}
+      // whileTap={{ scale: 0.95 }}
       whileHover={{ opacity: 0.8 }}
       onClick={handleGenreSelect}
-      className={`flex-1 inline-block px-2 py-1 shadow-sm m-0.5 ease-in-out duration-200 translate-z-[0] backface-visible bg-sp-white dark:bg-sp-gray whitespace-nowrap ${
+      className={`flex-1 inline-block px-2 py-1 shadow-sm m-0.5 translate-z-[0] backface-visible bg-sp-white dark:bg-sp-gray whitespace-nowrap ${
         className || ""
-      } ${
-        isSelected
-          ? `text-sp-main ${selectedClassName}`
-          : `${unselectedClassName}`
-      } `}
+      } ${isSelected ? `text-sp-main ${selectedClassName}` : `${unselectedClassName}`} `}
     >
       <p>{genre}</p>
     </motion.button>

@@ -33,12 +33,10 @@ const Input = ({
         value={value}
         onChange={onChange}
         autoComplete={autoComplete}
-        className={`outline-offset-0 shadow-sm transition-all ease-in-out duration-200  w-full block p-1 outline-none text-slate-900 hover:shadow-md focus:shadow-xl ${
+        className={`outline-offset-0 shadow-sm transition-all ease-in-out duration-200 w-full block px-3 py-2 outline-none text-slate-900 hover:shadow-md focus:shadow-xl ${
           error && error.length > 0 ? "border-l-2 border-l-red-500" : ""
         } ${
-          value.length !== 0 && error && error.length === 0
-            ? "border-l-2  border-l-green-400"
-            : ""
+          value.length !== 0 && error && error.length === 0 ? "border-l-2  border-l-green-400" : ""
         } ${className}`}
         {...rest}
       />

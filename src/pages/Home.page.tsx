@@ -17,21 +17,15 @@ const Home = () => {
 
   const [randomGenre, setRandomGenre] = useState<animeGenre | null>(null)
 
-  const [
-    setAnimeGenres,
-    clearFilters,
-    changeStatus,
-    changeOrdering,
-    changeSorting,
-    selectGenre,
-  ] = useSearchStore((state) => [
-    state.setAnimeGenres,
-    state.clearFilters,
-    state.changeStatus,
-    state.changeOrdering,
-    state.changeSorting,
-    state.selectGenre,
-  ])
+  const [setAnimeGenres, clearFilters, changeStatus, changeOrdering, changeSorting, selectGenre] =
+    useSearchStore((state) => [
+      state.setAnimeGenres,
+      state.clearFilters,
+      state.changeStatus,
+      state.changeOrdering,
+      state.changeSorting,
+      state.selectGenre,
+    ])
 
   // function to get genres from backend
   const fetchGenres = async (): Promise<animeGenreResponse> => {
@@ -52,12 +46,12 @@ const Home = () => {
   useEffect(() => {
     if (!data || isLoading || error) return
 
-    // returns different genre every 7.5 minutes
+    // returns different genre every 1 hour
     const genRandomGenre = (data: animeGenre[]) => {
       const currentTime = Number(new Date())
-      const hoursSinceEpoch = Math.floor(currentTime / (1000 * 60 * 60)) // Convert milliseconds to hours
+      const hoursSinceEpoch = Math.floor(currentTime / (1000 * 60 * 60)) // convert milliseconds to hours
 
-      const randomIndex = hoursSinceEpoch % data.length // Modulo operation to cycle through data
+      const randomIndex = hoursSinceEpoch % data.length
       return data[randomIndex]
     }
 
@@ -92,7 +86,7 @@ const Home = () => {
 
   return (
     <Page className="w-full p-2 h-full gap-6 flex flex-col max-w-7xl mx-auto">
-      <Hero />
+      {/* <Hero /> */}
       <AnimeSection
         title="Popular This Season"
         buttonText="see all airing anime"

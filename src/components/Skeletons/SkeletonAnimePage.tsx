@@ -5,17 +5,6 @@ const SkeletonAnimePage = () => {
   const renderInformation = () => {
     return (
       <div className="bg-sp-black/80 flex flex-col gap-2 px-3 py-2 lg:py-12 lg:h-full max-w-lg mx-auto lg:mx-0">
-        {/* {renderLine(16, 8)}
-        {renderLine(24, 4)}
-        {renderLine(8, 4)}
-        {renderLine(12, 8)}
-        {renderLine(8, 24)}
-        {renderLine(16, 12)}
-        {renderLine(8, 6)}
-        {renderLine(12, 32)}
-        {renderLine(12, 32)}
-        {renderLine(12, 32)}
-        {renderLine(11, 32)} */}
         <div className="flex gap-2">
           <div className={`bg-sp-white animate-pulse h-3 w-16`}></div>
           <div className={`bg-sp-white animate-pulse h-3 w-8`}></div>
@@ -86,9 +75,7 @@ const SkeletonAnimePage = () => {
   }
 
   const renderImage = () => {
-    return (
-      <div className="h-[300px] w-[200px] bg-sp-white animate-pulse mx-auto"></div>
-    )
+    return <div className="h-[300px] w-[200px] bg-sp-white animate-pulse mx-auto"></div>
   }
 
   const renderAnimeDetails = () => {
@@ -105,27 +92,12 @@ const SkeletonAnimePage = () => {
     )
   }
 
-  // const renderNavigation = () => {
-  //   return (
-  //     <div className="flex gap-2 justify-center md:justify-start mt-8 mb-2">
-  //       <div className="bg-sp-white animate-pulse h-[31px] w-32"></div>
-  //       <div className="bg-sp-white animate-pulse h-[31px] w-16"></div>
-  //       <div className="bg-sp-white animate-pulse h-[31px] w-24"></div>
-  //       <div className="bg-sp-white animate-pulse h-[31px] w-12"></div>
-  //     </div>
-  //   )
-  // }
-
   return (
     <div>
       <div className="bg-gray-900/25">
-        <div className="mx-auto max-w-7xl w-full px-2 h-full">
-          {renderAnimeDetails()}
-        </div>
+        <div className="mx-auto max-w-7xl w-full px-2 h-full">{renderAnimeDetails()}</div>
       </div>
-      <div className="mx-auto max-w-7xl w-full px-2 h-full">
-        {/* {renderNavigation()} */}
-      </div>
+      <div className="mx-auto max-w-7xl w-full px-2 h-full">{/* {renderNavigation()} */}</div>
       <div className="mx-auto max-w-7xl w-full p-2 h-full">
         <SkeletonAnimeCardList amount={12} />
       </div>

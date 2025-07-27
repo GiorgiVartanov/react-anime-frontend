@@ -22,15 +22,7 @@ interface Props {
 // renders passed image with passed attributes
 // by clicking on the image it will go fullscreen
 // by clicking on it when it is in a fullscreen user will be redirected on a separate page with this image
-const Image = ({
-  src,
-  alt,
-  height,
-  width,
-  loading = "lazy",
-  className,
-  ...rest
-}: Props) => {
+const Image = ({ src, alt, height, width, loading = "lazy", className, ...rest }: Props) => {
   const [isImageOpen, setIsImageOpen] = useState<boolean>(false)
 
   const handleOpenFullscreen = () => {

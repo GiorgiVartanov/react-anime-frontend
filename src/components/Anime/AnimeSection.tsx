@@ -12,13 +12,7 @@ interface Props {
   onClick: () => void
 }
 
-const AnimeSection = ({
-  title,
-  buttonText,
-  fetch,
-  queryKey,
-  onClick,
-}: Props) => {
+const AnimeSection = ({ title, buttonText, fetch, queryKey, onClick }: Props) => {
   const fetchData = async () => {
     const result = await apiAjax.get(
       `${fetch}&limit=20&genres_exclude=28,26,47,9,49,12,50,51,52,53,81,55,57,58,35,60,61,63,64,65,69,70,73,74,75,15`
@@ -51,7 +45,7 @@ const AnimeSection = ({
         <h2 className="text-sp-black dark:text-white text-xl">{title}</h2>
         <button
           onClick={onClick}
-          className="text-sm opacity-50 transition-all ease-in-out duration-200 hover:opacity-75 font-light"
+          className="text-sm opacity-50 transition-all ease-in-out duration-200 hover:opacity-65 font-light"
         >
           {buttonText}
         </button>

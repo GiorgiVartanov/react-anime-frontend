@@ -3,6 +3,7 @@ import axios from "axios"
 import { useEffect } from "react"
 
 import { useSearchStore } from "../store/searchStore"
+import { AnimeType } from "../types/anime.types"
 
 import Page from "../components/UI/Page"
 import AnimeCardList from "../components/Anime/AnimeCardList"
@@ -42,12 +43,9 @@ const Search = () => {
     url.searchParams.set("sfw", "true")
     url.searchParams.set("sort", sort)
     url.searchParams.set("order_by", orderBy)
-    if (selectedGenres.length > 0)
-      url.searchParams.set("genres", selectedGenres.join())
-    if (rating && rating.toLocaleLowerCase() !== "all")
-      url.searchParams.set("rating", rating)
-    if (status && status.toLocaleLowerCase() !== "all")
-      url.searchParams.set("status", status)
+    if (selectedGenres.length > 0) url.searchParams.set("genres", selectedGenres.join())
+    if (rating && rating.toLocaleLowerCase() !== "all") url.searchParams.set("rating", rating)
+    if (status && status.toLocaleLowerCase() !== "all") url.searchParams.set("status", status)
     if (text) url.searchParams.set("q", text)
     url.searchParams.set(
       "genres_exclude",
@@ -96,7 +94,7 @@ const Search = () => {
 
   // function that renders anime cards
   const renderCardList = () => {
-    // is the data is still pending it will render skeleton component
+    // if the data is still pending it will render skeleton component
     if (isLoading)
       return (
         <div className="mt-96">
@@ -107,7 +105,15 @@ const Search = () => {
     // it will show error message if there is an error
     if (error || !data) return <div>something went wrong</div>
 
-    const allData = data.pages.map((item) => item.data)
+    // removes items with duplicate mal_id
+    const seen = new Set()
+    const allData = data.pages.map((page) =>
+      page.data.filter((anime: AnimeType) => {
+        if (seen.has(anime.mal_id)) return false
+        seen.add(anime.mal_id)
+        return true
+      })
+    )
 
     return <AnimeCardList data={allData} />
   }
@@ -118,12 +124,7 @@ const Search = () => {
     const { scrollTop, clientHeight, scrollHeight } = document.documentElement
     const distanceFromBottom = scrollHeight - (scrollTop + clientHeight)
 
-    if (
-      distanceFromBottom <= 350 &&
-      hasNextPage !== false &&
-      !isFetchingNextPage &&
-      !isFetching
-    ) {
+    if (distanceFromBottom <= 350 && hasNextPage !== false && !isFetchingNextPage && !isFetching) {
       isFetching = true
       fetchNextPage()
       setTimeout(() => {

@@ -54,16 +54,14 @@ const AnimeCard = ({ mal_id, images, isFavorite, title, className }: Props) => {
         {renderStarIcon()}
         <div className="aspect-w-2 aspect-h-3 relative">
           <motion.img
-            // initial={{ opacity: 0 }}
-            // whileInView={{ opacity: 1 }}
             whileHover={{ opacity: 0.85 }}
             src={images?.webp?.large_image_url}
-            alt={title}
+            alt=""
             loading="lazy"
-            className="w-full h-full shadow-md transition-all ease-in-out duration-300 object-cover"
+            className="w-full h-full shadow-md object-cover"
           />
         </div>
-        <p className="text-sm whitespace-nowrap overflow-hidden transition-all ease-in-out duration-200 truncate text-sp-black dark:text-white ">
+        <p className="text-sm whitespace-nowrap overflow-hidden truncate text-sp-black dark:text-white ">
           {title}
         </p>
       </Link>

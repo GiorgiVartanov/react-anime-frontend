@@ -1,10 +1,7 @@
 import { useState, useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
 
-import {
-  RegisterCredentialsType,
-  RegisterCredentialsErrorType,
-} from "../types/auth.types"
+import { RegisterCredentialsType, RegisterCredentialsErrorType } from "../types/auth.types"
 
 import { useAuthStore } from "../store/authStore"
 
@@ -25,13 +22,12 @@ const Register = () => {
   })
 
   // login errors
-  const [credentialsError, setCredentialsError] =
-    useState<RegisterCredentialsErrorType>({
-      username: [],
-      email: [],
-      password: [],
-      confirmPassword: [],
-    })
+  const [credentialsError, setCredentialsError] = useState<RegisterCredentialsErrorType>({
+    username: [],
+    email: [],
+    password: [],
+    confirmPassword: [],
+  })
 
   // getting values from store
   const [isLoggedIn, registerUser, registerError] = useAuthStore((state) => [
@@ -106,8 +102,7 @@ const Register = () => {
       if (credentials.confirmPassword === "") {
         const confirmPasswordError = credentialsError.confirmPassword
 
-        if (!confirmPasswordError.includes(error))
-          confirmPasswordError.push(error)
+        if (!confirmPasswordError.includes(error)) confirmPasswordError.push(error)
 
         setCredentialsError((prevState) => ({
           username: prevState.username,
@@ -129,8 +124,7 @@ const Register = () => {
       const passwordError = credentialsError.password
       const confirmPasswordError = credentialsError.confirmPassword
 
-      if (passwordError.includes(error))
-        passwordError.splice(passwordError.indexOf(error), 1)
+      if (passwordError.includes(error)) passwordError.splice(passwordError.indexOf(error), 1)
       if (confirmPasswordError.includes(error))
         confirmPasswordError.splice(confirmPasswordError.indexOf(error), 1)
 
@@ -199,15 +193,12 @@ const Register = () => {
 
     const password = e.target.value
 
-    if (password.length < 8)
-      error.push("password must be longer than 8 characters")
+    if (password.length < 8) error.push("password must be longer than 8 characters")
     if (/(.)\1{3,}/.test(password))
       error.push("single character was user more than 3 times in a row")
-    if (/^[a-zA-Z0-9\s]*$/.test(password))
-      error.push("password should contain special characters")
+    if (/^[a-zA-Z0-9\s]*$/.test(password)) error.push("password should contain special characters")
     if (/^[^0-9]*$/.test(password)) error.push("password must include number")
-    if (/^[^A-Z]*$/.test(password))
-      error.push("password should have at least one uppercase latter")
+    if (/^[^A-Z]*$/.test(password)) error.push("password should have at least one uppercase latter")
 
     setCredentialsError((prevState) => ({
       username: prevState.username,
@@ -224,9 +215,7 @@ const Register = () => {
   }
 
   // is used to change password confirmation credential
-  const handleOnConfirmPasswordChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleOnConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const confirmPassword = e.target.value
 
     setCredentialsError((prevState) => ({
@@ -289,7 +278,7 @@ const Register = () => {
           autoComplete="new-password"
           error={credentialsError.confirmPassword}
         />
-        <button className="bg-sp-main p-1 hover:opacity-90 transform-all ease-in-out duration-200">
+        <button className="bg-sp-main p-2 mt-2 hover:opacity-90 transform-all ease-in-out duration-200">
           register
         </button>
         <Link

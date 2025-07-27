@@ -19,9 +19,7 @@ const AnimeRecommendations = ({ id }: Props) => {
 
   // function to fetch anime recommendations from the API
   const fetchAnime = async (): Promise<AnimeRecommendation> => {
-    const response = await apiAjax.get(
-      `${baseURL}/anime/${id}/recommendations?sfw`
-    )
+    const response = await apiAjax.get(`${baseURL}/anime/${id}/recommendations?sfw`)
 
     return response.data
   }
